@@ -1,0 +1,1648 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "netif.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .comm netif_list,4,4
+  20              	 .comm netif_default,4,4
+  21              	 .section .bss.netif_num,"aw",%nobits
+  24              	netif_num:
+  25 0000 00       	 .space 1
+  26              	 .section .text.netif_init,"ax",%progbits
+  27              	 .align 2
+  28              	 .global netif_init
+  29              	 .thumb
+  30              	 .thumb_func
+  32              	netif_init:
+  33              	.LFB128:
+  34              	 .file 1 "../Dave/Generated/ETH_LWIP/lwip/core/netif.c"
+   1:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+   2:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @file
+   3:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * lwIP network interface abstraction
+   4:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+   5:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+   6:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+   7:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /*
+   8:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Copyright (c) 2001-2004 Swedish Institute of Computer Science.
+   9:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * All rights reserved.
+  10:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+  11:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Redistribution and use in source and binary forms, with or without modification,
+  12:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * are permitted provided that the following conditions are met:
+  13:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+  14:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * 1. Redistributions of source code must retain the above copyright notice,
+  15:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *    this list of conditions and the following disclaimer.
+  16:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  17:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *    this list of conditions and the following disclaimer in the documentation
+  18:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *    and/or other materials provided with the distribution.
+  19:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * 3. The name of the author may not be used to endorse or promote products
+  20:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *    derived from this software without specific prior written permission.
+  21:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+  22:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+  23:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  24:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+  25:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  26:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+  27:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+  30:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+  31:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * OF SUCH DAMAGE.
+  32:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+  33:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * This file is part of the lwIP TCP/IP stack.
+  34:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+  35:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Author: Adam Dunkels <adam@sics.se>
+  36:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+  37:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+  38:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  39:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/lwip/opt.h"
+  40:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  41:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/lwip/def.h"
+  42:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/ipv4/lwip/ip_addr.h"
+  43:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/lwip/netif.h"
+  44:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/lwip/tcp_impl.h"
+  45:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/lwip/snmp.h"
+  46:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/ipv4/lwip/igmp.h"
+  47:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/netif/etharp.h"
+  48:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/lwip/stats.h"
+  49:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if ENABLE_LOOPBACK
+  50:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/lwip/sys.h"
+  51:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_NETIF_LOOPBACK_MULTITHREADING
+  52:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/lwip/tcpip.h"
+  53:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_NETIF_LOOPBACK_MULTITHREADING */
+  54:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* ENABLE_LOOPBACK */
+  55:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  56:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_AUTOIP
+  57:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/ipv4/lwip/autoip.h"
+  58:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_AUTOIP */
+  59:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_DHCP
+  60:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #include "../include/lwip/dhcp.h"
+  61:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_DHCP */
+  62:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  63:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_NETIF_STATUS_CALLBACK
+  64:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #define NETIF_STATUS_CALLBACK(n) do{ if (n->status_callback) { (n->status_callback)(n); }}while(0)
+  65:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #else
+  66:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #define NETIF_STATUS_CALLBACK(n)
+  67:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_NETIF_STATUS_CALLBACK */ 
+  68:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  69:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_NETIF_LINK_CALLBACK
+  70:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #define NETIF_LINK_CALLBACK(n) do{ if (n->link_callback) { (n->link_callback)(n); }}while(0)
+  71:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #else
+  72:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #define NETIF_LINK_CALLBACK(n)
+  73:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_NETIF_LINK_CALLBACK */ 
+  74:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  75:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** struct netif *netif_list;
+  76:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** struct netif *netif_default;
+  77:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  78:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** static u8_t netif_num;
+  79:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  80:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_HAVE_LOOPIF
+  81:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** static struct netif loop_netif;
+  82:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  83:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+  84:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Initialize a lwip network interface structure for a loopback interface
+  85:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+  86:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netif the lwip network interface structure for this loopif
+  87:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @return ERR_OK if the loopif is initialized
+  88:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *         ERR_MEM if private data couldn't be allocated
+  89:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+  90:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** static err_t
+  91:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_loopif_init(struct netif *netif)
+  92:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+  93:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* initialize the snmp variables and counters inside the struct netif
+  94:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****    * ifSpeed: no assumption can be made!
+  95:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****    */
+  96:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   NETIF_INIT_SNMP(netif, snmp_ifType_softwareLoopback, 0);
+  97:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+  98:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->name[0] = 'l';
+  99:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->name[1] = 'o';
+ 100:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->output = netif_loop_output;
+ 101:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   return ERR_OK;
+ 102:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 103:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_HAVE_LOOPIF */
+ 104:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 105:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void
+ 106:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_init(void)
+ 107:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+  35              	 .loc 1 107 0
+  36              	 .cfi_startproc
+  37              	 
+  38              	 
+  39              	 
+  40 0000 80B4     	 push {r7}
+  41              	.LCFI0:
+  42              	 .cfi_def_cfa_offset 4
+  43              	 .cfi_offset 7,-4
+  44 0002 00AF     	 add r7,sp,#0
+  45              	.LCFI1:
+  46              	 .cfi_def_cfa_register 7
+ 108:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_HAVE_LOOPIF
+ 109:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_t loop_ipaddr, loop_netmask, loop_gw;
+ 110:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   IP4_ADDR(&loop_gw, 127,0,0,1);
+ 111:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   IP4_ADDR(&loop_ipaddr, 127,0,0,1);
+ 112:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   IP4_ADDR(&loop_netmask, 255,0,0,0);
+ 113:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 114:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if NO_SYS
+ 115:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif_add(&loop_netif, &loop_ipaddr, &loop_netmask, &loop_gw, NULL, netif_loopif_init, ip_input);
+ 116:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #else  /* NO_SYS */
+ 117:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif_add(&loop_netif, &loop_ipaddr, &loop_netmask, &loop_gw, NULL, netif_loopif_init, tcpip_inpu
+ 118:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* NO_SYS */
+ 119:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif_set_up(&loop_netif);
+ 120:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 121:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_HAVE_LOOPIF */
+ 122:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+  47              	 .loc 1 122 0
+  48 0004 BD46     	 mov sp,r7
+  49              	.LCFI2:
+  50              	 .cfi_def_cfa_register 13
+  51              	 
+  52 0006 5DF8047B 	 ldr r7,[sp],#4
+  53              	.LCFI3:
+  54              	 .cfi_restore 7
+  55              	 .cfi_def_cfa_offset 0
+  56 000a 7047     	 bx lr
+  57              	 .cfi_endproc
+  58              	.LFE128:
+  60              	 .section .text.netif_add,"ax",%progbits
+  61              	 .align 2
+  62              	 .global netif_add
+  63              	 .thumb
+  64              	 .thumb_func
+  66              	netif_add:
+  67              	.LFB129:
+ 123:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 124:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 125:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Add a network interface to the list of lwIP netifs.
+ 126:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 127:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netif a pre-allocated netif structure
+ 128:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param ipaddr IP address for the new netif
+ 129:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netmask network mask for the new netif
+ 130:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param gw default gateway IP address for the new netif
+ 131:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param state opaque data passed to the new netif
+ 132:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param init callback function that initializes the interface
+ 133:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param input callback function that is called to pass
+ 134:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * ingress packets up in the protocol layer stack.
+ 135:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 136:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @return netif, or NULL if failed.
+ 137:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 138:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** struct netif *
+ 139:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_add(struct netif *netif, ip_addr_t *ipaddr, ip_addr_t *netmask,
+ 140:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_t *gw, void *state, netif_init_fn init, netif_input_fn input)
+ 141:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+  68              	 .loc 1 141 0
+  69              	 .cfi_startproc
+  70              	 
+  71              	 
+  72 0000 80B5     	 push {r7,lr}
+  73              	.LCFI4:
+  74              	 .cfi_def_cfa_offset 8
+  75              	 .cfi_offset 7,-8
+  76              	 .cfi_offset 14,-4
+  77 0002 84B0     	 sub sp,sp,#16
+  78              	.LCFI5:
+  79              	 .cfi_def_cfa_offset 24
+  80 0004 00AF     	 add r7,sp,#0
+  81              	.LCFI6:
+  82              	 .cfi_def_cfa_register 7
+  83 0006 F860     	 str r0,[r7,#12]
+  84 0008 B960     	 str r1,[r7,#8]
+  85 000a 7A60     	 str r2,[r7,#4]
+  86 000c 3B60     	 str r3,[r7]
+ 142:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 143:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_ASSERT("No init function given", init != NULL);
+ 144:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 145:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* reset new interface configuration state */
+ 146:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_set_zero(&netif->ip_addr);
+  87              	 .loc 1 146 0
+  88 000e FB68     	 ldr r3,[r7,#12]
+  89 0010 0022     	 movs r2,#0
+  90 0012 5A60     	 str r2,[r3,#4]
+ 147:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_set_zero(&netif->netmask);
+  91              	 .loc 1 147 0
+  92 0014 FB68     	 ldr r3,[r7,#12]
+  93 0016 0022     	 movs r2,#0
+  94 0018 9A60     	 str r2,[r3,#8]
+ 148:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_set_zero(&netif->gw);
+  95              	 .loc 1 148 0
+  96 001a FB68     	 ldr r3,[r7,#12]
+  97 001c 0022     	 movs r2,#0
+  98 001e DA60     	 str r2,[r3,#12]
+ 149:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->flags = 0;
+  99              	 .loc 1 149 0
+ 100 0020 FB68     	 ldr r3,[r7,#12]
+ 101 0022 0022     	 movs r2,#0
+ 102 0024 83F82D20 	 strb r2,[r3,#45]
+ 150:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_DHCP
+ 151:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* netif not under DHCP control by default */
+ 152:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->dhcp = NULL;
+ 153:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_DHCP */
+ 154:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_AUTOIP
+ 155:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* netif not under AutoIP control by default */
+ 156:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->autoip = NULL;
+ 157:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_AUTOIP */
+ 158:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_NETIF_STATUS_CALLBACK
+ 159:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->status_callback = NULL;
+ 160:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_NETIF_STATUS_CALLBACK */
+ 161:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_NETIF_LINK_CALLBACK
+ 162:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->link_callback = NULL;
+ 103              	 .loc 1 162 0
+ 104 0028 FB68     	 ldr r3,[r7,#12]
+ 105 002a 0022     	 movs r2,#0
+ 106 002c DA61     	 str r2,[r3,#28]
+ 163:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_NETIF_LINK_CALLBACK */
+ 164:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_IGMP
+ 165:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->igmp_mac_filter = NULL;
+ 107              	 .loc 1 165 0
+ 108 002e FB68     	 ldr r3,[r7,#12]
+ 109 0030 0022     	 movs r2,#0
+ 110 0032 5A63     	 str r2,[r3,#52]
+ 166:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_IGMP */
+ 167:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if ENABLE_LOOPBACK
+ 168:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->loop_first = NULL;
+ 169:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->loop_last = NULL;
+ 170:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* ENABLE_LOOPBACK */
+ 171:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 172:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* remember netif specific state information data */
+ 173:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->state = state;
+ 111              	 .loc 1 173 0
+ 112 0034 FB68     	 ldr r3,[r7,#12]
+ 113 0036 BA69     	 ldr r2,[r7,#24]
+ 114 0038 1A62     	 str r2,[r3,#32]
+ 174:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->num = netif_num++;
+ 115              	 .loc 1 174 0
+ 116 003a 184B     	 ldr r3,.L6
+ 117 003c 1B78     	 ldrb r3,[r3]
+ 118 003e 5A1C     	 adds r2,r3,#1
+ 119 0040 D1B2     	 uxtb r1,r2
+ 120 0042 164A     	 ldr r2,.L6
+ 121 0044 1170     	 strb r1,[r2]
+ 122 0046 FA68     	 ldr r2,[r7,#12]
+ 123 0048 82F83030 	 strb r3,[r2,#48]
+ 175:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->input = input;
+ 124              	 .loc 1 175 0
+ 125 004c FB68     	 ldr r3,[r7,#12]
+ 126 004e 3A6A     	 ldr r2,[r7,#32]
+ 127 0050 1A61     	 str r2,[r3,#16]
+ 176:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   NETIF_SET_HWADDRHINT(netif, NULL);
+ 177:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if ENABLE_LOOPBACK && LWIP_LOOPBACK_MAX_PBUFS
+ 178:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->loop_cnt_current = 0;
+ 179:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* ENABLE_LOOPBACK && LWIP_LOOPBACK_MAX_PBUFS */
+ 180:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 181:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif_set_addr(netif, ipaddr, netmask, gw);
+ 128              	 .loc 1 181 0
+ 129 0052 F868     	 ldr r0,[r7,#12]
+ 130 0054 B968     	 ldr r1,[r7,#8]
+ 131 0056 7A68     	 ldr r2,[r7,#4]
+ 132 0058 3B68     	 ldr r3,[r7]
+ 133 005a FFF7FEFF 	 bl netif_set_addr
+ 182:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 183:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* call user specified initialization function for netif */
+ 184:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (init(netif) != ERR_OK) {
+ 134              	 .loc 1 184 0
+ 135 005e FB69     	 ldr r3,[r7,#28]
+ 136 0060 F868     	 ldr r0,[r7,#12]
+ 137 0062 9847     	 blx r3
+ 138 0064 0346     	 mov r3,r0
+ 139 0066 002B     	 cmp r3,#0
+ 140 0068 01D0     	 beq .L3
+ 185:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     return NULL;
+ 141              	 .loc 1 185 0
+ 142 006a 0023     	 movs r3,#0
+ 143 006c 11E0     	 b .L4
+ 144              	.L3:
+ 186:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 187:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 188:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* add this netif to the list */
+ 189:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif->next = netif_list;
+ 145              	 .loc 1 189 0
+ 146 006e 0C4B     	 ldr r3,.L6+4
+ 147 0070 1A68     	 ldr r2,[r3]
+ 148 0072 FB68     	 ldr r3,[r7,#12]
+ 149 0074 1A60     	 str r2,[r3]
+ 190:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif_list = netif;
+ 150              	 .loc 1 190 0
+ 151 0076 0A4A     	 ldr r2,.L6+4
+ 152 0078 FB68     	 ldr r3,[r7,#12]
+ 153 007a 1360     	 str r3,[r2]
+ 191:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   snmp_inc_iflist();
+ 192:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 193:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_IGMP
+ 194:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* start IGMP processing */
+ 195:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif->flags & NETIF_FLAG_IGMP) {
+ 154              	 .loc 1 195 0
+ 155 007c FB68     	 ldr r3,[r7,#12]
+ 156 007e 93F82D30 	 ldrb r3,[r3,#45]
+ 157 0082 DBB2     	 uxtb r3,r3
+ 158 0084 5BB2     	 sxtb r3,r3
+ 159 0086 002B     	 cmp r3,#0
+ 160 0088 02DA     	 bge .L5
+ 196:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     igmp_start(netif);
+ 161              	 .loc 1 196 0
+ 162 008a F868     	 ldr r0,[r7,#12]
+ 163 008c FFF7FEFF 	 bl igmp_start
+ 164              	.L5:
+ 197:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 198:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_IGMP */
+ 199:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 200:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF(NETIF_DEBUG, ("netif: added interface %c%c IP addr ",
+ 201:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->name[0], netif->name[1]));
+ 202:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_debug_print(NETIF_DEBUG, ipaddr);
+ 203:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF(NETIF_DEBUG, (" netmask "));
+ 204:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_debug_print(NETIF_DEBUG, netmask);
+ 205:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF(NETIF_DEBUG, (" gw "));
+ 206:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_debug_print(NETIF_DEBUG, gw);
+ 207:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF(NETIF_DEBUG, ("\n"));
+ 208:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   return netif;
+ 165              	 .loc 1 208 0
+ 166 0090 FB68     	 ldr r3,[r7,#12]
+ 167              	.L4:
+ 209:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 168              	 .loc 1 209 0
+ 169 0092 1846     	 mov r0,r3
+ 170 0094 1037     	 adds r7,r7,#16
+ 171              	.LCFI7:
+ 172              	 .cfi_def_cfa_offset 8
+ 173 0096 BD46     	 mov sp,r7
+ 174              	.LCFI8:
+ 175              	 .cfi_def_cfa_register 13
+ 176              	 
+ 177 0098 80BD     	 pop {r7,pc}
+ 178              	.L7:
+ 179 009a 00BF     	 .align 2
+ 180              	.L6:
+ 181 009c 00000000 	 .word netif_num
+ 182 00a0 00000000 	 .word netif_list
+ 183              	 .cfi_endproc
+ 184              	.LFE129:
+ 186              	 .section .text.netif_set_addr,"ax",%progbits
+ 187              	 .align 2
+ 188              	 .global netif_set_addr
+ 189              	 .thumb
+ 190              	 .thumb_func
+ 192              	netif_set_addr:
+ 193              	.LFB130:
+ 210:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 211:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 212:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Change IP address configuration for a network interface (including netmask
+ 213:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * and default gateway).
+ 214:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 215:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netif the network interface to change
+ 216:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param ipaddr the new IP address
+ 217:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netmask the new netmask
+ 218:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param gw the new default gateway
+ 219:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 220:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void
+ 221:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_set_addr(struct netif *netif, ip_addr_t *ipaddr, ip_addr_t *netmask,
+ 222:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip_addr_t *gw)
+ 223:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 194              	 .loc 1 223 0
+ 195              	 .cfi_startproc
+ 196              	 
+ 197              	 
+ 198 0000 80B5     	 push {r7,lr}
+ 199              	.LCFI9:
+ 200              	 .cfi_def_cfa_offset 8
+ 201              	 .cfi_offset 7,-8
+ 202              	 .cfi_offset 14,-4
+ 203 0002 84B0     	 sub sp,sp,#16
+ 204              	.LCFI10:
+ 205              	 .cfi_def_cfa_offset 24
+ 206 0004 00AF     	 add r7,sp,#0
+ 207              	.LCFI11:
+ 208              	 .cfi_def_cfa_register 7
+ 209 0006 F860     	 str r0,[r7,#12]
+ 210 0008 B960     	 str r1,[r7,#8]
+ 211 000a 7A60     	 str r2,[r7,#4]
+ 212 000c 3B60     	 str r3,[r7]
+ 224:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif_set_ipaddr(netif, ipaddr);
+ 213              	 .loc 1 224 0
+ 214 000e F868     	 ldr r0,[r7,#12]
+ 215 0010 B968     	 ldr r1,[r7,#8]
+ 216 0012 FFF7FEFF 	 bl netif_set_ipaddr
+ 225:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif_set_netmask(netif, netmask);
+ 217              	 .loc 1 225 0
+ 218 0016 F868     	 ldr r0,[r7,#12]
+ 219 0018 7968     	 ldr r1,[r7,#4]
+ 220 001a FFF7FEFF 	 bl netif_set_netmask
+ 226:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif_set_gw(netif, gw);
+ 221              	 .loc 1 226 0
+ 222 001e F868     	 ldr r0,[r7,#12]
+ 223 0020 3968     	 ldr r1,[r7]
+ 224 0022 FFF7FEFF 	 bl netif_set_gw
+ 227:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 225              	 .loc 1 227 0
+ 226 0026 1037     	 adds r7,r7,#16
+ 227              	.LCFI12:
+ 228              	 .cfi_def_cfa_offset 8
+ 229 0028 BD46     	 mov sp,r7
+ 230              	.LCFI13:
+ 231              	 .cfi_def_cfa_register 13
+ 232              	 
+ 233 002a 80BD     	 pop {r7,pc}
+ 234              	 .cfi_endproc
+ 235              	.LFE130:
+ 237              	 .section .text.netif_remove,"ax",%progbits
+ 238              	 .align 2
+ 239              	 .global netif_remove
+ 240              	 .thumb
+ 241              	 .thumb_func
+ 243              	netif_remove:
+ 244              	.LFB131:
+ 228:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 229:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 230:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Remove a network interface from the list of lwIP netifs.
+ 231:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 232:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netif the network interface to remove
+ 233:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 234:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void
+ 235:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_remove(struct netif *netif)
+ 236:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 245              	 .loc 1 236 0
+ 246              	 .cfi_startproc
+ 247              	 
+ 248              	 
+ 249 0000 80B5     	 push {r7,lr}
+ 250              	.LCFI14:
+ 251              	 .cfi_def_cfa_offset 8
+ 252              	 .cfi_offset 7,-8
+ 253              	 .cfi_offset 14,-4
+ 254 0002 84B0     	 sub sp,sp,#16
+ 255              	.LCFI15:
+ 256              	 .cfi_def_cfa_offset 24
+ 257 0004 00AF     	 add r7,sp,#0
+ 258              	.LCFI16:
+ 259              	 .cfi_def_cfa_register 7
+ 260 0006 7860     	 str r0,[r7,#4]
+ 237:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif == NULL) {
+ 261              	 .loc 1 237 0
+ 262 0008 7B68     	 ldr r3,[r7,#4]
+ 263 000a 002B     	 cmp r3,#0
+ 264 000c 00D1     	 bne .L10
+ 238:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     return;
+ 265              	 .loc 1 238 0
+ 266 000e 3DE0     	 b .L9
+ 267              	.L10:
+ 239:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 240:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 241:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_IGMP
+ 242:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* stop IGMP processing */
+ 243:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif->flags & NETIF_FLAG_IGMP) {
+ 268              	 .loc 1 243 0
+ 269 0010 7B68     	 ldr r3,[r7,#4]
+ 270 0012 93F82D30 	 ldrb r3,[r3,#45]
+ 271 0016 DBB2     	 uxtb r3,r3
+ 272 0018 5BB2     	 sxtb r3,r3
+ 273 001a 002B     	 cmp r3,#0
+ 274 001c 02DA     	 bge .L12
+ 244:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     igmp_stop(netif);
+ 275              	 .loc 1 244 0
+ 276 001e 7868     	 ldr r0,[r7,#4]
+ 277 0020 FFF7FEFF 	 bl igmp_stop
+ 278              	.L12:
+ 245:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 246:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_IGMP */
+ 247:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif_is_up(netif)) {
+ 279              	 .loc 1 247 0
+ 280 0024 7B68     	 ldr r3,[r7,#4]
+ 281 0026 93F82D30 	 ldrb r3,[r3,#45]
+ 282 002a 03F00103 	 and r3,r3,#1
+ 283 002e 002B     	 cmp r3,#0
+ 284 0030 02D0     	 beq .L13
+ 248:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     /* set netif down before removing (call callback function) */
+ 249:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif_set_down(netif);
+ 285              	 .loc 1 249 0
+ 286 0032 7868     	 ldr r0,[r7,#4]
+ 287 0034 FFF7FEFF 	 bl netif_set_down
+ 288              	.L13:
+ 250:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 251:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 252:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   snmp_delete_ipaddridx_tree(netif);
+ 253:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 254:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /*  is it the first netif? */
+ 255:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif_list == netif) {
+ 289              	 .loc 1 255 0
+ 290 0038 164B     	 ldr r3,.L20
+ 291 003a 1A68     	 ldr r2,[r3]
+ 292 003c 7B68     	 ldr r3,[r7,#4]
+ 293 003e 9A42     	 cmp r2,r3
+ 294 0040 04D1     	 bne .L14
+ 256:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif_list = netif->next;
+ 295              	 .loc 1 256 0
+ 296 0042 7B68     	 ldr r3,[r7,#4]
+ 297 0044 1B68     	 ldr r3,[r3]
+ 298 0046 134A     	 ldr r2,.L20
+ 299 0048 1360     	 str r3,[r2]
+ 300 004a 17E0     	 b .L15
+ 301              	.L14:
+ 302              	.LBB2:
+ 257:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   } else {
+ 258:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     /*  look for netif further down the list */
+ 259:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     struct netif * tmpNetif;
+ 260:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     for (tmpNetif = netif_list; tmpNetif != NULL; tmpNetif = tmpNetif->next) {
+ 303              	 .loc 1 260 0
+ 304 004c 114B     	 ldr r3,.L20
+ 305 004e 1B68     	 ldr r3,[r3]
+ 306 0050 FB60     	 str r3,[r7,#12]
+ 307 0052 0CE0     	 b .L16
+ 308              	.L19:
+ 261:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       if (tmpNetif->next == netif) {
+ 309              	 .loc 1 261 0
+ 310 0054 FB68     	 ldr r3,[r7,#12]
+ 311 0056 1A68     	 ldr r2,[r3]
+ 312 0058 7B68     	 ldr r3,[r7,#4]
+ 313 005a 9A42     	 cmp r2,r3
+ 314 005c 04D1     	 bne .L17
+ 262:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         tmpNetif->next = netif->next;
+ 315              	 .loc 1 262 0
+ 316 005e 7B68     	 ldr r3,[r7,#4]
+ 317 0060 1A68     	 ldr r2,[r3]
+ 318 0062 FB68     	 ldr r3,[r7,#12]
+ 319 0064 1A60     	 str r2,[r3]
+ 263:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         break;
+ 320              	 .loc 1 263 0
+ 321 0066 05E0     	 b .L18
+ 322              	.L17:
+ 260:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       if (tmpNetif->next == netif) {
+ 323              	 .loc 1 260 0 discriminator 2
+ 324 0068 FB68     	 ldr r3,[r7,#12]
+ 325 006a 1B68     	 ldr r3,[r3]
+ 326 006c FB60     	 str r3,[r7,#12]
+ 327              	.L16:
+ 260:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       if (tmpNetif->next == netif) {
+ 328              	 .loc 1 260 0 is_stmt 0 discriminator 1
+ 329 006e FB68     	 ldr r3,[r7,#12]
+ 330 0070 002B     	 cmp r3,#0
+ 331 0072 EFD1     	 bne .L19
+ 332              	.L18:
+ 264:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       }
+ 265:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     }
+ 266:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (tmpNetif == NULL)
+ 333              	 .loc 1 266 0 is_stmt 1
+ 334 0074 FB68     	 ldr r3,[r7,#12]
+ 335 0076 002B     	 cmp r3,#0
+ 336 0078 00D1     	 bne .L15
+ 267:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       return; /*  we didn't find any netif today */
+ 337              	 .loc 1 267 0 discriminator 2
+ 338 007a 07E0     	 b .L9
+ 339              	.L15:
+ 340              	.LBE2:
+ 268:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 269:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   snmp_dec_iflist();
+ 270:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* this netif is default? */
+ 271:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif_default == netif) {
+ 341              	 .loc 1 271 0
+ 342 007c 064B     	 ldr r3,.L20+4
+ 343 007e 1A68     	 ldr r2,[r3]
+ 344 0080 7B68     	 ldr r3,[r7,#4]
+ 345 0082 9A42     	 cmp r2,r3
+ 346 0084 02D1     	 bne .L9
+ 272:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     /* reset default netif */
+ 273:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif_set_default(NULL);
+ 347              	 .loc 1 273 0
+ 348 0086 0020     	 movs r0,#0
+ 349 0088 FFF7FEFF 	 bl netif_set_default
+ 350              	.L9:
+ 274:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 275:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_NETIF_REMOVE_CALLBACK
+ 276:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif->remove_callback) {
+ 277:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->remove_callback(netif);
+ 278:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 279:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_NETIF_REMOVE_CALLBACK */
+ 280:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF( NETIF_DEBUG, ("netif_remove: removed netif\n") );
+ 281:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 351              	 .loc 1 281 0
+ 352 008c 1037     	 adds r7,r7,#16
+ 353              	.LCFI17:
+ 354              	 .cfi_def_cfa_offset 8
+ 355 008e BD46     	 mov sp,r7
+ 356              	.LCFI18:
+ 357              	 .cfi_def_cfa_register 13
+ 358              	 
+ 359 0090 80BD     	 pop {r7,pc}
+ 360              	.L21:
+ 361 0092 00BF     	 .align 2
+ 362              	.L20:
+ 363 0094 00000000 	 .word netif_list
+ 364 0098 00000000 	 .word netif_default
+ 365              	 .cfi_endproc
+ 366              	.LFE131:
+ 368              	 .section .text.netif_find,"ax",%progbits
+ 369              	 .align 2
+ 370              	 .global netif_find
+ 371              	 .thumb
+ 372              	 .thumb_func
+ 374              	netif_find:
+ 375              	.LFB132:
+ 282:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 283:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 284:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Find a network interface by searching for its name
+ 285:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 286:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param name the name of the netif (like netif->name) plus concatenated number
+ 287:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * in ascii representation (e.g. 'en0')
+ 288:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 289:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** struct netif *
+ 290:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_find(char *name)
+ 291:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 376              	 .loc 1 291 0
+ 377              	 .cfi_startproc
+ 378              	 
+ 379              	 
+ 380              	 
+ 381 0000 80B4     	 push {r7}
+ 382              	.LCFI19:
+ 383              	 .cfi_def_cfa_offset 4
+ 384              	 .cfi_offset 7,-4
+ 385 0002 85B0     	 sub sp,sp,#20
+ 386              	.LCFI20:
+ 387              	 .cfi_def_cfa_offset 24
+ 388 0004 00AF     	 add r7,sp,#0
+ 389              	.LCFI21:
+ 390              	 .cfi_def_cfa_register 7
+ 391 0006 7860     	 str r0,[r7,#4]
+ 292:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   struct netif *netif;
+ 293:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   u8_t num;
+ 294:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 295:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (name == NULL) {
+ 392              	 .loc 1 295 0
+ 393 0008 7B68     	 ldr r3,[r7,#4]
+ 394 000a 002B     	 cmp r3,#0
+ 395 000c 01D1     	 bne .L23
+ 296:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     return NULL;
+ 396              	 .loc 1 296 0
+ 397 000e 0023     	 movs r3,#0
+ 398 0010 26E0     	 b .L24
+ 399              	.L23:
+ 297:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 298:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 299:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   num = name[2] - '0';
+ 400              	 .loc 1 299 0
+ 401 0012 7B68     	 ldr r3,[r7,#4]
+ 402 0014 0233     	 adds r3,r3,#2
+ 403 0016 1B78     	 ldrb r3,[r3]
+ 404 0018 303B     	 subs r3,r3,#48
+ 405 001a FB72     	 strb r3,[r7,#11]
+ 300:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 301:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   for(netif = netif_list; netif != NULL; netif = netif->next) {
+ 406              	 .loc 1 301 0
+ 407 001c 134B     	 ldr r3,.L28
+ 408 001e 1B68     	 ldr r3,[r3]
+ 409 0020 FB60     	 str r3,[r7,#12]
+ 410 0022 19E0     	 b .L25
+ 411              	.L27:
+ 302:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (num == netif->num &&
+ 412              	 .loc 1 302 0
+ 413 0024 FB68     	 ldr r3,[r7,#12]
+ 414 0026 93F83030 	 ldrb r3,[r3,#48]
+ 415 002a FA7A     	 ldrb r2,[r7,#11]
+ 416 002c 9A42     	 cmp r2,r3
+ 417 002e 10D1     	 bne .L26
+ 303:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****        name[0] == netif->name[0] &&
+ 418              	 .loc 1 303 0 discriminator 1
+ 419 0030 7B68     	 ldr r3,[r7,#4]
+ 420 0032 1A78     	 ldrb r2,[r3]
+ 421 0034 FB68     	 ldr r3,[r7,#12]
+ 422 0036 93F82E30 	 ldrb r3,[r3,#46]
+ 302:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (num == netif->num &&
+ 423              	 .loc 1 302 0 discriminator 1
+ 424 003a 9A42     	 cmp r2,r3
+ 425 003c 09D1     	 bne .L26
+ 304:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****        name[1] == netif->name[1]) {
+ 426              	 .loc 1 304 0
+ 427 003e 7B68     	 ldr r3,[r7,#4]
+ 428 0040 0133     	 adds r3,r3,#1
+ 429 0042 1A78     	 ldrb r2,[r3]
+ 430 0044 FB68     	 ldr r3,[r7,#12]
+ 431 0046 93F82F30 	 ldrb r3,[r3,#47]
+ 303:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****        name[0] == netif->name[0] &&
+ 432              	 .loc 1 303 0
+ 433 004a 9A42     	 cmp r2,r3
+ 434 004c 01D1     	 bne .L26
+ 305:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       LWIP_DEBUGF(NETIF_DEBUG, ("netif_find: found %c%c\n", name[0], name[1]));
+ 306:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       return netif;
+ 435              	 .loc 1 306 0
+ 436 004e FB68     	 ldr r3,[r7,#12]
+ 437 0050 06E0     	 b .L24
+ 438              	.L26:
+ 301:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (num == netif->num &&
+ 439              	 .loc 1 301 0 discriminator 2
+ 440 0052 FB68     	 ldr r3,[r7,#12]
+ 441 0054 1B68     	 ldr r3,[r3]
+ 442 0056 FB60     	 str r3,[r7,#12]
+ 443              	.L25:
+ 301:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (num == netif->num &&
+ 444              	 .loc 1 301 0 is_stmt 0 discriminator 1
+ 445 0058 FB68     	 ldr r3,[r7,#12]
+ 446 005a 002B     	 cmp r3,#0
+ 447 005c E2D1     	 bne .L27
+ 307:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     }
+ 308:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 309:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF(NETIF_DEBUG, ("netif_find: didn't find %c%c\n", name[0], name[1]));
+ 310:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   return NULL;
+ 448              	 .loc 1 310 0 is_stmt 1
+ 449 005e 0023     	 movs r3,#0
+ 450              	.L24:
+ 311:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 451              	 .loc 1 311 0
+ 452 0060 1846     	 mov r0,r3
+ 453 0062 1437     	 adds r7,r7,#20
+ 454              	.LCFI22:
+ 455              	 .cfi_def_cfa_offset 4
+ 456 0064 BD46     	 mov sp,r7
+ 457              	.LCFI23:
+ 458              	 .cfi_def_cfa_register 13
+ 459              	 
+ 460 0066 5DF8047B 	 ldr r7,[sp],#4
+ 461              	.LCFI24:
+ 462              	 .cfi_restore 7
+ 463              	 .cfi_def_cfa_offset 0
+ 464 006a 7047     	 bx lr
+ 465              	.L29:
+ 466              	 .align 2
+ 467              	.L28:
+ 468 006c 00000000 	 .word netif_list
+ 469              	 .cfi_endproc
+ 470              	.LFE132:
+ 472              	 .section .text.netif_set_ipaddr,"ax",%progbits
+ 473              	 .align 2
+ 474              	 .global netif_set_ipaddr
+ 475              	 .thumb
+ 476              	 .thumb_func
+ 478              	netif_set_ipaddr:
+ 479              	.LFB133:
+ 312:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 313:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 314:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Change the IP address of a network interface
+ 315:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 316:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netif the network interface to change
+ 317:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param ipaddr the new IP address
+ 318:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 319:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @note call netif_set_addr() if you also want to change netmask and
+ 320:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * default gateway
+ 321:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 322:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void
+ 323:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_set_ipaddr(struct netif *netif, ip_addr_t *ipaddr)
+ 324:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 480              	 .loc 1 324 0
+ 481              	 .cfi_startproc
+ 482              	 
+ 483              	 
+ 484              	 
+ 485 0000 80B4     	 push {r7}
+ 486              	.LCFI25:
+ 487              	 .cfi_def_cfa_offset 4
+ 488              	 .cfi_offset 7,-4
+ 489 0002 83B0     	 sub sp,sp,#12
+ 490              	.LCFI26:
+ 491              	 .cfi_def_cfa_offset 16
+ 492 0004 00AF     	 add r7,sp,#0
+ 493              	.LCFI27:
+ 494              	 .cfi_def_cfa_register 7
+ 495 0006 7860     	 str r0,[r7,#4]
+ 496 0008 3960     	 str r1,[r7]
+ 325:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* TODO: Handling of obsolete pcbs */
+ 326:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* See:  http://mail.gnu.org/archive/html/lwip-users/2003-03/msg00118.html */
+ 327:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_TCP
+ 328:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   struct tcp_pcb *pcb;
+ 329:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   struct tcp_pcb_listen *lpcb;
+ 330:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 331:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* address is actually being changed? */
+ 332:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (ipaddr && (ip_addr_cmp(ipaddr, &(netif->ip_addr))) == 0) {
+ 333:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     /* extern struct tcp_pcb *tcp_active_pcbs; defined by tcp.h */
+ 334:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_STATE, ("netif_set_ipaddr: netif address being changed\n"));
+ 335:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     pcb = tcp_active_pcbs;
+ 336:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     while (pcb != NULL) {
+ 337:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       /* PCB bound to current local interface address? */
+ 338:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       if (ip_addr_cmp(&(pcb->local_ip), &(netif->ip_addr))
+ 339:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_AUTOIP
+ 340:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         /* connections to link-local addresses must persist (RFC3927 ch. 1.9) */
+ 341:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         && !ip_addr_islinklocal(&(pcb->local_ip))
+ 342:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_AUTOIP */
+ 343:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         ) {
+ 344:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         /* this connection must be aborted */
+ 345:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         struct tcp_pcb *next = pcb->next;
+ 346:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_STATE, ("netif_set_ipaddr: aborting TCP pcb %p\n", (void
+ 347:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         tcp_abort(pcb);
+ 348:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         pcb = next;
+ 349:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       } else {
+ 350:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         pcb = pcb->next;
+ 351:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       }
+ 352:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     }
+ 353:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     for (lpcb = tcp_listen_pcbs.listen_pcbs; lpcb != NULL; lpcb = lpcb->next) {
+ 354:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       /* PCB bound to current local interface address? */
+ 355:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       if ((!(ip_addr_isany(&(lpcb->local_ip)))) &&
+ 356:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****           (ip_addr_cmp(&(lpcb->local_ip), &(netif->ip_addr)))) {
+ 357:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         /* The PCB is listening to the old ipaddr and
+ 358:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****          * is set to listen to the new one instead */
+ 359:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         ip_addr_set(&(lpcb->local_ip), ipaddr);
+ 360:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       }
+ 361:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     }
+ 362:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 363:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif
+ 364:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   snmp_delete_ipaddridx_tree(netif);
+ 365:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   snmp_delete_iprteidx_tree(0,netif);
+ 366:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* set new IP address to netif */
+ 367:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_set(&(netif->ip_addr), ipaddr);
+ 497              	 .loc 1 367 0
+ 498 000a 3B68     	 ldr r3,[r7]
+ 499 000c 002B     	 cmp r3,#0
+ 500 000e 02D0     	 beq .L31
+ 501              	 .loc 1 367 0 is_stmt 0 discriminator 1
+ 502 0010 3B68     	 ldr r3,[r7]
+ 503 0012 1B68     	 ldr r3,[r3]
+ 504 0014 00E0     	 b .L32
+ 505              	.L31:
+ 506              	 .loc 1 367 0 discriminator 2
+ 507 0016 0023     	 movs r3,#0
+ 508              	.L32:
+ 509              	 .loc 1 367 0 discriminator 4
+ 510 0018 7A68     	 ldr r2,[r7,#4]
+ 511 001a 5360     	 str r3,[r2,#4]
+ 368:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   snmp_insert_ipaddridx_tree(netif);
+ 369:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   snmp_insert_iprteidx_tree(0,netif);
+ 370:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 371:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("netif: IP address of interface %c%c 
+ 372:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->name[0], netif->name[1],
+ 373:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr1_16(&netif->ip_addr),
+ 374:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr2_16(&netif->ip_addr),
+ 375:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr3_16(&netif->ip_addr),
+ 376:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr4_16(&netif->ip_addr)));
+ 377:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 512              	 .loc 1 377 0 is_stmt 1 discriminator 4
+ 513 001c 0C37     	 adds r7,r7,#12
+ 514              	.LCFI28:
+ 515              	 .cfi_def_cfa_offset 4
+ 516 001e BD46     	 mov sp,r7
+ 517              	.LCFI29:
+ 518              	 .cfi_def_cfa_register 13
+ 519              	 
+ 520 0020 5DF8047B 	 ldr r7,[sp],#4
+ 521              	.LCFI30:
+ 522              	 .cfi_restore 7
+ 523              	 .cfi_def_cfa_offset 0
+ 524 0024 7047     	 bx lr
+ 525              	 .cfi_endproc
+ 526              	.LFE133:
+ 528 0026 00BF     	 .section .text.netif_set_gw,"ax",%progbits
+ 529              	 .align 2
+ 530              	 .global netif_set_gw
+ 531              	 .thumb
+ 532              	 .thumb_func
+ 534              	netif_set_gw:
+ 535              	.LFB134:
+ 378:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 379:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 380:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Change the default gateway for a network interface
+ 381:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 382:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netif the network interface to change
+ 383:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param gw the new default gateway
+ 384:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 385:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @note call netif_set_addr() if you also want to change ip address and netmask
+ 386:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 387:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void
+ 388:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_set_gw(struct netif *netif, ip_addr_t *gw)
+ 389:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 536              	 .loc 1 389 0
+ 537              	 .cfi_startproc
+ 538              	 
+ 539              	 
+ 540              	 
+ 541 0000 80B4     	 push {r7}
+ 542              	.LCFI31:
+ 543              	 .cfi_def_cfa_offset 4
+ 544              	 .cfi_offset 7,-4
+ 545 0002 83B0     	 sub sp,sp,#12
+ 546              	.LCFI32:
+ 547              	 .cfi_def_cfa_offset 16
+ 548 0004 00AF     	 add r7,sp,#0
+ 549              	.LCFI33:
+ 550              	 .cfi_def_cfa_register 7
+ 551 0006 7860     	 str r0,[r7,#4]
+ 552 0008 3960     	 str r1,[r7]
+ 390:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_set(&(netif->gw), gw);
+ 553              	 .loc 1 390 0
+ 554 000a 3B68     	 ldr r3,[r7]
+ 555 000c 002B     	 cmp r3,#0
+ 556 000e 02D0     	 beq .L34
+ 557              	 .loc 1 390 0 is_stmt 0 discriminator 1
+ 558 0010 3B68     	 ldr r3,[r7]
+ 559 0012 1B68     	 ldr r3,[r3]
+ 560 0014 00E0     	 b .L35
+ 561              	.L34:
+ 562              	 .loc 1 390 0 discriminator 2
+ 563 0016 0023     	 movs r3,#0
+ 564              	.L35:
+ 565              	 .loc 1 390 0 discriminator 4
+ 566 0018 7A68     	 ldr r2,[r7,#4]
+ 567 001a D360     	 str r3,[r2,#12]
+ 391:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("netif: GW address of interface %c%c 
+ 392:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->name[0], netif->name[1],
+ 393:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr1_16(&netif->gw),
+ 394:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr2_16(&netif->gw),
+ 395:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr3_16(&netif->gw),
+ 396:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr4_16(&netif->gw)));
+ 397:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 568              	 .loc 1 397 0 is_stmt 1 discriminator 4
+ 569 001c 0C37     	 adds r7,r7,#12
+ 570              	.LCFI34:
+ 571              	 .cfi_def_cfa_offset 4
+ 572 001e BD46     	 mov sp,r7
+ 573              	.LCFI35:
+ 574              	 .cfi_def_cfa_register 13
+ 575              	 
+ 576 0020 5DF8047B 	 ldr r7,[sp],#4
+ 577              	.LCFI36:
+ 578              	 .cfi_restore 7
+ 579              	 .cfi_def_cfa_offset 0
+ 580 0024 7047     	 bx lr
+ 581              	 .cfi_endproc
+ 582              	.LFE134:
+ 584 0026 00BF     	 .section .text.netif_set_netmask,"ax",%progbits
+ 585              	 .align 2
+ 586              	 .global netif_set_netmask
+ 587              	 .thumb
+ 588              	 .thumb_func
+ 590              	netif_set_netmask:
+ 591              	.LFB135:
+ 398:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 399:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 400:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Change the netmask of a network interface
+ 401:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 402:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netif the network interface to change
+ 403:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netmask the new netmask
+ 404:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 405:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @note call netif_set_addr() if you also want to change ip address and
+ 406:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * default gateway
+ 407:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 408:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void
+ 409:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_set_netmask(struct netif *netif, ip_addr_t *netmask)
+ 410:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 592              	 .loc 1 410 0
+ 593              	 .cfi_startproc
+ 594              	 
+ 595              	 
+ 596              	 
+ 597 0000 80B4     	 push {r7}
+ 598              	.LCFI37:
+ 599              	 .cfi_def_cfa_offset 4
+ 600              	 .cfi_offset 7,-4
+ 601 0002 83B0     	 sub sp,sp,#12
+ 602              	.LCFI38:
+ 603              	 .cfi_def_cfa_offset 16
+ 604 0004 00AF     	 add r7,sp,#0
+ 605              	.LCFI39:
+ 606              	 .cfi_def_cfa_register 7
+ 607 0006 7860     	 str r0,[r7,#4]
+ 608 0008 3960     	 str r1,[r7]
+ 411:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   snmp_delete_iprteidx_tree(0, netif);
+ 412:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   /* set new netmask to netif */
+ 413:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   ip_addr_set(&(netif->netmask), netmask);
+ 609              	 .loc 1 413 0
+ 610 000a 3B68     	 ldr r3,[r7]
+ 611 000c 002B     	 cmp r3,#0
+ 612 000e 02D0     	 beq .L37
+ 613              	 .loc 1 413 0 is_stmt 0 discriminator 1
+ 614 0010 3B68     	 ldr r3,[r7]
+ 615 0012 1B68     	 ldr r3,[r3]
+ 616 0014 00E0     	 b .L38
+ 617              	.L37:
+ 618              	 .loc 1 413 0 discriminator 2
+ 619 0016 0023     	 movs r3,#0
+ 620              	.L38:
+ 621              	 .loc 1 413 0 discriminator 4
+ 622 0018 7A68     	 ldr r2,[r7,#4]
+ 623 001a 9360     	 str r3,[r2,#8]
+ 414:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   snmp_insert_iprteidx_tree(0, netif);
+ 415:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF(NETIF_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("netif: netmask of interface %c%c set
+ 416:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->name[0], netif->name[1],
+ 417:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr1_16(&netif->netmask),
+ 418:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr2_16(&netif->netmask),
+ 419:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr3_16(&netif->netmask),
+ 420:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     ip4_addr4_16(&netif->netmask)));
+ 421:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 624              	 .loc 1 421 0 is_stmt 1 discriminator 4
+ 625 001c 0C37     	 adds r7,r7,#12
+ 626              	.LCFI40:
+ 627              	 .cfi_def_cfa_offset 4
+ 628 001e BD46     	 mov sp,r7
+ 629              	.LCFI41:
+ 630              	 .cfi_def_cfa_register 13
+ 631              	 
+ 632 0020 5DF8047B 	 ldr r7,[sp],#4
+ 633              	.LCFI42:
+ 634              	 .cfi_restore 7
+ 635              	 .cfi_def_cfa_offset 0
+ 636 0024 7047     	 bx lr
+ 637              	 .cfi_endproc
+ 638              	.LFE135:
+ 640 0026 00BF     	 .section .text.netif_set_default,"ax",%progbits
+ 641              	 .align 2
+ 642              	 .global netif_set_default
+ 643              	 .thumb
+ 644              	 .thumb_func
+ 646              	netif_set_default:
+ 647              	.LFB136:
+ 422:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 423:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 424:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Set a network interface as the default network interface
+ 425:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * (used to output all packets for which no specific route is found)
+ 426:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 427:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @param netif the default network interface
+ 428:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 429:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void
+ 430:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_set_default(struct netif *netif)
+ 431:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 648              	 .loc 1 431 0
+ 649              	 .cfi_startproc
+ 650              	 
+ 651              	 
+ 652              	 
+ 653 0000 80B4     	 push {r7}
+ 654              	.LCFI43:
+ 655              	 .cfi_def_cfa_offset 4
+ 656              	 .cfi_offset 7,-4
+ 657 0002 83B0     	 sub sp,sp,#12
+ 658              	.LCFI44:
+ 659              	 .cfi_def_cfa_offset 16
+ 660 0004 00AF     	 add r7,sp,#0
+ 661              	.LCFI45:
+ 662              	 .cfi_def_cfa_register 7
+ 663 0006 7860     	 str r0,[r7,#4]
+ 432:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif == NULL) {
+ 433:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     /* remove default route */
+ 434:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     snmp_delete_iprteidx_tree(1, netif);
+ 435:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   } else {
+ 436:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     /* install default route */
+ 437:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     snmp_insert_iprteidx_tree(1, netif);
+ 438:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 439:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   netif_default = netif;
+ 664              	 .loc 1 439 0
+ 665 0008 034A     	 ldr r2,.L40
+ 666 000a 7B68     	 ldr r3,[r7,#4]
+ 667 000c 1360     	 str r3,[r2]
+ 440:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   LWIP_DEBUGF(NETIF_DEBUG, ("netif: setting default interface %c%c\n",
+ 441:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****            netif ? netif->name[0] : '\'', netif ? netif->name[1] : '\''));
+ 442:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 668              	 .loc 1 442 0
+ 669 000e 0C37     	 adds r7,r7,#12
+ 670              	.LCFI46:
+ 671              	 .cfi_def_cfa_offset 4
+ 672 0010 BD46     	 mov sp,r7
+ 673              	.LCFI47:
+ 674              	 .cfi_def_cfa_register 13
+ 675              	 
+ 676 0012 5DF8047B 	 ldr r7,[sp],#4
+ 677              	.LCFI48:
+ 678              	 .cfi_restore 7
+ 679              	 .cfi_def_cfa_offset 0
+ 680 0016 7047     	 bx lr
+ 681              	.L41:
+ 682              	 .align 2
+ 683              	.L40:
+ 684 0018 00000000 	 .word netif_default
+ 685              	 .cfi_endproc
+ 686              	.LFE136:
+ 688              	 .section .text.netif_set_up,"ax",%progbits
+ 689              	 .align 2
+ 690              	 .global netif_set_up
+ 691              	 .thumb
+ 692              	 .thumb_func
+ 694              	netif_set_up:
+ 695              	.LFB137:
+ 443:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 444:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 445:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Bring an interface up, available for processing
+ 446:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * traffic.
+ 447:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * 
+ 448:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @note: Enabling DHCP on a down interface will make it come
+ 449:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * up once configured.
+ 450:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * 
+ 451:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @see dhcp_start()
+ 452:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */ 
+ 453:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void netif_set_up(struct netif *netif)
+ 454:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 696              	 .loc 1 454 0
+ 697              	 .cfi_startproc
+ 698              	 
+ 699              	 
+ 700 0000 80B5     	 push {r7,lr}
+ 701              	.LCFI49:
+ 702              	 .cfi_def_cfa_offset 8
+ 703              	 .cfi_offset 7,-8
+ 704              	 .cfi_offset 14,-4
+ 705 0002 82B0     	 sub sp,sp,#8
+ 706              	.LCFI50:
+ 707              	 .cfi_def_cfa_offset 16
+ 708 0004 00AF     	 add r7,sp,#0
+ 709              	.LCFI51:
+ 710              	 .cfi_def_cfa_register 7
+ 711 0006 7860     	 str r0,[r7,#4]
+ 455:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (!(netif->flags & NETIF_FLAG_UP)) {
+ 712              	 .loc 1 455 0
+ 713 0008 7B68     	 ldr r3,[r7,#4]
+ 714 000a 93F82D30 	 ldrb r3,[r3,#45]
+ 715 000e 03F00103 	 and r3,r3,#1
+ 716 0012 002B     	 cmp r3,#0
+ 717 0014 26D1     	 bne .L42
+ 456:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->flags |= NETIF_FLAG_UP;
+ 718              	 .loc 1 456 0
+ 719 0016 7B68     	 ldr r3,[r7,#4]
+ 720 0018 93F82D30 	 ldrb r3,[r3,#45]
+ 721 001c 43F00103 	 orr r3,r3,#1
+ 722 0020 DAB2     	 uxtb r2,r3
+ 723 0022 7B68     	 ldr r3,[r7,#4]
+ 724 0024 83F82D20 	 strb r2,[r3,#45]
+ 457:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     
+ 458:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_SNMP
+ 459:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     snmp_get_sysuptime(&netif->ts);
+ 460:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_SNMP */
+ 461:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 462:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     NETIF_STATUS_CALLBACK(netif);
+ 463:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 464:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (netif->flags & NETIF_FLAG_LINK_UP) {
+ 725              	 .loc 1 464 0
+ 726 0028 7B68     	 ldr r3,[r7,#4]
+ 727 002a 93F82D30 	 ldrb r3,[r3,#45]
+ 728 002e 03F01003 	 and r3,r3,#16
+ 729 0032 002B     	 cmp r3,#0
+ 730 0034 16D0     	 beq .L42
+ 465:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_ARP
+ 466:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       /* For Ethernet network interfaces, we would like to send a "gratuitous ARP" */ 
+ 467:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       if (netif->flags & (NETIF_FLAG_ETHARP)) {
+ 731              	 .loc 1 467 0
+ 732 0036 7B68     	 ldr r3,[r7,#4]
+ 733 0038 93F82D30 	 ldrb r3,[r3,#45]
+ 734 003c 03F02003 	 and r3,r3,#32
+ 735 0040 002B     	 cmp r3,#0
+ 736 0042 05D0     	 beq .L44
+ 468:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         etharp_gratuitous(netif);
+ 737              	 .loc 1 468 0
+ 738 0044 7B68     	 ldr r3,[r7,#4]
+ 739 0046 0433     	 adds r3,r3,#4
+ 740 0048 7868     	 ldr r0,[r7,#4]
+ 741 004a 1946     	 mov r1,r3
+ 742 004c FFF7FEFF 	 bl etharp_request
+ 743              	.L44:
+ 469:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       }
+ 470:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_ARP */
+ 471:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 472:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_IGMP
+ 473:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       /* resend IGMP memberships */
+ 474:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       if (netif->flags & NETIF_FLAG_IGMP) {
+ 744              	 .loc 1 474 0
+ 745 0050 7B68     	 ldr r3,[r7,#4]
+ 746 0052 93F82D30 	 ldrb r3,[r3,#45]
+ 747 0056 DBB2     	 uxtb r3,r3
+ 748 0058 5BB2     	 sxtb r3,r3
+ 749 005a 002B     	 cmp r3,#0
+ 750 005c 02DA     	 bge .L42
+ 475:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         igmp_report_groups( netif);
+ 751              	 .loc 1 475 0
+ 752 005e 7868     	 ldr r0,[r7,#4]
+ 753 0060 FFF7FEFF 	 bl igmp_report_groups
+ 754              	.L42:
+ 476:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       }
+ 477:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_IGMP */
+ 478:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     }
+ 479:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 480:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 755              	 .loc 1 480 0
+ 756 0064 0837     	 adds r7,r7,#8
+ 757              	.LCFI52:
+ 758              	 .cfi_def_cfa_offset 8
+ 759 0066 BD46     	 mov sp,r7
+ 760              	.LCFI53:
+ 761              	 .cfi_def_cfa_register 13
+ 762              	 
+ 763 0068 80BD     	 pop {r7,pc}
+ 764              	 .cfi_endproc
+ 765              	.LFE137:
+ 767 006a 00BF     	 .section .text.netif_set_down,"ax",%progbits
+ 768              	 .align 2
+ 769              	 .global netif_set_down
+ 770              	 .thumb
+ 771              	 .thumb_func
+ 773              	netif_set_down:
+ 774              	.LFB138:
+ 481:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 482:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 483:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Bring an interface down, disabling any traffic processing.
+ 484:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  *
+ 485:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @note: Enabling DHCP on a down interface will make it come
+ 486:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * up once configured.
+ 487:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * 
+ 488:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * @see dhcp_start()
+ 489:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */ 
+ 490:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void netif_set_down(struct netif *netif)
+ 491:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 775              	 .loc 1 491 0
+ 776              	 .cfi_startproc
+ 777              	 
+ 778              	 
+ 779 0000 80B5     	 push {r7,lr}
+ 780              	.LCFI54:
+ 781              	 .cfi_def_cfa_offset 8
+ 782              	 .cfi_offset 7,-8
+ 783              	 .cfi_offset 14,-4
+ 784 0002 82B0     	 sub sp,sp,#8
+ 785              	.LCFI55:
+ 786              	 .cfi_def_cfa_offset 16
+ 787 0004 00AF     	 add r7,sp,#0
+ 788              	.LCFI56:
+ 789              	 .cfi_def_cfa_register 7
+ 790 0006 7860     	 str r0,[r7,#4]
+ 492:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif->flags & NETIF_FLAG_UP) {
+ 791              	 .loc 1 492 0
+ 792 0008 7B68     	 ldr r3,[r7,#4]
+ 793 000a 93F82D30 	 ldrb r3,[r3,#45]
+ 794 000e 03F00103 	 and r3,r3,#1
+ 795 0012 002B     	 cmp r3,#0
+ 796 0014 12D0     	 beq .L45
+ 493:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->flags &= ~NETIF_FLAG_UP;
+ 797              	 .loc 1 493 0
+ 798 0016 7B68     	 ldr r3,[r7,#4]
+ 799 0018 93F82D30 	 ldrb r3,[r3,#45]
+ 800 001c 23F00103 	 bic r3,r3,#1
+ 801 0020 DAB2     	 uxtb r2,r3
+ 802 0022 7B68     	 ldr r3,[r7,#4]
+ 803 0024 83F82D20 	 strb r2,[r3,#45]
+ 494:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_SNMP
+ 495:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     snmp_get_sysuptime(&netif->ts);
+ 496:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif
+ 497:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 498:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_ARP
+ 499:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (netif->flags & NETIF_FLAG_ETHARP) {
+ 804              	 .loc 1 499 0
+ 805 0028 7B68     	 ldr r3,[r7,#4]
+ 806 002a 93F82D30 	 ldrb r3,[r3,#45]
+ 807 002e 03F02003 	 and r3,r3,#32
+ 808 0032 002B     	 cmp r3,#0
+ 809 0034 02D0     	 beq .L45
+ 500:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       etharp_cleanup_netif(netif);
+ 810              	 .loc 1 500 0
+ 811 0036 7868     	 ldr r0,[r7,#4]
+ 812 0038 FFF7FEFF 	 bl etharp_cleanup_netif
+ 813              	.L45:
+ 501:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     }
+ 502:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_ARP */
+ 503:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     NETIF_STATUS_CALLBACK(netif);
+ 504:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 505:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 814              	 .loc 1 505 0
+ 815 003c 0837     	 adds r7,r7,#8
+ 816              	.LCFI57:
+ 817              	 .cfi_def_cfa_offset 8
+ 818 003e BD46     	 mov sp,r7
+ 819              	.LCFI58:
+ 820              	 .cfi_def_cfa_register 13
+ 821              	 
+ 822 0040 80BD     	 pop {r7,pc}
+ 823              	 .cfi_endproc
+ 824              	.LFE138:
+ 826 0042 00BF     	 .section .text.netif_set_link_up,"ax",%progbits
+ 827              	 .align 2
+ 828              	 .global netif_set_link_up
+ 829              	 .thumb
+ 830              	 .thumb_func
+ 832              	netif_set_link_up:
+ 833              	.LFB139:
+ 506:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 507:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_NETIF_STATUS_CALLBACK
+ 508:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 509:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Set callback to be called when interface is brought up/down
+ 510:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 511:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void netif_set_status_callback(struct netif *netif, netif_status_callback_fn status_callback)
+ 512:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 513:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif) {
+ 514:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->status_callback = status_callback;
+ 515:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 516:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 517:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_NETIF_STATUS_CALLBACK */
+ 518:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 519:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_NETIF_REMOVE_CALLBACK
+ 520:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 521:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Set callback to be called when the interface has been removed
+ 522:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 523:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void
+ 524:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** netif_set_remove_callback(struct netif *netif, netif_status_callback_fn remove_callback)
+ 525:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 526:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif) {
+ 527:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->remove_callback = remove_callback;
+ 528:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 529:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 530:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_NETIF_REMOVE_CALLBACK */
+ 531:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 532:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 533:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Called by a driver when its link goes up
+ 534:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 535:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void netif_set_link_up(struct netif *netif )
+ 536:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 834              	 .loc 1 536 0
+ 835              	 .cfi_startproc
+ 836              	 
+ 837              	 
+ 838 0000 80B5     	 push {r7,lr}
+ 839              	.LCFI59:
+ 840              	 .cfi_def_cfa_offset 8
+ 841              	 .cfi_offset 7,-8
+ 842              	 .cfi_offset 14,-4
+ 843 0002 82B0     	 sub sp,sp,#8
+ 844              	.LCFI60:
+ 845              	 .cfi_def_cfa_offset 16
+ 846 0004 00AF     	 add r7,sp,#0
+ 847              	.LCFI61:
+ 848              	 .cfi_def_cfa_register 7
+ 849 0006 7860     	 str r0,[r7,#4]
+ 537:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (!(netif->flags & NETIF_FLAG_LINK_UP)) {
+ 850              	 .loc 1 537 0
+ 851 0008 7B68     	 ldr r3,[r7,#4]
+ 852 000a 93F82D30 	 ldrb r3,[r3,#45]
+ 853 000e 03F01003 	 and r3,r3,#16
+ 854 0012 002B     	 cmp r3,#0
+ 855 0014 2ED1     	 bne .L47
+ 538:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->flags |= NETIF_FLAG_LINK_UP;
+ 856              	 .loc 1 538 0
+ 857 0016 7B68     	 ldr r3,[r7,#4]
+ 858 0018 93F82D30 	 ldrb r3,[r3,#45]
+ 859 001c 43F01003 	 orr r3,r3,#16
+ 860 0020 DAB2     	 uxtb r2,r3
+ 861 0022 7B68     	 ldr r3,[r7,#4]
+ 862 0024 83F82D20 	 strb r2,[r3,#45]
+ 539:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 540:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_DHCP
+ 541:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (netif->dhcp) {
+ 542:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       dhcp_network_changed(netif);
+ 543:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     }
+ 544:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_DHCP */
+ 545:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 546:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_AUTOIP
+ 547:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (netif->autoip) {
+ 548:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       autoip_network_changed(netif);
+ 549:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     }
+ 550:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_AUTOIP */
+ 551:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 552:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     if (netif->flags & NETIF_FLAG_UP) {
+ 863              	 .loc 1 552 0
+ 864 0028 7B68     	 ldr r3,[r7,#4]
+ 865 002a 93F82D30 	 ldrb r3,[r3,#45]
+ 866 002e 03F00103 	 and r3,r3,#1
+ 867 0032 002B     	 cmp r3,#0
+ 868 0034 16D0     	 beq .L49
+ 553:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_ARP
+ 554:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       /* For Ethernet network interfaces, we would like to send a "gratuitous ARP" */ 
+ 555:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       if (netif->flags & NETIF_FLAG_ETHARP) {
+ 869              	 .loc 1 555 0
+ 870 0036 7B68     	 ldr r3,[r7,#4]
+ 871 0038 93F82D30 	 ldrb r3,[r3,#45]
+ 872 003c 03F02003 	 and r3,r3,#32
+ 873 0040 002B     	 cmp r3,#0
+ 874 0042 05D0     	 beq .L50
+ 556:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         etharp_gratuitous(netif);
+ 875              	 .loc 1 556 0
+ 876 0044 7B68     	 ldr r3,[r7,#4]
+ 877 0046 0433     	 adds r3,r3,#4
+ 878 0048 7868     	 ldr r0,[r7,#4]
+ 879 004a 1946     	 mov r1,r3
+ 880 004c FFF7FEFF 	 bl etharp_request
+ 881              	.L50:
+ 557:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       }
+ 558:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_ARP */
+ 559:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 560:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_IGMP
+ 561:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       /* resend IGMP memberships */
+ 562:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       if (netif->flags & NETIF_FLAG_IGMP) {
+ 882              	 .loc 1 562 0
+ 883 0050 7B68     	 ldr r3,[r7,#4]
+ 884 0052 93F82D30 	 ldrb r3,[r3,#45]
+ 885 0056 DBB2     	 uxtb r3,r3
+ 886 0058 5BB2     	 sxtb r3,r3
+ 887 005a 002B     	 cmp r3,#0
+ 888 005c 02DA     	 bge .L49
+ 563:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****         igmp_report_groups( netif);
+ 889              	 .loc 1 563 0
+ 890 005e 7868     	 ldr r0,[r7,#4]
+ 891 0060 FFF7FEFF 	 bl igmp_report_groups
+ 892              	.L49:
+ 564:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****       }
+ 565:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #endif /* LWIP_IGMP */
+ 566:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     }
+ 567:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     NETIF_LINK_CALLBACK(netif);
+ 893              	 .loc 1 567 0
+ 894 0064 7B68     	 ldr r3,[r7,#4]
+ 895 0066 DB69     	 ldr r3,[r3,#28]
+ 896 0068 002B     	 cmp r3,#0
+ 897 006a 03D0     	 beq .L47
+ 898              	 .loc 1 567 0 is_stmt 0 discriminator 1
+ 899 006c 7B68     	 ldr r3,[r7,#4]
+ 900 006e DB69     	 ldr r3,[r3,#28]
+ 901 0070 7868     	 ldr r0,[r7,#4]
+ 902 0072 9847     	 blx r3
+ 903              	.L47:
+ 568:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 569:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 904              	 .loc 1 569 0 is_stmt 1
+ 905 0074 0837     	 adds r7,r7,#8
+ 906              	.LCFI62:
+ 907              	 .cfi_def_cfa_offset 8
+ 908 0076 BD46     	 mov sp,r7
+ 909              	.LCFI63:
+ 910              	 .cfi_def_cfa_register 13
+ 911              	 
+ 912 0078 80BD     	 pop {r7,pc}
+ 913              	 .cfi_endproc
+ 914              	.LFE139:
+ 916 007a 00BF     	 .section .text.netif_set_link_down,"ax",%progbits
+ 917              	 .align 2
+ 918              	 .global netif_set_link_down
+ 919              	 .thumb
+ 920              	 .thumb_func
+ 922              	netif_set_link_down:
+ 923              	.LFB140:
+ 570:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 571:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 572:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Called by a driver when its link goes down
+ 573:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 574:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void netif_set_link_down(struct netif *netif )
+ 575:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 924              	 .loc 1 575 0
+ 925              	 .cfi_startproc
+ 926              	 
+ 927              	 
+ 928 0000 80B5     	 push {r7,lr}
+ 929              	.LCFI64:
+ 930              	 .cfi_def_cfa_offset 8
+ 931              	 .cfi_offset 7,-8
+ 932              	 .cfi_offset 14,-4
+ 933 0002 82B0     	 sub sp,sp,#8
+ 934              	.LCFI65:
+ 935              	 .cfi_def_cfa_offset 16
+ 936 0004 00AF     	 add r7,sp,#0
+ 937              	.LCFI66:
+ 938              	 .cfi_def_cfa_register 7
+ 939 0006 7860     	 str r0,[r7,#4]
+ 576:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif->flags & NETIF_FLAG_LINK_UP) {
+ 940              	 .loc 1 576 0
+ 941 0008 7B68     	 ldr r3,[r7,#4]
+ 942 000a 93F82D30 	 ldrb r3,[r3,#45]
+ 943 000e 03F01003 	 and r3,r3,#16
+ 944 0012 002B     	 cmp r3,#0
+ 945 0014 10D0     	 beq .L51
+ 577:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->flags &= ~NETIF_FLAG_LINK_UP;
+ 946              	 .loc 1 577 0
+ 947 0016 7B68     	 ldr r3,[r7,#4]
+ 948 0018 93F82D30 	 ldrb r3,[r3,#45]
+ 949 001c 23F01003 	 bic r3,r3,#16
+ 950 0020 DAB2     	 uxtb r2,r3
+ 951 0022 7B68     	 ldr r3,[r7,#4]
+ 952 0024 83F82D20 	 strb r2,[r3,#45]
+ 578:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     NETIF_LINK_CALLBACK(netif);
+ 953              	 .loc 1 578 0
+ 954 0028 7B68     	 ldr r3,[r7,#4]
+ 955 002a DB69     	 ldr r3,[r3,#28]
+ 956 002c 002B     	 cmp r3,#0
+ 957 002e 03D0     	 beq .L51
+ 958              	 .loc 1 578 0 is_stmt 0 discriminator 1
+ 959 0030 7B68     	 ldr r3,[r7,#4]
+ 960 0032 DB69     	 ldr r3,[r3,#28]
+ 961 0034 7868     	 ldr r0,[r7,#4]
+ 962 0036 9847     	 blx r3
+ 963              	.L51:
+ 579:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 580:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 964              	 .loc 1 580 0 is_stmt 1
+ 965 0038 0837     	 adds r7,r7,#8
+ 966              	.LCFI67:
+ 967              	 .cfi_def_cfa_offset 8
+ 968 003a BD46     	 mov sp,r7
+ 969              	.LCFI68:
+ 970              	 .cfi_def_cfa_register 13
+ 971              	 
+ 972 003c 80BD     	 pop {r7,pc}
+ 973              	 .cfi_endproc
+ 974              	.LFE140:
+ 976 003e 00BF     	 .section .text.netif_set_link_callback,"ax",%progbits
+ 977              	 .align 2
+ 978              	 .global netif_set_link_callback
+ 979              	 .thumb
+ 980              	 .thumb_func
+ 982              	netif_set_link_callback:
+ 983              	.LFB141:
+ 581:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** 
+ 582:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** #if LWIP_NETIF_LINK_CALLBACK
+ 583:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** /**
+ 584:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  * Set callback to be called when link is brought up/down
+ 585:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****  */
+ 586:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** void netif_set_link_callback(struct netif *netif, netif_status_callback_fn link_callback)
+ 587:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** {
+ 984              	 .loc 1 587 0
+ 985              	 .cfi_startproc
+ 986              	 
+ 987              	 
+ 988              	 
+ 989 0000 80B4     	 push {r7}
+ 990              	.LCFI69:
+ 991              	 .cfi_def_cfa_offset 4
+ 992              	 .cfi_offset 7,-4
+ 993 0002 83B0     	 sub sp,sp,#12
+ 994              	.LCFI70:
+ 995              	 .cfi_def_cfa_offset 16
+ 996 0004 00AF     	 add r7,sp,#0
+ 997              	.LCFI71:
+ 998              	 .cfi_def_cfa_register 7
+ 999 0006 7860     	 str r0,[r7,#4]
+ 1000 0008 3960     	 str r1,[r7]
+ 588:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   if (netif) {
+ 1001              	 .loc 1 588 0
+ 1002 000a 7B68     	 ldr r3,[r7,#4]
+ 1003 000c 002B     	 cmp r3,#0
+ 1004 000e 02D0     	 beq .L53
+ 589:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****     netif->link_callback = link_callback;
+ 1005              	 .loc 1 589 0
+ 1006 0010 7B68     	 ldr r3,[r7,#4]
+ 1007 0012 3A68     	 ldr r2,[r7]
+ 1008 0014 DA61     	 str r2,[r3,#28]
+ 1009              	.L53:
+ 590:../Dave/Generated/ETH_LWIP/lwip/core/netif.c ****   }
+ 591:../Dave/Generated/ETH_LWIP/lwip/core/netif.c **** }
+ 1010              	 .loc 1 591 0
+ 1011 0016 0C37     	 adds r7,r7,#12
+ 1012              	.LCFI72:
+ 1013              	 .cfi_def_cfa_offset 4
+ 1014 0018 BD46     	 mov sp,r7
+ 1015              	.LCFI73:
+ 1016              	 .cfi_def_cfa_register 13
+ 1017              	 
+ 1018 001a 5DF8047B 	 ldr r7,[sp],#4
+ 1019              	.LCFI74:
+ 1020              	 .cfi_restore 7
+ 1021              	 .cfi_def_cfa_offset 0
+ 1022 001e 7047     	 bx lr
+ 1023              	 .cfi_endproc
+ 1024              	.LFE141:
+ 1026              	 .text
+ 1027              	.Letext0:
+ 1028              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1029              	 .file 3 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 1030              	 .file 4 "../Dave/Generated/ETH_LWIP/lwip/core/../include/lwip/../../port/include/arch/cc.h"
+ 1031              	 .file 5 "../Dave/Generated/ETH_LWIP/lwip/core/../include/ipv4/lwip/ip_addr.h"
+ 1032              	 .file 6 "../Dave/Generated/ETH_LWIP/lwip/core/../include/lwip/err.h"
+ 1033              	 .file 7 "../Dave/Generated/ETH_LWIP/lwip/core/../include/lwip/pbuf.h"
+ 1034              	 .file 8 "../Dave/Generated/ETH_LWIP/lwip/core/../include/lwip/netif.h"
+ 1035              	 .file 9 "C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 netif.c
+                            *COM*:00000004 netif_list
+                            *COM*:00000004 netif_default
+    {standard input}:24     .bss.netif_num:00000000 netif_num
+    {standard input}:25     .bss.netif_num:00000000 $d
+    {standard input}:27     .text.netif_init:00000000 $t
+    {standard input}:32     .text.netif_init:00000000 netif_init
+    {standard input}:61     .text.netif_add:00000000 $t
+    {standard input}:66     .text.netif_add:00000000 netif_add
+    {standard input}:192    .text.netif_set_addr:00000000 netif_set_addr
+    {standard input}:181    .text.netif_add:0000009c $d
+    {standard input}:187    .text.netif_set_addr:00000000 $t
+    {standard input}:478    .text.netif_set_ipaddr:00000000 netif_set_ipaddr
+    {standard input}:590    .text.netif_set_netmask:00000000 netif_set_netmask
+    {standard input}:534    .text.netif_set_gw:00000000 netif_set_gw
+    {standard input}:238    .text.netif_remove:00000000 $t
+    {standard input}:243    .text.netif_remove:00000000 netif_remove
+    {standard input}:773    .text.netif_set_down:00000000 netif_set_down
+    {standard input}:646    .text.netif_set_default:00000000 netif_set_default
+    {standard input}:363    .text.netif_remove:00000094 $d
+    {standard input}:369    .text.netif_find:00000000 $t
+    {standard input}:374    .text.netif_find:00000000 netif_find
+    {standard input}:468    .text.netif_find:0000006c $d
+    {standard input}:473    .text.netif_set_ipaddr:00000000 $t
+    {standard input}:529    .text.netif_set_gw:00000000 $t
+    {standard input}:585    .text.netif_set_netmask:00000000 $t
+    {standard input}:641    .text.netif_set_default:00000000 $t
+    {standard input}:684    .text.netif_set_default:00000018 $d
+    {standard input}:689    .text.netif_set_up:00000000 $t
+    {standard input}:694    .text.netif_set_up:00000000 netif_set_up
+    {standard input}:768    .text.netif_set_down:00000000 $t
+    {standard input}:827    .text.netif_set_link_up:00000000 $t
+    {standard input}:832    .text.netif_set_link_up:00000000 netif_set_link_up
+    {standard input}:917    .text.netif_set_link_down:00000000 $t
+    {standard input}:922    .text.netif_set_link_down:00000000 netif_set_link_down
+    {standard input}:977    .text.netif_set_link_callback:00000000 $t
+    {standard input}:982    .text.netif_set_link_callback:00000000 netif_set_link_callback
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+igmp_start
+igmp_stop
+etharp_request
+igmp_report_groups
+etharp_cleanup_netif
