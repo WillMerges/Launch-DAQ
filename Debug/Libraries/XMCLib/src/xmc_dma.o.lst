@@ -22,533 +22,533 @@
   22              	 .thumb_func
   24              	XMC_DMA_GetEventStatus:
   25              	.LFB128:
-  26              	 .file 1 "C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc/xmc_dma.h"
-   1:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-   2:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
-   3:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @file xmc_dma.h
-   4:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @date 2015-06-20
-   5:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
-   6:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @cond
-   7:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  **************************************************************************************************
-   8:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * XMClib v2.1.8 - XMC Peripheral Driver Library 
-   9:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
-  10:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
-  11:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * All rights reserved.                        
-  12:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *                                             
-  13:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
-  14:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * following conditions are met:   
-  15:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *                                                                              
-  16:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
-  17:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * disclaimer.                        
-  18:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * 
-  19:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
-  20:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
-  21:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * 
-  22:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
-  23:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * products derived from this software without specific prior written permission.                  
-  24:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *                                                                              
-  25:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
-  26:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
-  27:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
-  28:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
-  29:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
-  30:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
-  31:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
-  32:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *                                                                              
-  33:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
-  34:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
-  35:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  **************************************************************************************************
-  36:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
-  37:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Change History
-  38:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * --------------
-  39:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
-  40:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * 2015-02-20:
-  41:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *     - Initial <br>
-  42:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
-  43:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * 2015-06-20:
-  44:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *     - Add the declarations for the following APIs: <br>
-  45:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *       XMC_DMA_DisableRequestLine, XMC_DMA_ClearRequestLine, <br>
-  46:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *       XMC_DMA_CH_ClearSourcePeripheralRequest, <br>
-  47:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *       XMC_DMA_CH_ClearDestinationPeripheralRequest <br>
-  48:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *     - Documentation updates <br>
-  49:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *     - Removed version macros and declaration of GetDriverVersion API <br>
-  50:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
-  51:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @endcond
-  52:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
-  53:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  54:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #ifndef XMC_DMA_H
-  55:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA_H
-  56:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  57:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
-  58:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * HEADER FILES
-  59:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
-  60:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  61:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #include "xmc_common.h"
-  62:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  63:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (GPDMA0)
-  64:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  65:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #include "xmc_dma_map.h"
-  66:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  67:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
-  68:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @addtogroup XMClib XMC Peripheral Library
-  69:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @{
-  70:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
-  71:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  72:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
-  73:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @addtogroup DMA
-  74:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @brief General purpose DMA (GPDMA) driver for the XMC4000 microcontroller family
-  75:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
-  76:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The GPDMA is a highly configurable DMA controller that allows high-speed data transfers
-  77:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * between peripherals and memories. Complex data transfers can be done with minimal
-  78:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * intervention of the processor, making CPU available for other operations.
-  79:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
-  80:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * GPDMA provides extensive support for XMC microcontroller peripherals like A/D, D/A
-  81:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * converters and timers. Data transfers through communication interfaces (USIC) using the
-  82:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * GPDMA increase efficiency and parallelism for real-time applications.
-  83:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
-  84:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The DMA low level driver provides functions to configure and initialize the GPDMA
-  85:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * hardware peripheral.
-  86:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @{
-  87:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
-  88:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  89:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
-  90:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * MACROS
-  91:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
-  92:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  93:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (GPDMA0)
-  94:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA0 ((XMC_DMA_t *)GPDMA0_CH0_BASE) /**< DMA module 0 */
-  95:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA0_NUM_CHANNELS 8
-  96:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #endif
-  97:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
-  98:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (GPDMA1)
-  99:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA1 ((XMC_DMA_t *)GPDMA1_CH0_BASE) /**< DMA module 1, only available in XMC45xx series
- 100:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA1_NUM_CHANNELS 4
- 101:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #endif
- 102:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 103:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
- 104:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * ENUMS
- 105:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
- 106:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 107:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 108:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA transfer types
- 109:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 110:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_TRANSFER_TYPE
- 111:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 112:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_SINGLE_BLOCK,                                /**< Single block */
- 113:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_CONTIGUOUS_DSTADR_RELOAD, /**< Multi-block: src addre
- 114:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_RELOAD_DSTADR_CONTIGUOUS, /**< Multi-block: src addre
- 115:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_RELOAD_DSTADR_RELOAD,     /**< Multi-block: src addre
- 116:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_CONTIGUOUS_DSTADR_LINKED, /**< Multi-block: src addre
- 117:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_RELOAD_DSTADR_LINKED,     /**< Multi-block: src addre
- 118:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_LINKED_DSTADR_CONTIGUOUS, /**< Multi-block: src addre
- 119:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_LINKED_DSTADR_RELOAD,     /**< Multi-block: src addre
- 120:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_LINKED_DSTADR_LINKED      /**< Multi-block: src addre
- 121:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_TRANSFER_TYPE_t;
- 122:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 123:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 124:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA transfer flow modes
- 125:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 126:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_TRANSFER_FLOW
- 127:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 128:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_M2M_DMA    = 0x0UL, /**< Memory to memory (DMA flow controller) */
- 129:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_M2P_DMA    = 0x1UL, /**< Memory to peripheral (DMA flow controller) */
- 130:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2M_DMA    = 0x2UL, /**< Peripheral to memory (DMA flow controller) */
- 131:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2P_DMA    = 0x3UL, /**< Peripheral to peripheral (DMA flow controller) 
- 132:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2M_PER    = 0x4UL, /**< Peripheral to memory (Peripheral flow controlle
- 133:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2P_SRCPER = 0x5UL, /**< Peripheral to peripheral (Source peripheral flo
- 134:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_M2P_PER    = 0x6UL, /**< Memory to peripheral (Peripheral flow controlle
- 135:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2P_DSTPER = 0x7UL  /**< Peripheral to peripheral (Destination periphera
- 136:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_TRANSFER_FLOW_t;
- 137:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 138:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 139:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Valid burst length values
- 140:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 141:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_BURST_LENGTH
- 142:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 143:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_BURST_LENGTH_1 = 0x0UL, /**< Burst length: 1 word */
- 144:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_BURST_LENGTH_4 = 0x1UL, /**< Burst length: 4 words */
- 145:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_BURST_LENGTH_8 = 0x2UL  /**< Burst length: 8 words */
- 146:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_BURST_LENGTH_t;
- 147:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 148:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 149:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Valid transfer width values
- 150:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 151:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_TRANSFER_WIDTH
- 152:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 153:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_WIDTH_8  = 0x0UL, /**< 8-bit transfer width */
- 154:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_WIDTH_16 = 0x1UL, /**< 16-bit transfer width */
- 155:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_WIDTH_32 = 0x2UL  /**< 32-bit transfer width */
- 156:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_TRANSFER_WIDTH_t;
- 157:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 158:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 159:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA address count mode
- 160:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 161:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_ADDRESS_COUNT_MODE
- 162:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 163:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_ADDRESS_COUNT_MODE_INCREMENT = 0x0UL, /**< Address count mode: increment */
- 164:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_ADDRESS_COUNT_MODE_DECREMENT = 0x1UL, /**< Address count mode: decrement */
- 165:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_ADDRESS_COUNT_MODE_NO_CHANGE = 0x2UL  /**< Address count mode: no change */
- 166:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_ADDRESS_COUNT_MODE_t;
- 167:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 168:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 169:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel priorities
- 170:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 171:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_PRIORITY
- 172:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 173:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_0 = 0x0UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 0 (low) *
- 174:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_1 = 0x1UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 1 */
- 175:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_2 = 0x2UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 2 */
- 176:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_3 = 0x3UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 3 */
- 177:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_4 = 0x4UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 4 */
- 178:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_5 = 0x5UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 5 */
- 179:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_6 = 0x6UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 6 */
- 180:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_7 = 0x7UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos  /**< DMA channel priority 7 (high) 
- 181:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_PRIORITY_t;
- 182:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 183:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 184:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Source handshake interface
- 185:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 186:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_SRC_HANDSHAKING
- 187:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 188:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_SRC_HANDSHAKING_HARDWARE = 0x0UL << GPDMA0_CH_CFGL_HS_SEL_SRC_Pos, /**< Source: hardwa
- 189:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_SRC_HANDSHAKING_SOFTWARE = 0x1UL << GPDMA0_CH_CFGL_HS_SEL_SRC_Pos  /**< Source: softwa
- 190:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_SRC_HANDSHAKING_t;
- 191:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 192:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 193:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Destination handshake interface
- 194:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 195:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_DST_HANDSHAKING
- 196:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 197:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_DST_HANDSHAKING_HARDWARE = 0x0UL << GPDMA0_CH_CFGL_HS_SEL_DST_Pos, /**< Destination: h
- 198:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_DST_HANDSHAKING_SOFTWARE = 0x1UL << GPDMA0_CH_CFGL_HS_SEL_DST_Pos  /**< Destination: s
- 199:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_DST_HANDSHAKING_t;
- 200:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 201:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 202:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA hardware handshaking interface
- 203:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Hardware handshaking available only if DMA is flow controller
- 204:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 205:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_HARDWARE_HANDSHAKING_IF
- 206:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 207:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_0 = 0x0UL, /**< Hardware handshaking interface 0 */
- 208:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_1 = 0x1UL, /**< Hardware handshaking interface 1 */
- 209:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_2 = 0x2UL, /**< Hardware handshaking interface 2 */
- 210:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_3 = 0x3UL, /**< Hardware handshaking interface 3 */
- 211:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_4 = 0x4UL, /**< Hardware handshaking interface 4 */
- 212:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_5 = 0x5UL, /**< Hardware handshaking interface 5 */
- 213:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_6 = 0x6UL, /**< Hardware handshaking interface 6 */
- 214:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_7 = 0x7UL  /**< Hardware handshaking interface 7 */
- 215:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_t;
- 216:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 217:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 218:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA events
- 219:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 220:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_EVENT
- 221:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 222:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_TRANSFER_COMPLETE        = 0x1UL, /**< Transfer complete event */
- 223:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_BLOCK_TRANSFER_COMPLETE  = 0x2UL, /**< Block transfer complete event */
- 224:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_SRC_TRANSACTION_COMPLETE = 0x4UL, /**< Source transaction complete event */
- 225:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_DST_TRANSACTION_COMPLETE = 0x8UL, /**< Destination transaction complete event */
- 226:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_ERROR                    = 0x10UL /**< DMA error event */
- 227:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_EVENT_t;
- 228:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 229:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 230:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Transaction types
- 231:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 232:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_TRANSACTION_TYPE
- 233:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 234:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSACTION_TYPE_SINGLE, /**< Single DMA transaction */
- 235:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSACTION_TYPE_BURST   /**< Burst transaction */
- 236:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_TRANSACTION_TYPE_t;
- 237:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 238:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 239:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel status values
- 240:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 241:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_STATUS
- 242:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 243:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_STATUS_OK,    /**< DMA status OK */
- 244:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_STATUS_ERROR, /**< DMA status error */
- 245:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_STATUS_BUSY   /**< DMA is busy */
- 246:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_STATUS_t;
- 247:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 248:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
- 249:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DATA STRUCTURES
- 250:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
- 251:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 252:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 253:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel configuration structure <br>
- 254:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 255:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The structure represents a collection of all hardware registers used
- 256:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * to configure the DMA channel. It is contained within the ::XMC_DMA_t
- 257:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * structure. It's registers can be used to configure DMA transfer details
- 258:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * like source address, destination address, block size, incrementation
- 259:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * modes and the like.
- 260:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 261:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  
- 262:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef struct {
- 263:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SAR;
- 264:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED0;
- 265:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DAR;
- 266:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED1;
- 267:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  LLP;
- 268:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED2;
- 269:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CTLL;
- 270:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CTLH;
- 271:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SSTAT;
- 272:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED3;
- 273:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DSTAT;
- 274:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED4;
- 275:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SSTATAR;
- 276:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED5;
- 277:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DSTATAR;
- 278:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED6;
- 279:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CFGL;
- 280:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CFGH;
- 281:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SGR;
- 282:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED7;
- 283:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DSR;
- 284:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED8;
- 285:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } GPDMA_CH_t;
- 286:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 287:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 288:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA device structure <br>
- 289:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 290:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The structure represents a collection of all hardware registers used
- 291:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * to configure the GPDMA peripheral on the XMC4000 series of microcontrollers.
- 292:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The registers can be accessed with ::XMC_DMA0 and ::XMC_DMA1.
- 293:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 294:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef struct {
- 295:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   GPDMA_CH_t CH[8];
- 296:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 297:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  RAWCHEV[10];
- 298:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  STATUSCHEV[10];
- 299:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  MASKCHEV[10];
- 300:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __O  uint32_t  CLEARCHEV[10];
- 301:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  STATUSGLEV;
- 302:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED20;
- 303:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  REQSRCREG;
- 304:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED21;
- 305:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  REQDSTREG;
- 306:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED22;
- 307:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SGLREQSRCREG;
- 308:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED23;
- 309:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SGLREQDSTREG;
- 310:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED24;
- 311:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  LSTSRCREG;
- 312:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED25;
- 313:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  LSTDSTREG;
- 314:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED26;
- 315:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DMACFGREG;
- 316:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED27;
- 317:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CHENREG;
- 318:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED28;
- 319:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  ID;
- 320:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED29[19];
- 321:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  TYPE;
- 322:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  VERSION;
- 323:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_t;
- 324:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 325:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /* Anonymous structure/union guard start */
- 326:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (__CC_ARM)
- 327:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma push
- 328:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma anon_unions
- 329:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #elif defined (__TASKING__)
- 330:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma warning 586
- 331:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #endif
- 332:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 333:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 334:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel linked list item.
- 335:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Note: Needs to be word aligned
- 336:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 337:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef struct XMC_DMA_LLI
- 338:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 339:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t src_addr;                            /**< Source address */
- 340:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t dst_addr;                            /**< Destination address */
- 341:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   struct XMC_DMA_LLI *llp;                      /**< Linked list pointer of type XMC_DMA_LLI_t */
- 342:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   union
- 343:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   {
- 344:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     struct
- 345:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     {
- 346:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_interrupt: 1;             /**< Enable interrupts? */
- 347:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_transfer_width: 3;           /**< Destination transfer width */
- 348:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_transfer_width: 3;           /**< Source transfer width */
- 349:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_address_count_mode: 2;       /**< Destination address count mode */
- 350:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_address_count_mode: 2;       /**< Source address count mode */
- 351:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_burst_length: 3;             /**< Destination burst length */
- 352:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_burst_length: 3;             /**< Source burst length */
- 353:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_src_gather: 1;            /**< Enable source gather? */
- 354:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_dst_scatter: 1;           /**< Enable destination scatter? */
- 355:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 1;                             /**< Reserved bits */
- 356:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t transfer_flow: 3;                /**< DMA transfer flow */
- 357:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 4;                             /**< Reserved bits */
- 358:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_dst_linked_list: 1;       /**< Enable destination linked list? */
- 359:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_src_linked_list: 1;       /**< Enable source linked list? */
- 360:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 3;                             /**< Reserved bits */
- 361:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     };
- 362:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     uint32_t control;
- 363:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   };
- 364:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t block_size;                          /**< Transfer block size */
- 365:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t src_status;                          /**< Source status */
- 366:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t dst_status;                          /**< Destination status */
- 367:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_LLI_t;
- 368:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 369:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef XMC_DMA_LLI_t **XMC_DMA_LIST_t;         /**< Type definition for a linked list pointer */
- 370:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 371:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 372:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel configuration structure
- 373:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 374:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef struct XMC_DMA_CH_CONFIG
- 375:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
- 376:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   union
- 377:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   {
- 378:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     uint32_t control;
- 379:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     struct
- 380:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     {
- 381:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_interrupt: 1;             /**< Enable interrupts? */
- 382:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_transfer_width: 3;           /**< Destination transfer width */
- 383:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_transfer_width: 3;           /**< Source transfer width */
- 384:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_address_count_mode: 2;       /**< Destination address count mode */
- 385:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_address_count_mode: 2;       /**< Source address count mode */
- 386:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_burst_length: 3;             /**< Destination burst length */
- 387:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_burst_length: 3;             /**< Source burst length */
- 388:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_src_gather: 1;            /**< Enable source gather? */
- 389:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_dst_scatter: 1;           /**< Enable destination scatter? */
- 390:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 1;                             
- 391:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t transfer_flow: 3;                /**< DMA transfer flow */
- 392:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 9;                             
- 393:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     };
- 394:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   };
- 395:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 396:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t src_addr;                            /**< Source address */
- 397:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t dst_addr;                            /**< Destination address */
- 398:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_LLI_t *linked_list_pointer;           /**< Linked list pointer */
- 399:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   
- 400:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   union
- 401:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   {
- 402:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     uint32_t src_gather_control;
- 403:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     struct
- 404:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     {
- 405:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_gather_interval: 20;         /**< Source gather interval */
- 406:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_gather_count: 12;            /**< Source gather count */
- 407:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     };
- 408:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   };
- 409:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 410:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   union
- 411:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   {
- 412:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     uint32_t dst_scatter_control;
- 413:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     struct
- 414:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     {
- 415:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_scatter_interval: 20;        /**< Destination scatter interval */
- 416:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_scatter_count: 12;           /**< Destination scatter count */
- 417:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****     };
- 418:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   };
- 419:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   
- 420:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint16_t block_size;                          /**< Block size for DMA controlled transfers [1-204
- 421:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_t transfer_type;     /**< DMA transfer type */
- 422:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_t priority;               /**< DMA channel priority */
- 423:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_SRC_HANDSHAKING_t src_handshaking; /**< DMA source handshaking interface */
- 424:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint8_t src_peripheral_request;               /**< Source peripheral request */
- 425:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_DST_HANDSHAKING_t dst_handshaking; /**< DMA destination handshaking interface */
- 426:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   uint8_t dst_peripheral_request;               /**< Destination peripheral request */
- 427:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_CONFIG_t;
- 428:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 429:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /* Anonymous structure/union guard end */
- 430:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (__CC_ARM)
- 431:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma pop
- 432:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #elif defined (__TASKING__)
- 433:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma warning restore
- 434:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #endif
- 435:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 436:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 437:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel event handler
- 438:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 439:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** typedef void (*XMC_DMA_CH_EVENT_HANDLER_t)(XMC_DMA_CH_EVENT_t event);
- 440:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 441:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
- 442:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * API PROTOTYPES
- 443:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
- 444:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 445:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #ifdef __cplusplus
- 446:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** extern "C" {
- 447:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** #endif
- 448:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 449:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 450:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 451:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return None
- 452:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 453:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 454:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Initialize the GPDMA peripheral <br>
- 455:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 456:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 457:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The function initializes a prioritized list of DMA channels and enables the GPDMA
- 458:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * peripheral.
- 459:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 460:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** void XMC_DMA_Init(XMC_DMA_t *const dma);
- 461:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 462:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 463:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 464:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return None
- 465:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 466:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 467:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Enable the GPDMA peripheral <br>
- 468:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 469:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 470:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The function de-asserts the GPDMA peripheral reset. In addition, it un-gates the
- 471:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * GPDMA0 peripheral clock for all XMC4000 series of microcontrollers with an exception
- 472:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * of the XMC4500 microcontroller. The XMC4500 doesn't support gating.
- 473:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 474:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** void XMC_DMA_Enable(XMC_DMA_t *const dma);
- 475:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 476:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 477:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 478:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return None
- 479:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 480:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 481:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Disable the GPDMA peripheral <br>
- 482:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 483:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 484:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The function asserts the GPDMA peripheral reset. In addition, it gates the GPDMA0
- 485:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * peripheral clock for all XMC4000 series of microcontrollers with an exception of
- 486:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * the XMC4500 microcontroller. The XMC4500 doesn't support gating.
- 487:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 488:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** void XMC_DMA_Disable(XMC_DMA_t *const dma);
- 489:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 490:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 491:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 492:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return bool
- 493:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 494:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 495:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Check if the GPDMA peripheral is enabled <br>
- 496:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 497:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 498:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * For the XMC4500 microcontroller, the function checks if the GPDMA module is asserted
- 499:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * and returns "false" if it is. In addition, it also checks if the clock is gated
- 500:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * for the other XMC4000 series of microcontrollers. It returns "true" if the peripheral
- 501:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * is enabled.
- 502:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 503:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** bool XMC_DMA_IsEnabled(const XMC_DMA_t *const dma);
- 504:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 505:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 506:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 507:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA event status
- 508:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 509:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 510:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Get DMA event status <br>
- 511:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 512:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 513:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns the collective (global) status of GPDMA events. The following
- 514:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * lists the various DMA events and their corresponding enumeration. The return value
- 515:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * of this function may then be masked with any one of the following enumerations to
- 516:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * obtain the status of individual DMA events. <br>
- 517:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 518:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 519:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Transfer complete -> ::XMC_DMA_CH_EVENT_TRANSFER_COMPLETE                       <br>
- 520:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Block transfer complete -> ::XMC_DMA_CH_EVENT_BLOCK_TRANSFER_COMPLETE           <br>
- 521:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Source transaction complete -> ::XMC_DMA_CH_EVENT_SRC_TRANSACTION_COMPLETE      <br>
- 522:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Destination transaction complete -> ::XMC_DMA_CH_EVENT_DST_TRANSACTION_COMPLETE <br>
- 523:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA error event -> ::XMC_DMA_CH_EVENT_ERROR                                     <br>
- 524:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 525:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetEventStatus(XMC_DMA_t *const dma)
- 526:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
+  26              	 .file 1 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_dma.h"
+   1:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+   2:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+   3:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @file xmc_dma.h
+   4:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @date 2015-06-20
+   5:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+   6:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @cond
+   7:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  **************************************************************************************************
+   8:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * XMClib v2.1.8 - XMC Peripheral Driver Library 
+   9:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+  10:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  11:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * All rights reserved.                        
+  12:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *                                             
+  13:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  14:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * following conditions are met:   
+  15:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *                                                                              
+  16:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  17:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * disclaimer.                        
+  18:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * 
+  19:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  20:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  21:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * 
+  22:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  23:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * products derived from this software without specific prior written permission.                  
+  24:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *                                                                              
+  25:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  26:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  27:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  28:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  29:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  30:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  31:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  32:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *                                                                              
+  33:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  34:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  35:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  **************************************************************************************************
+  36:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+  37:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Change History
+  38:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * --------------
+  39:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+  40:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * 2015-02-20:
+  41:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *     - Initial <br>
+  42:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+  43:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * 2015-06-20:
+  44:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *     - Add the declarations for the following APIs: <br>
+  45:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *       XMC_DMA_DisableRequestLine, XMC_DMA_ClearRequestLine, <br>
+  46:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *       XMC_DMA_CH_ClearSourcePeripheralRequest, <br>
+  47:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *       XMC_DMA_CH_ClearDestinationPeripheralRequest <br>
+  48:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *     - Documentation updates <br>
+  49:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *     - Removed version macros and declaration of GetDriverVersion API <br>
+  50:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+  51:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @endcond
+  52:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+  53:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  54:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #ifndef XMC_DMA_H
+  55:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA_H
+  56:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  57:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
+  58:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * HEADER FILES
+  59:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
+  60:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  61:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #include "xmc_common.h"
+  62:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  63:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (GPDMA0)
+  64:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  65:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #include "xmc_dma_map.h"
+  66:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  67:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+  68:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @addtogroup XMClib XMC Peripheral Library
+  69:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @{
+  70:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+  71:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  72:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+  73:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @addtogroup DMA
+  74:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @brief General purpose DMA (GPDMA) driver for the XMC4000 microcontroller family
+  75:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+  76:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The GPDMA is a highly configurable DMA controller that allows high-speed data transfers
+  77:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * between peripherals and memories. Complex data transfers can be done with minimal
+  78:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * intervention of the processor, making CPU available for other operations.
+  79:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+  80:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * GPDMA provides extensive support for XMC microcontroller peripherals like A/D, D/A
+  81:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * converters and timers. Data transfers through communication interfaces (USIC) using the
+  82:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * GPDMA increase efficiency and parallelism for real-time applications.
+  83:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+  84:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The DMA low level driver provides functions to configure and initialize the GPDMA
+  85:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * hardware peripheral.
+  86:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @{
+  87:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+  88:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  89:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
+  90:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * MACROS
+  91:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
+  92:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  93:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (GPDMA0)
+  94:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA0 ((XMC_DMA_t *)GPDMA0_CH0_BASE) /**< DMA module 0 */
+  95:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA0_NUM_CHANNELS 8
+  96:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #endif
+  97:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+  98:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (GPDMA1)
+  99:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA1 ((XMC_DMA_t *)GPDMA1_CH0_BASE) /**< DMA module 1, only available in XMC45xx series
+ 100:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #define XMC_DMA1_NUM_CHANNELS 4
+ 101:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #endif
+ 102:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 103:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
+ 104:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * ENUMS
+ 105:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
+ 106:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 107:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 108:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA transfer types
+ 109:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 110:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_TRANSFER_TYPE
+ 111:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 112:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_SINGLE_BLOCK,                                /**< Single block */
+ 113:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_CONTIGUOUS_DSTADR_RELOAD, /**< Multi-block: src addre
+ 114:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_RELOAD_DSTADR_CONTIGUOUS, /**< Multi-block: src addre
+ 115:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_RELOAD_DSTADR_RELOAD,     /**< Multi-block: src addre
+ 116:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_CONTIGUOUS_DSTADR_LINKED, /**< Multi-block: src addre
+ 117:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_RELOAD_DSTADR_LINKED,     /**< Multi-block: src addre
+ 118:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_LINKED_DSTADR_CONTIGUOUS, /**< Multi-block: src addre
+ 119:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_LINKED_DSTADR_RELOAD,     /**< Multi-block: src addre
+ 120:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_MULTI_BLOCK_SRCADR_LINKED_DSTADR_LINKED      /**< Multi-block: src addre
+ 121:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_TRANSFER_TYPE_t;
+ 122:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 123:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 124:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA transfer flow modes
+ 125:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 126:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_TRANSFER_FLOW
+ 127:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 128:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_M2M_DMA    = 0x0UL, /**< Memory to memory (DMA flow controller) */
+ 129:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_M2P_DMA    = 0x1UL, /**< Memory to peripheral (DMA flow controller) */
+ 130:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2M_DMA    = 0x2UL, /**< Peripheral to memory (DMA flow controller) */
+ 131:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2P_DMA    = 0x3UL, /**< Peripheral to peripheral (DMA flow controller) 
+ 132:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2M_PER    = 0x4UL, /**< Peripheral to memory (Peripheral flow controlle
+ 133:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2P_SRCPER = 0x5UL, /**< Peripheral to peripheral (Source peripheral flo
+ 134:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_M2P_PER    = 0x6UL, /**< Memory to peripheral (Peripheral flow controlle
+ 135:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_FLOW_P2P_DSTPER = 0x7UL  /**< Peripheral to peripheral (Destination periphera
+ 136:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_TRANSFER_FLOW_t;
+ 137:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 138:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 139:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Valid burst length values
+ 140:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 141:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_BURST_LENGTH
+ 142:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 143:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_BURST_LENGTH_1 = 0x0UL, /**< Burst length: 1 word */
+ 144:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_BURST_LENGTH_4 = 0x1UL, /**< Burst length: 4 words */
+ 145:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_BURST_LENGTH_8 = 0x2UL  /**< Burst length: 8 words */
+ 146:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_BURST_LENGTH_t;
+ 147:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 148:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 149:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Valid transfer width values
+ 150:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 151:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_TRANSFER_WIDTH
+ 152:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 153:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_WIDTH_8  = 0x0UL, /**< 8-bit transfer width */
+ 154:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_WIDTH_16 = 0x1UL, /**< 16-bit transfer width */
+ 155:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_WIDTH_32 = 0x2UL  /**< 32-bit transfer width */
+ 156:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_TRANSFER_WIDTH_t;
+ 157:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 158:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 159:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA address count mode
+ 160:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 161:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_ADDRESS_COUNT_MODE
+ 162:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 163:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_ADDRESS_COUNT_MODE_INCREMENT = 0x0UL, /**< Address count mode: increment */
+ 164:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_ADDRESS_COUNT_MODE_DECREMENT = 0x1UL, /**< Address count mode: decrement */
+ 165:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_ADDRESS_COUNT_MODE_NO_CHANGE = 0x2UL  /**< Address count mode: no change */
+ 166:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_ADDRESS_COUNT_MODE_t;
+ 167:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 168:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 169:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel priorities
+ 170:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 171:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_PRIORITY
+ 172:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 173:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_0 = 0x0UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 0 (low) *
+ 174:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_1 = 0x1UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 1 */
+ 175:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_2 = 0x2UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 2 */
+ 176:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_3 = 0x3UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 3 */
+ 177:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_4 = 0x4UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 4 */
+ 178:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_5 = 0x5UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 5 */
+ 179:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_6 = 0x6UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos, /**< DMA channel priority 6 */
+ 180:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_7 = 0x7UL << GPDMA0_CH_CFGL_CH_PRIOR_Pos  /**< DMA channel priority 7 (high) 
+ 181:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_PRIORITY_t;
+ 182:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 183:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 184:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Source handshake interface
+ 185:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 186:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_SRC_HANDSHAKING
+ 187:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 188:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_SRC_HANDSHAKING_HARDWARE = 0x0UL << GPDMA0_CH_CFGL_HS_SEL_SRC_Pos, /**< Source: hardwa
+ 189:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_SRC_HANDSHAKING_SOFTWARE = 0x1UL << GPDMA0_CH_CFGL_HS_SEL_SRC_Pos  /**< Source: softwa
+ 190:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_SRC_HANDSHAKING_t;
+ 191:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 192:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 193:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Destination handshake interface
+ 194:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 195:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_DST_HANDSHAKING
+ 196:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 197:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_DST_HANDSHAKING_HARDWARE = 0x0UL << GPDMA0_CH_CFGL_HS_SEL_DST_Pos, /**< Destination: h
+ 198:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_DST_HANDSHAKING_SOFTWARE = 0x1UL << GPDMA0_CH_CFGL_HS_SEL_DST_Pos  /**< Destination: s
+ 199:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_DST_HANDSHAKING_t;
+ 200:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 201:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 202:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA hardware handshaking interface
+ 203:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Hardware handshaking available only if DMA is flow controller
+ 204:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 205:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_HARDWARE_HANDSHAKING_IF
+ 206:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 207:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_0 = 0x0UL, /**< Hardware handshaking interface 0 */
+ 208:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_1 = 0x1UL, /**< Hardware handshaking interface 1 */
+ 209:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_2 = 0x2UL, /**< Hardware handshaking interface 2 */
+ 210:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_3 = 0x3UL, /**< Hardware handshaking interface 3 */
+ 211:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_4 = 0x4UL, /**< Hardware handshaking interface 4 */
+ 212:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_5 = 0x5UL, /**< Hardware handshaking interface 5 */
+ 213:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_6 = 0x6UL, /**< Hardware handshaking interface 6 */
+ 214:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_7 = 0x7UL  /**< Hardware handshaking interface 7 */
+ 215:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_HARDWARE_HANDSHAKING_IF_t;
+ 216:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 217:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 218:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA events
+ 219:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 220:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_EVENT
+ 221:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 222:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_TRANSFER_COMPLETE        = 0x1UL, /**< Transfer complete event */
+ 223:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_BLOCK_TRANSFER_COMPLETE  = 0x2UL, /**< Block transfer complete event */
+ 224:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_SRC_TRANSACTION_COMPLETE = 0x4UL, /**< Source transaction complete event */
+ 225:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_DST_TRANSACTION_COMPLETE = 0x8UL, /**< Destination transaction complete event */
+ 226:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_EVENT_ERROR                    = 0x10UL /**< DMA error event */
+ 227:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_EVENT_t;
+ 228:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 229:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 230:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Transaction types
+ 231:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 232:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_TRANSACTION_TYPE
+ 233:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 234:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSACTION_TYPE_SINGLE, /**< Single DMA transaction */
+ 235:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSACTION_TYPE_BURST   /**< Burst transaction */
+ 236:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_TRANSACTION_TYPE_t;
+ 237:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 238:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 239:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel status values
+ 240:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 241:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef enum XMC_DMA_CH_STATUS
+ 242:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 243:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_STATUS_OK,    /**< DMA status OK */
+ 244:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_STATUS_ERROR, /**< DMA status error */
+ 245:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_STATUS_BUSY   /**< DMA is busy */
+ 246:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_STATUS_t;
+ 247:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 248:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
+ 249:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DATA STRUCTURES
+ 250:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
+ 251:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 252:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 253:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel configuration structure <br>
+ 254:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 255:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The structure represents a collection of all hardware registers used
+ 256:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * to configure the DMA channel. It is contained within the ::XMC_DMA_t
+ 257:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * structure. It's registers can be used to configure DMA transfer details
+ 258:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * like source address, destination address, block size, incrementation
+ 259:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * modes and the like.
+ 260:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 261:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  
+ 262:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef struct {
+ 263:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SAR;
+ 264:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED0;
+ 265:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DAR;
+ 266:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED1;
+ 267:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  LLP;
+ 268:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED2;
+ 269:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CTLL;
+ 270:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CTLH;
+ 271:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SSTAT;
+ 272:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED3;
+ 273:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DSTAT;
+ 274:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED4;
+ 275:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SSTATAR;
+ 276:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED5;
+ 277:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DSTATAR;
+ 278:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED6;
+ 279:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CFGL;
+ 280:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CFGH;
+ 281:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SGR;
+ 282:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED7;
+ 283:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DSR;
+ 284:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED8;
+ 285:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } GPDMA_CH_t;
+ 286:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 287:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 288:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA device structure <br>
+ 289:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 290:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The structure represents a collection of all hardware registers used
+ 291:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * to configure the GPDMA peripheral on the XMC4000 series of microcontrollers.
+ 292:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The registers can be accessed with ::XMC_DMA0 and ::XMC_DMA1.
+ 293:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 294:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef struct {
+ 295:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   GPDMA_CH_t CH[8];
+ 296:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 297:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  RAWCHEV[10];
+ 298:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  STATUSCHEV[10];
+ 299:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  MASKCHEV[10];
+ 300:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __O  uint32_t  CLEARCHEV[10];
+ 301:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  STATUSGLEV;
+ 302:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED20;
+ 303:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  REQSRCREG;
+ 304:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED21;
+ 305:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  REQDSTREG;
+ 306:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED22;
+ 307:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SGLREQSRCREG;
+ 308:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED23;
+ 309:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  SGLREQDSTREG;
+ 310:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED24;
+ 311:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  LSTSRCREG;
+ 312:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED25;
+ 313:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  LSTDSTREG;
+ 314:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED26;
+ 315:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  DMACFGREG;
+ 316:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED27;
+ 317:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __IO uint32_t  CHENREG;
+ 318:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED28;
+ 319:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  ID;
+ 320:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  RESERVED29[19];
+ 321:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  TYPE;
+ 322:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   __I  uint32_t  VERSION;
+ 323:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_t;
+ 324:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 325:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /* Anonymous structure/union guard start */
+ 326:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (__CC_ARM)
+ 327:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma push
+ 328:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma anon_unions
+ 329:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #elif defined (__TASKING__)
+ 330:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma warning 586
+ 331:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #endif
+ 332:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 333:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 334:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel linked list item.
+ 335:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Note: Needs to be word aligned
+ 336:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 337:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef struct XMC_DMA_LLI
+ 338:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 339:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t src_addr;                            /**< Source address */
+ 340:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t dst_addr;                            /**< Destination address */
+ 341:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   struct XMC_DMA_LLI *llp;                      /**< Linked list pointer of type XMC_DMA_LLI_t */
+ 342:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   union
+ 343:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   {
+ 344:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     struct
+ 345:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     {
+ 346:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_interrupt: 1;             /**< Enable interrupts? */
+ 347:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_transfer_width: 3;           /**< Destination transfer width */
+ 348:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_transfer_width: 3;           /**< Source transfer width */
+ 349:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_address_count_mode: 2;       /**< Destination address count mode */
+ 350:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_address_count_mode: 2;       /**< Source address count mode */
+ 351:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_burst_length: 3;             /**< Destination burst length */
+ 352:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_burst_length: 3;             /**< Source burst length */
+ 353:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_src_gather: 1;            /**< Enable source gather? */
+ 354:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_dst_scatter: 1;           /**< Enable destination scatter? */
+ 355:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 1;                             /**< Reserved bits */
+ 356:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t transfer_flow: 3;                /**< DMA transfer flow */
+ 357:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 4;                             /**< Reserved bits */
+ 358:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_dst_linked_list: 1;       /**< Enable destination linked list? */
+ 359:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_src_linked_list: 1;       /**< Enable source linked list? */
+ 360:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 3;                             /**< Reserved bits */
+ 361:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     };
+ 362:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     uint32_t control;
+ 363:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   };
+ 364:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t block_size;                          /**< Transfer block size */
+ 365:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t src_status;                          /**< Source status */
+ 366:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t dst_status;                          /**< Destination status */
+ 367:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_LLI_t;
+ 368:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 369:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef XMC_DMA_LLI_t **XMC_DMA_LIST_t;         /**< Type definition for a linked list pointer */
+ 370:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 371:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 372:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel configuration structure
+ 373:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 374:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef struct XMC_DMA_CH_CONFIG
+ 375:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 376:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   union
+ 377:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   {
+ 378:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     uint32_t control;
+ 379:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     struct
+ 380:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     {
+ 381:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_interrupt: 1;             /**< Enable interrupts? */
+ 382:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_transfer_width: 3;           /**< Destination transfer width */
+ 383:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_transfer_width: 3;           /**< Source transfer width */
+ 384:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_address_count_mode: 2;       /**< Destination address count mode */
+ 385:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_address_count_mode: 2;       /**< Source address count mode */
+ 386:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_burst_length: 3;             /**< Destination burst length */
+ 387:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_burst_length: 3;             /**< Source burst length */
+ 388:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_src_gather: 1;            /**< Enable source gather? */
+ 389:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t enable_dst_scatter: 1;           /**< Enable destination scatter? */
+ 390:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 1;                             
+ 391:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t transfer_flow: 3;                /**< DMA transfer flow */
+ 392:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t : 9;                             
+ 393:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     };
+ 394:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   };
+ 395:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 396:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t src_addr;                            /**< Source address */
+ 397:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint32_t dst_addr;                            /**< Destination address */
+ 398:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_LLI_t *linked_list_pointer;           /**< Linked list pointer */
+ 399:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   
+ 400:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   union
+ 401:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   {
+ 402:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     uint32_t src_gather_control;
+ 403:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     struct
+ 404:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     {
+ 405:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_gather_interval: 20;         /**< Source gather interval */
+ 406:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t src_gather_count: 12;            /**< Source gather count */
+ 407:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     };
+ 408:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   };
+ 409:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 410:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   union
+ 411:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   {
+ 412:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     uint32_t dst_scatter_control;
+ 413:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     struct
+ 414:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     {
+ 415:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_scatter_interval: 20;        /**< Destination scatter interval */
+ 416:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****       uint32_t dst_scatter_count: 12;           /**< Destination scatter count */
+ 417:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****     };
+ 418:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   };
+ 419:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   
+ 420:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint16_t block_size;                          /**< Block size for DMA controlled transfers [1-204
+ 421:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_TRANSFER_TYPE_t transfer_type;     /**< DMA transfer type */
+ 422:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_PRIORITY_t priority;               /**< DMA channel priority */
+ 423:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_SRC_HANDSHAKING_t src_handshaking; /**< DMA source handshaking interface */
+ 424:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint8_t src_peripheral_request;               /**< Source peripheral request */
+ 425:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   XMC_DMA_CH_DST_HANDSHAKING_t dst_handshaking; /**< DMA destination handshaking interface */
+ 426:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   uint8_t dst_peripheral_request;               /**< Destination peripheral request */
+ 427:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** } XMC_DMA_CH_CONFIG_t;
+ 428:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 429:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /* Anonymous structure/union guard end */
+ 430:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #if defined (__CC_ARM)
+ 431:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma pop
+ 432:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #elif defined (__TASKING__)
+ 433:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   #pragma warning restore
+ 434:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #endif
+ 435:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 436:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 437:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA channel event handler
+ 438:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 439:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** typedef void (*XMC_DMA_CH_EVENT_HANDLER_t)(XMC_DMA_CH_EVENT_t event);
+ 440:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 441:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /*******************************************************************************
+ 442:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * API PROTOTYPES
+ 443:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *******************************************************************************/
+ 444:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 445:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #ifdef __cplusplus
+ 446:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** extern "C" {
+ 447:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** #endif
+ 448:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 449:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 450:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 451:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return None
+ 452:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 453:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 454:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Initialize the GPDMA peripheral <br>
+ 455:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 456:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 457:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The function initializes a prioritized list of DMA channels and enables the GPDMA
+ 458:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * peripheral.
+ 459:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 460:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** void XMC_DMA_Init(XMC_DMA_t *const dma);
+ 461:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 462:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 463:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 464:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return None
+ 465:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 466:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 467:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Enable the GPDMA peripheral <br>
+ 468:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 469:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 470:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The function de-asserts the GPDMA peripheral reset. In addition, it un-gates the
+ 471:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * GPDMA0 peripheral clock for all XMC4000 series of microcontrollers with an exception
+ 472:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * of the XMC4500 microcontroller. The XMC4500 doesn't support gating.
+ 473:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 474:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** void XMC_DMA_Enable(XMC_DMA_t *const dma);
+ 475:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 476:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 477:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 478:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return None
+ 479:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 480:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 481:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Disable the GPDMA peripheral <br>
+ 482:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 483:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 484:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The function asserts the GPDMA peripheral reset. In addition, it gates the GPDMA0
+ 485:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * peripheral clock for all XMC4000 series of microcontrollers with an exception of
+ 486:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * the XMC4500 microcontroller. The XMC4500 doesn't support gating.
+ 487:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 488:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** void XMC_DMA_Disable(XMC_DMA_t *const dma);
+ 489:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 490:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 491:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 492:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return bool
+ 493:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 494:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 495:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Check if the GPDMA peripheral is enabled <br>
+ 496:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 497:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 498:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * For the XMC4500 microcontroller, the function checks if the GPDMA module is asserted
+ 499:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * and returns "false" if it is. In addition, it also checks if the clock is gated
+ 500:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * for the other XMC4000 series of microcontrollers. It returns "true" if the peripheral
+ 501:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * is enabled.
+ 502:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 503:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** bool XMC_DMA_IsEnabled(const XMC_DMA_t *const dma);
+ 504:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 505:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 506:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 507:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA event status
+ 508:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 509:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 510:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Get DMA event status <br>
+ 511:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 512:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 513:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns the collective (global) status of GPDMA events. The following
+ 514:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * lists the various DMA events and their corresponding enumeration. The return value
+ 515:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * of this function may then be masked with any one of the following enumerations to
+ 516:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * obtain the status of individual DMA events. <br>
+ 517:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 518:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 519:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Transfer complete -> ::XMC_DMA_CH_EVENT_TRANSFER_COMPLETE                       <br>
+ 520:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Block transfer complete -> ::XMC_DMA_CH_EVENT_BLOCK_TRANSFER_COMPLETE           <br>
+ 521:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Source transaction complete -> ::XMC_DMA_CH_EVENT_SRC_TRANSACTION_COMPLETE      <br>
+ 522:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Destination transaction complete -> ::XMC_DMA_CH_EVENT_DST_TRANSACTION_COMPLETE <br>
+ 523:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * DMA error event -> ::XMC_DMA_CH_EVENT_ERROR                                     <br>
+ 524:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 525:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetEventStatus(XMC_DMA_t *const dma)
+ 526:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
   27              	 .loc 1 526 0
   28              	 .cfi_startproc
   29              	 
@@ -565,11 +565,11 @@
   40              	.LCFI2:
   41              	 .cfi_def_cfa_register 7
   42 0006 7860     	 str r0,[r7,#4]
- 527:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSGLEV);
+ 527:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSGLEV);
   43              	 .loc 1 527 0
   44 0008 7B68     	 ldr r3,[r7,#4]
   45 000a D3F86033 	 ldr r3,[r3,#864]
- 528:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** }
+ 528:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** }
   46              	 .loc 1 528 0
   47 000e 1846     	 mov r0,r3
   48 0010 0C37     	 adds r7,r7,#12
@@ -592,19 +592,19 @@
   66              	 .thumb_func
   68              	XMC_DMA_GetChannelsTransferCompleteStatus:
   69              	.LFB129:
- 529:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 530:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 531:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 532:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA transfer complete status
- 533:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 534:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 535:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Get transfer complete status <br>
- 536:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 537:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 538:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns GPDMA transfer complete interrupt status. <br>
- 539:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 540:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsTransferCompleteStatus(XMC_DMA_t *const dma)
- 541:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 529:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 530:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 531:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 532:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA transfer complete status
+ 533:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 534:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 535:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Get transfer complete status <br>
+ 536:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 537:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 538:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns GPDMA transfer complete interrupt status. <br>
+ 539:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 540:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsTransferCompleteStatus(XMC_DMA_t *const dma)
+ 541:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
   70              	 .loc 1 541 0
   71              	 .cfi_startproc
   72              	 
@@ -621,11 +621,11 @@
   83              	.LCFI8:
   84              	 .cfi_def_cfa_register 7
   85 0006 7860     	 str r0,[r7,#4]
- 542:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[0]);
+ 542:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[0]);
   86              	 .loc 1 542 0
   87 0008 7B68     	 ldr r3,[r7,#4]
   88 000a D3F8E832 	 ldr r3,[r3,#744]
- 543:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** }
+ 543:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** }
   89              	 .loc 1 543 0
   90 000e 1846     	 mov r0,r3
   91 0010 0C37     	 adds r7,r7,#12
@@ -648,19 +648,19 @@
  109              	 .thumb_func
  111              	XMC_DMA_GetChannelsBlockCompleteStatus:
  112              	.LFB130:
- 544:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 545:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 546:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 547:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA block complete status
- 548:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 549:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 550:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Get block transfer complete status <br>
- 551:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 552:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 553:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns GPDMA block transfer complete interrupt status. <br>
- 554:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 555:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsBlockCompleteStatus(XMC_DMA_t *const dma)
- 556:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 544:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 545:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 546:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 547:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA block complete status
+ 548:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 549:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 550:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Get block transfer complete status <br>
+ 551:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 552:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 553:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns GPDMA block transfer complete interrupt status. <br>
+ 554:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 555:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsBlockCompleteStatus(XMC_DMA_t *const dma)
+ 556:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
  113              	 .loc 1 556 0
  114              	 .cfi_startproc
  115              	 
@@ -677,11 +677,11 @@
  126              	.LCFI14:
  127              	 .cfi_def_cfa_register 7
  128 0006 7860     	 str r0,[r7,#4]
- 557:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[2]);
+ 557:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[2]);
  129              	 .loc 1 557 0
  130 0008 7B68     	 ldr r3,[r7,#4]
  131 000a D3F8F032 	 ldr r3,[r3,#752]
- 558:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** }
+ 558:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** }
  132              	 .loc 1 558 0
  133 000e 1846     	 mov r0,r3
  134 0010 0C37     	 adds r7,r7,#12
@@ -704,23 +704,23 @@
  152              	 .thumb_func
  154              	XMC_DMA_GetChannelsSourceTransactionCompleteStatus:
  155              	.LFB131:
- 559:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 560:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 561:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 562:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA event status
- 563:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 564:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 565:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Get source transaction complete status <br>
- 566:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 567:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 568:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns the source transaction complete interrupt status. <br>
- 569:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 570:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Note: </b><br>
- 571:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * If the source peripheral is memory, the source transaction complete interrupt is
- 572:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * ignored.
- 573:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 574:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsSourceTransactionCompleteStatus(XMC_DMA_t *const dma)
- 575:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 559:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 560:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 561:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 562:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA event status
+ 563:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 564:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 565:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Get source transaction complete status <br>
+ 566:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 567:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 568:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns the source transaction complete interrupt status. <br>
+ 569:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 570:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Note: </b><br>
+ 571:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * If the source peripheral is memory, the source transaction complete interrupt is
+ 572:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * ignored.
+ 573:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 574:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsSourceTransactionCompleteStatus(XMC_DMA_t *const dma)
+ 575:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
  156              	 .loc 1 575 0
  157              	 .cfi_startproc
  158              	 
@@ -737,11 +737,11 @@
  169              	.LCFI20:
  170              	 .cfi_def_cfa_register 7
  171 0006 7860     	 str r0,[r7,#4]
- 576:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[4]);
+ 576:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[4]);
  172              	 .loc 1 576 0
  173 0008 7B68     	 ldr r3,[r7,#4]
  174 000a D3F8F832 	 ldr r3,[r3,#760]
- 577:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** }
+ 577:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** }
  175              	 .loc 1 577 0
  176 000e 1846     	 mov r0,r3
  177 0010 0C37     	 adds r7,r7,#12
@@ -764,23 +764,23 @@
  195              	 .thumb_func
  197              	XMC_DMA_GetChannelsDestinationTransactionCompleteStatus:
  198              	.LFB132:
- 578:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 579:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 580:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 581:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA event status
- 582:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 583:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 584:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Get destination transaction complete status <br>
- 585:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 586:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 587:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns the destination transaction complete interrupt status <br>
- 588:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 589:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Note: </b><br>
- 590:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * If the destination peripheral is memory, the destination transaction complete
- 591:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * interrupt is ignored.
- 592:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 593:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsDestinationTransactionCompleteStatus(XMC_DMA_t *const d
- 594:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 578:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 579:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 580:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 581:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA event status
+ 582:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 583:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 584:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Get destination transaction complete status <br>
+ 585:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 586:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 587:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns the destination transaction complete interrupt status <br>
+ 588:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 589:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Note: </b><br>
+ 590:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * If the destination peripheral is memory, the destination transaction complete
+ 591:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * interrupt is ignored.
+ 592:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 593:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsDestinationTransactionCompleteStatus(XMC_DMA_t *const d
+ 594:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
  199              	 .loc 1 594 0
  200              	 .cfi_startproc
  201              	 
@@ -797,11 +797,11 @@
  212              	.LCFI26:
  213              	 .cfi_def_cfa_register 7
  214 0006 7860     	 str r0,[r7,#4]
- 595:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[6]);
+ 595:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[6]);
  215              	 .loc 1 595 0
  216 0008 7B68     	 ldr r3,[r7,#4]
  217 000a D3F80033 	 ldr r3,[r3,#768]
- 596:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** }
+ 596:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** }
  218              	 .loc 1 596 0
  219 000e 1846     	 mov r0,r3
  220 0010 0C37     	 adds r7,r7,#12
@@ -824,19 +824,19 @@
  238              	 .thumb_func
  240              	XMC_DMA_GetChannelsErrorStatus:
  241              	.LFB133:
- 597:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** 
- 598:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** /**
- 599:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
- 600:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA error event status
- 601:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 602:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
- 603:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * Get DMA error event status <br>
- 604:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  *
- 605:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
- 606:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns error interrupt status. <br>
- 607:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****  */
- 608:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsErrorStatus(XMC_DMA_t *const dma)
- 609:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** {
+ 597:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** 
+ 598:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** /**
+ 599:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @param dma A constant pointer to XMC_DMA_t, pointing to the GPDMA base address
+ 600:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * @return uint32_t DMA error event status
+ 601:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 602:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par<b>Description: </b><br>
+ 603:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * Get DMA error event status <br>
+ 604:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  *
+ 605:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * \par
+ 606:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  * The function returns error interrupt status. <br>
+ 607:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****  */
+ 608:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** __STATIC_INLINE uint32_t XMC_DMA_GetChannelsErrorStatus(XMC_DMA_t *const dma)
+ 609:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** {
  242              	 .loc 1 609 0
  243              	 .cfi_startproc
  244              	 
@@ -853,11 +853,11 @@
  255              	.LCFI32:
  256              	 .cfi_def_cfa_register 7
  257 0006 7860     	 str r0,[r7,#4]
- 610:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[8]);
+ 610:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h ****   return (dma->STATUSCHEV[8]);
  258              	 .loc 1 610 0
  259 0008 7B68     	 ldr r3,[r7,#4]
  260 000a D3F80833 	 ldr r3,[r3,#776]
- 611:C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc\xmc_dma.h **** }
+ 611:C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc\xmc_dma.h **** }
  261              	 .loc 1 611 0
  262 000e 1846     	 mov r0,r3
  263 0010 0C37     	 adds r7,r7,#12
@@ -4793,10 +4793,10 @@
  3449              	.Letext0:
  3450              	 .file 3 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  3451              	 .file 4 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 3452              	 .file 5 "C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
- 3453              	 .file 6 "C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/XMCLib/inc/xmc4_scu.h"
- 3454              	 .file 7 "C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/CMSIS/Include/core_cm4.h"
- 3455              	 .file 8 "C:/Users/wdmer/Downloads/jme_DAQ_Final/jme_DAQ_Integrated_XMC4700-F144x2048_0/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+ 3452              	 .file 5 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
+ 3453              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_scu.h"
+ 3454              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+ 3455              	 .file 8 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 xmc_dma.c
     {standard input}:20     .text.XMC_DMA_GetEventStatus:00000000 $t

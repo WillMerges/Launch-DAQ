@@ -69,7 +69,7 @@ const INTERRUPT_t INTERRUPT_TC =
 #if(UC_SERIES == XMC14)
  .irqctrl = (XMC_SCU_IRQCTRL_t)0U,
 #endif
-  .node = (IRQn_Type)59,
+  .node = (IRQn_Type)56,
   .priority = 61,  
 #if(UC_FAMILY == XMC4)  
   .subpriority = 0,
@@ -83,7 +83,7 @@ const INTERRUPT_t INTERRUPT_TIMESTAMP =
 #if(UC_SERIES == XMC14)
  .irqctrl = (XMC_SCU_IRQCTRL_t)0U,
 #endif
-  .node = (IRQn_Type)56,
+  .node = (IRQn_Type)57,
   .priority = 63,  
 #if(UC_FAMILY == XMC4)  
   .subpriority = 0,
@@ -97,12 +97,12 @@ const INTERRUPT_t INTERRUPT_ETH =
 #if(UC_SERIES == XMC14)
  .irqctrl = (XMC_SCU_IRQCTRL_t)0U,
 #endif
-  .node = (IRQn_Type)57,
+  .node = (IRQn_Type)64,
   .priority = 62,  
 #if(UC_FAMILY == XMC4)  
   .subpriority = 0,
 #endif  
 
-  .enable_at_init = false
-
+/* sr_irq signal is not connected to any peripheral */
+  .enable_at_init = false 
 };

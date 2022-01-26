@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Project MotherSystem_Version="" Name="jme_DAQ_Integrated_XMC4700-F144x2048_0" Path="C:\Users\wdmer\Downloads\jme_DAQ_Final\jme_DAQ_Integrated_XMC4700-F144x2048_0">
+<Project MotherSystem_Version="" Name="jme_DAQ_Integrated_XMC4700-F144x2048_0" Path="C:\Users\Will\Documents\GitHub\Launch-DAQ">
     <COMPILER>
         <Name>ARM_GCC_HOME</Name>
         <Version/>
@@ -349,6 +349,16 @@
             <Source_File>
                 <File_Name>xmc_eth_phy_ksz8081rnl.c</File_Name>
                 <Path>\Dave\Generated\ETH_LWIP\xmc_eth_phy_ksz8081rnl.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>e_eeprom_xmc4.c</File_Name>
+                <Path>\Dave\Generated\E_EEPROM_XMC4\e_eeprom_xmc4.c</Path>
+                <Type>C File</Type>
+            </Source_File>
+            <Source_File>
+                <File_Name>e_eeprom_xmc4_conf.c</File_Name>
+                <Path>\Dave\Generated\E_EEPROM_XMC4\e_eeprom_xmc4_conf.c</Path>
                 <Type>C File</Type>
             </Source_File>
             <Source_File>
@@ -811,6 +821,21 @@
             <Header_File>
                 <File_Name>ethernetif.h</File_Name>
                 <Path>\Dave\Generated\ETH_LWIP\lwip\port\netif\ethernetif.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>e_eeprom_xmc4.h</File_Name>
+                <Path>\Dave\Generated\E_EEPROM_XMC4\e_eeprom_xmc4.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>e_eeprom_xmc4_conf.h</File_Name>
+                <Path>\Dave\Generated\E_EEPROM_XMC4\e_eeprom_xmc4_conf.h</Path>
+                <Type>H File</Type>
+            </Header_File>
+            <Header_File>
+                <File_Name>e_eeprom_xmc4_extern.h</File_Name>
+                <Path>\Dave\Generated\E_EEPROM_XMC4\e_eeprom_xmc4_extern.h</Path>
                 <Type>H File</Type>
             </Header_File>
             <Header_File>

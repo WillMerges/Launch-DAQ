@@ -56,11 +56,11 @@
  * MACROS
  **********************************************************************************************************************/
 	
-#define TCIRQ IRQ_Hdlr_59
+#define TCIRQ IRQ_Hdlr_56
 		
-#define TimeStampIRQ IRQ_Hdlr_56
+#define TimeStampIRQ IRQ_Hdlr_57
 		
-#define ETHIRQ IRQ_Hdlr_57
+#define ETHIRQ IRQ_Hdlr_64
 		
 /***********************************************************************************************************************
  * EXTERN DECLARATIONS

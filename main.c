@@ -51,8 +51,8 @@ uint8_t configArray[56] = {0x00}; // Note: overwritten by each ADC, so put a bre
 
 // Networking
 #define MAX_IP_CHARS 17 // 4 3-character numbers + 4 dots + 1 null
-// if we want to edit DST_IP, we need to put it in UNCACHED flash memory, data section by default goes in cached memory (so next time address is accessed, can't write to it)
-__attribute__((section(".ram_code"))) static char DST_IP[MAX_IP_CHARS] = "10.10.10.75"; // NOTE: this has to be an array, not a pointer! since we write to the data section (not the text section)
+#define DST_IP_EEPROM_OFFSET 0
+static char DST_IP[MAX_IP_CHARS] = "10.10.10.75"; // NOTE: this has to be an array, not a pointer! this is the default address
 #define SRC_PORT 8080
 #define ADC0_PORT 8080
 #define ADC1_PORT 8081
@@ -64,16 +64,22 @@ ip_addr_t dst_ip;
 struct netif* netif;
 
 
-// DANGER this function modifies the "read-only" part of flash where initial values for global data is stored
-// this is probably a bad idea, but means that changes to the DST_IP can be persistent
-// ints from the linker
-extern int __data_load;
-extern int __ram_code_load;
-extern int __ram_code_start;
-extern int __data_start;
+int set_dst_ip(const char* addr) {
+	if(addr == NULL) {
+		if(!E_EEPROM_XMC4_IsFlashEmpty()) {
+			// if there's data in flash, copy it to DST_IP
+			E_EEPROM_XMC4_ReadArray(0, (unsigned char*)DST_IP, MAX_IP_CHARS);
+		}
 
-// TODO flash is readonly :( (data section was in uncached anyways), basically just use void XMC_FLASH_ProgramPage(uint32_t *address, const uint32_t *data); and write a whole page from the data section back out
-uint8_t set_new_dst_ip(const char* addr) {
+		// set our address based on what's in DST_IP
+		if(!ipaddr_aton(DST_IP, &dst_ip)) {
+			// invalid addr
+			return -1;
+		}
+	}
+
+	// otherwise we need to write the address to flash AND update our local copy
+
 	size_t len = strlen(addr) + 1;
 
 	if(len > MAX_IP_CHARS) {
@@ -86,22 +92,20 @@ uint8_t set_new_dst_ip(const char* addr) {
 		return -1;
 	}
 
-	// at this point we've updated our local copy of dst_ip
-	// we want to go into the data section and change it for the next time we boot
-	// this is dangerous! if we write incorrectly we overwrite other variables/the text section :(
+	// save the new address locally
+	memcpy(DST_IP, addr, len);
 
-	// grab the offset the dst_ip var is in the data section
-	size_t offset = (unsigned char*)&DST_IP - (unsigned char*)&__ram_code_start;
-
-	// copy our new value in to the data section
-	// NOTE: this is the sketchy bit
-	unsigned char* data = (unsigned char*)&__ram_code_load + offset;
-	for(size_t i = 0; i < len; i++) {
-		data[i] = ((unsigned char*)addr)[i];
-		DST_IP[i] = addr[i];
+	// write the new address out to flash
+	if(E_EEPROM_XMC4_WriteArray(DST_IP_EEPROM_OFFSET, (unsigned char*)DST_IP, MAX_IP_CHARS)) {
+		if(E_EEPROM_XMC4_STATUS_OK == E_EEPROM_XMC4_UpdateFlashContents()) {
+			return 1;
+		} else {
+			return -1;
+		}
+	} else {
+		return -1;
 	}
 
-	// if all went well we didn't overwrite anything, but who the hell knows
 	return 1;
 }
 
@@ -110,8 +114,8 @@ void local_udp_init() {
 	// our IP is set in the ETH DAVE app, we just want to bind to a port to send from
 	udp_bind(pcb, IP_ADDR_ANY, SRC_PORT);
 
-	// we don't check this for errors rn since it should never fail
-	ipaddr_aton(DST_IP, &dst_ip);
+	// NOTE: not checking for errors currently
+	set_dst_ip(NULL);
 
 	// allocate buffer at least the size of the largest packet we'll send
 	if(sizeof(ADC_data_t) + sizeof(header_t) > sizeof(thermocouple_packet_t)) {
@@ -158,8 +162,6 @@ int main(void) {
 
 	// Initialize UDP interface
 	local_udp_init();
-
-	set_new_dst_ip("10.10.10.69");
 
 	//Initialize ADCs
 	//Unlock / Config

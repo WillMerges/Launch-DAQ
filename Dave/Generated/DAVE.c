@@ -118,13 +118,13 @@ DAVE_STATUS_t DAVE_Init(void)
    } 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
-	 /**  Initialization of TIMER APP instance TIMER_ETH */
-	 init_status = (DAVE_STATUS_t)TIMER_Init(&TIMER_ETH); 
+	 /**  Initialization of INTERRUPT APP instance INTERRUPT_ETH */
+	 init_status = (DAVE_STATUS_t)INTERRUPT_Init(&INTERRUPT_ETH); 
    } 
   if (init_status == DAVE_STATUS_SUCCESS)
   {
-	 /**  Initialization of INTERRUPT APP instance INTERRUPT_ETH */
-	 init_status = (DAVE_STATUS_t)INTERRUPT_Init(&INTERRUPT_ETH); 
+	 /**  Initialization of E_EEPROM_XMC4 APP instance E_EEPROM_XMC4_0 */
+	 init_status = (DAVE_STATUS_t)E_EEPROM_XMC4_Init(&E_EEPROM_XMC4_0); 
    }  
   return init_status;
 } /**  End of function DAVE_Init */

@@ -69,9 +69,6 @@ extern TIMER_t TIMER_TC;
 /* Extern declaration of EVENT_DET APP handler */
 extern TIMER_t TIMER_TIMESTAMP;
 
-/* Extern declaration of EVENT_DET APP handler */
-extern TIMER_t TIMER_ETH;
-
 #endif /* TIMER_EXTERN_H */
 
 

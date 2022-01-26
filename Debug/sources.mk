@@ -33,6 +33,7 @@ Dave/Generated/ETH_LWIP/lwip/netif/ppp \
 Dave/Generated/ETH_LWIP/lwip/port/include/arch \
 Dave/Generated/ETH_LWIP/lwip/port/netif \
 Dave/Generated/ETH_LWIP/lwip/port \
+Dave/Generated/E_EEPROM_XMC4 \
 Dave/Generated/GLOBAL_CCU4 \
 Dave/Generated/GLOBAL_DMA \
 Dave/Generated/INTERRUPT \

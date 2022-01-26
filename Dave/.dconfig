@@ -89,6 +89,7 @@
             <BindMap MUri="devicepackage/0/58" Proxy="app/DIGITAL_IO/0/__pin_hwres_port_pin"/>
             <BindMap MUri="peripheral/cpu/0/nvic/interrupt/56" Proxy="app/INTERRUPT/0/hwres_nvicnode"/>
             <BindMap MUri="peripheral/dlr/0/ch/2" Proxy="app/SPI_MASTER/1/hwres_dlr_channel_rx"/>
+            <BindMap MUri="peripheral/fce/0/kernel/0" Proxy="app/E_EEPROM_XMC4/0/hwres_fce_slice"/>
             <BindMap MUri="peripheral/dlr/0/ch/11" Proxy="app/SPI_MASTER/0/hwres_dlr_channel_tx"/>
             <BindMap MUri="peripheral/dma4/0/ch/3" Proxy="app/SPI_MASTER/0/hwres_dma_channel_tx"/>
             <BindMap MUri="port/p/3/pad/1" Proxy="app/PIN_INTERRUPT/0/hwres_port_pin"/>
