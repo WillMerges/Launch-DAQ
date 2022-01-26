@@ -50,7 +50,9 @@ uint8_t read_adc1 = 0;	// Flag for ADC1 Read -- Interrupt
 uint8_t configArray[56] = {0x00}; // Note: overwritten by each ADC, so put a breakpoint after each ADC config if you want to read the data for an individal ADC
 
 // Networking
-#define DST_IP "10.10.10.75"
+#define MAX_IP_CHARS 17 // 4 3-character numbers + 4 dots + 1 null
+// if we want to edit DST_IP, we need to put it in UNCACHED flash memory, data section by default goes in cached memory (so next time address is accessed, can't write to it)
+__attribute__((section(".ram_code"))) static char DST_IP[MAX_IP_CHARS] = "10.10.10.75"; // NOTE: this has to be an array, not a pointer! since we write to the data section (not the text section)
 #define SRC_PORT 8080
 #define ADC0_PORT 8080
 #define ADC1_PORT 8081
@@ -60,6 +62,48 @@ struct udp_pcb* pcb;
 struct pbuf* p;
 ip_addr_t dst_ip;
 struct netif* netif;
+
+
+// DANGER this function modifies the "read-only" part of flash where initial values for global data is stored
+// this is probably a bad idea, but means that changes to the DST_IP can be persistent
+// ints from the linker
+extern int __data_load;
+extern int __ram_code_load;
+extern int __ram_code_start;
+extern int __data_start;
+
+// TODO flash is readonly :( (data section was in uncached anyways), basically just use void XMC_FLASH_ProgramPage(uint32_t *address, const uint32_t *data); and write a whole page from the data section back out
+uint8_t set_new_dst_ip(const char* addr) {
+	size_t len = strlen(addr) + 1;
+
+	if(len > MAX_IP_CHARS) {
+		// invalid addr
+		return -1;
+	}
+
+	if(!ipaddr_aton(addr, &dst_ip)) {
+		// invalid addr
+		return -1;
+	}
+
+	// at this point we've updated our local copy of dst_ip
+	// we want to go into the data section and change it for the next time we boot
+	// this is dangerous! if we write incorrectly we overwrite other variables/the text section :(
+
+	// grab the offset the dst_ip var is in the data section
+	size_t offset = (unsigned char*)&DST_IP - (unsigned char*)&__ram_code_start;
+
+	// copy our new value in to the data section
+	// NOTE: this is the sketchy bit
+	unsigned char* data = (unsigned char*)&__ram_code_load + offset;
+	for(size_t i = 0; i < len; i++) {
+		data[i] = ((unsigned char*)addr)[i];
+		DST_IP[i] = addr[i];
+	}
+
+	// if all went well we didn't overwrite anything, but who the hell knows
+	return 1;
+}
 
 void local_udp_init() {
 	pcb = udp_new();
@@ -87,6 +131,9 @@ void send_data(void* data, uint16_t size, uint16_t port) {
 	udp_sendto_if(pcb, p, &dst_ip, port, netif);
 }
 
+void adc_register_config();
+void xmc_ADC_setup();
+
 /*
 * @brief main() - Application entry point
 *
@@ -111,6 +158,8 @@ int main(void) {
 
 	// Initialize UDP interface
 	local_udp_init();
+
+	set_new_dst_ip("10.10.10.69");
 
 	//Initialize ADCs
 	//Unlock / Config
@@ -247,7 +296,7 @@ int main(void) {
 
 // FUNCIONS ///////////////////////////////////////////////////////////////////////////////////////
 
-void adc_register_config(){
+void adc_register_config() {
 	// Register Configurations
 		uint8_t unlock[3] = {0x06, 0x55, 0x0}; 				// Unlocks ADC
 		uint8_t null[18] = {0x00};							// Sends null for reads
