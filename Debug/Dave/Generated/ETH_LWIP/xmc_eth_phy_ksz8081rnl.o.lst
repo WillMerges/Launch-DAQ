@@ -21,7 +21,7 @@
   21              	 .thumb
   22              	 .thumb_func
   24              	XMC_ETH_PHY_IsDeviceIdValid:
-  25              	.LFB198:
+  25              	.LFB182:
   26              	 .file 1 "../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c"
    1:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** /**
    2:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c ****  * @file xmc_eth_phy_ksz8081ml.c
@@ -241,14 +241,14 @@
  103              	 
  104 0066 80BD     	 pop {r7,pc}
  105              	 .cfi_endproc
- 106              	.LFE198:
+ 106              	.LFE182:
  108              	 .section .text.XMC_ETH_PHY_Init,"ax",%progbits
  109              	 .align 2
  110              	 .global XMC_ETH_PHY_Init
  111              	 .thumb
  112              	 .thumb_func
  114              	XMC_ETH_PHY_Init:
- 115              	.LFB199:
+ 115              	.LFB183:
  137:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** 
  138:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** /* PHY initialize */
  139:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** int32_t XMC_ETH_PHY_Init(XMC_ETH_MAC_t *const eth_mac, uint8_t phy_addr, const XMC_ETH_PHY_CONFIG_t
@@ -396,14 +396,14 @@
  218              	 
  219 0094 80BD     	 pop {r7,pc}
  220              	 .cfi_endproc
- 221              	.LFE199:
+ 221              	.LFE183:
  223 0096 00BF     	 .section .text.XMC_ETH_PHY_Reset,"ax",%progbits
  224              	 .align 2
  225              	 .global XMC_ETH_PHY_Reset
  226              	 .thumb
  227              	 .thumb_func
  229              	XMC_ETH_PHY_Reset:
- 230              	.LFB200:
+ 230              	.LFB184:
  179:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** 
  180:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** /* Reset */
  181:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** int32_t XMC_ETH_PHY_Reset(XMC_ETH_MAC_t *const eth_mac, uint8_t phy_addr)
@@ -485,14 +485,14 @@
  289              	 
  290 004c 80BD     	 pop {r7,pc}
  291              	 .cfi_endproc
- 292              	.LFE200:
+ 292              	.LFE184:
  294 004e 00BF     	 .section .text.XMC_ETH_PHY_PowerDown,"ax",%progbits
  295              	 .align 2
  296              	 .global XMC_ETH_PHY_PowerDown
  297              	 .thumb
  298              	 .thumb_func
  300              	XMC_ETH_PHY_PowerDown:
- 301              	.LFB201:
+ 301              	.LFB185:
  199:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** 
  200:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** /* Initiate power down */
  201:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** int32_t XMC_ETH_PHY_PowerDown(XMC_ETH_MAC_t *const eth_mac, uint8_t phy_addr)
@@ -567,14 +567,14 @@
  358              	 
  359 004a 80BD     	 pop {r7,pc}
  360              	 .cfi_endproc
- 361              	.LFE201:
+ 361              	.LFE185:
  363              	 .section .text.XMC_ETH_PHY_ExitPowerDown,"ax",%progbits
  364              	 .align 2
  365              	 .global XMC_ETH_PHY_ExitPowerDown
  366              	 .thumb
  367              	 .thumb_func
  369              	XMC_ETH_PHY_ExitPowerDown:
- 370              	.LFB202:
+ 370              	.LFB186:
  214:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** 
  215:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** /* Exit power down */
  216:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** int32_t XMC_ETH_PHY_ExitPowerDown(XMC_ETH_MAC_t *const eth_mac, uint8_t phy_addr)
@@ -649,14 +649,14 @@
  427              	 
  428 004a 80BD     	 pop {r7,pc}
  429              	 .cfi_endproc
- 430              	.LFE202:
+ 430              	.LFE186:
  432              	 .section .text.XMC_ETH_PHY_GetLinkStatus,"ax",%progbits
  433              	 .align 2
  434              	 .global XMC_ETH_PHY_GetLinkStatus
  435              	 .thumb
  436              	 .thumb_func
  438              	XMC_ETH_PHY_GetLinkStatus:
- 439              	.LFB203:
+ 439              	.LFB187:
  229:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** 
  230:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** /* Get link status */
  231:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** XMC_ETH_LINK_STATUS_t XMC_ETH_PHY_GetLinkStatus(XMC_ETH_MAC_t *const eth_mac, uint8_t phy_addr)
@@ -715,14 +715,14 @@
  485              	 
  486 0032 80BD     	 pop {r7,pc}
  487              	 .cfi_endproc
- 488              	.LFE203:
+ 488              	.LFE187:
  490              	 .section .text.XMC_ETH_PHY_GetLinkSpeed,"ax",%progbits
  491              	 .align 2
  492              	 .global XMC_ETH_PHY_GetLinkSpeed
  493              	 .thumb
  494              	 .thumb_func
  496              	XMC_ETH_PHY_GetLinkSpeed:
- 497              	.LFB204:
+ 497              	.LFB188:
  239:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** 
  240:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** /* Get link speed */
  241:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** XMC_ETH_LINK_SPEED_t XMC_ETH_PHY_GetLinkSpeed(XMC_ETH_MAC_t *const eth_mac, uint8_t phy_addr)
@@ -781,14 +781,14 @@
  543              	 
  544 0034 80BD     	 pop {r7,pc}
  545              	 .cfi_endproc
- 546              	.LFE204:
+ 546              	.LFE188:
  548 0036 00BF     	 .section .text.XMC_ETH_PHY_GetLinkDuplex,"ax",%progbits
  549              	 .align 2
  550              	 .global XMC_ETH_PHY_GetLinkDuplex
  551              	 .thumb
  552              	 .thumb_func
  554              	XMC_ETH_PHY_GetLinkDuplex:
- 555              	.LFB205:
+ 555              	.LFB189:
  249:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** 
  250:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** /* Get link duplex settings */
  251:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** XMC_ETH_LINK_DUPLEX_t XMC_ETH_PHY_GetLinkDuplex(XMC_ETH_MAC_t *const eth_mac, uint8_t phy_addr)
@@ -847,14 +847,14 @@
  601              	 
  602 0034 80BD     	 pop {r7,pc}
  603              	 .cfi_endproc
- 604              	.LFE205:
+ 604              	.LFE189:
  606 0036 00BF     	 .section .text.XMC_ETH_PHY_IsAutonegotiationCompleted,"ax",%progbits
  607              	 .align 2
  608              	 .global XMC_ETH_PHY_IsAutonegotiationCompleted
  609              	 .thumb
  610              	 .thumb_func
  612              	XMC_ETH_PHY_IsAutonegotiationCompleted:
- 613              	.LFB206:
+ 613              	.LFB190:
  259:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** 
  260:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** bool XMC_ETH_PHY_IsAutonegotiationCompleted(XMC_ETH_MAC_t *const eth_mac, uint8_t phy_addr)
  261:../Dave/Generated/ETH_LWIP/xmc_eth_phy_ksz8081rnl.c **** {
@@ -907,7 +907,7 @@
  655              	 
  656 0032 80BD     	 pop {r7,pc}
  657              	 .cfi_endproc
- 658              	.LFE206:
+ 658              	.LFE190:
  660              	 .text
  661              	.Letext0:
  662              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
@@ -915,8 +915,7 @@
  664              	 .file 4 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
  665              	 .file 5 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eth_mac.h"
  666              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eth_phy.h"
- 667              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/cmsis_gcc.h"
- 668              	 .file 8 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+ 667              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 xmc_eth_phy_ksz8081rnl.c
     {standard input}:20     .text.XMC_ETH_PHY_IsDeviceIdValid:00000000 $t

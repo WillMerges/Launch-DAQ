@@ -22,7 +22,7 @@
   22              	 .thumb
   23              	 .thumb_func
   25              	DAVE_Init:
-  26              	.LFB521:
+  26              	.LFB446:
   27              	 .file 1 "../Dave/Generated/DAVE.c"
    1:../Dave/Generated/DAVE.c **** 
    2:../Dave/Generated/DAVE.c **** /**
@@ -110,7 +110,7 @@
   66:../Dave/Generated/DAVE.c ****      /** @Initialization of APPs Init Functions */
   67:../Dave/Generated/DAVE.c ****      init_status = (DAVE_STATUS_t)CLOCK_XMC4_Init(&CLOCK_XMC4_0);
   46              	 .loc 1 67 0
-  47 000a 3948     	 ldr r0,.L16
+  47 000a 3548     	 ldr r0,.L15
   48 000c FFF7FEFF 	 bl CLOCK_XMC4_Init
   49 0010 0346     	 mov r3,r0
   50 0012 FB71     	 strb r3,[r7,#7]
@@ -124,7 +124,7 @@
   71:../Dave/Generated/DAVE.c **** 	 /**  Initialization of ETH_LWIP APP instance ETH_LWIP_0 */
   72:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)ETH_LWIP_Init(&ETH_LWIP_0); 
   55              	 .loc 1 72 0
-  56 001a 3648     	 ldr r0,.L16+4
+  56 001a 3248     	 ldr r0,.L15+4
   57 001c FFF7FEFF 	 bl ETH_LWIP_Init
   58 0020 0346     	 mov r3,r0
   59 0022 FB71     	 strb r3,[r7,#7]
@@ -139,7 +139,7 @@
   76:../Dave/Generated/DAVE.c **** 	 /**  Initialization of DIGITAL_IO APP instance LED_INDICATOR */
   77:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)DIGITAL_IO_Init(&LED_INDICATOR); 
   65              	 .loc 1 77 0
-  66 002a 3348     	 ldr r0,.L16+8
+  66 002a 2F48     	 ldr r0,.L15+8
   67 002c FFF7FEFF 	 bl DIGITAL_IO_Init
   68 0030 0346     	 mov r3,r0
   69 0032 FB71     	 strb r3,[r7,#7]
@@ -154,7 +154,7 @@
   81:../Dave/Generated/DAVE.c **** 	 /**  Initialization of SPI_MASTER APP instance SPI_MASTER_ADC */
   82:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)SPI_MASTER_Init(&SPI_MASTER_ADC); 
   75              	 .loc 1 82 0
-  76 003a 3048     	 ldr r0,.L16+12
+  76 003a 2C48     	 ldr r0,.L15+12
   77 003c FFF7FEFF 	 bl SPI_MASTER_Init
   78 0040 0346     	 mov r3,r0
   79 0042 FB71     	 strb r3,[r7,#7]
@@ -169,7 +169,7 @@
   86:../Dave/Generated/DAVE.c **** 	 /**  Initialization of TIMER APP instance TIMER_TC */
   87:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)TIMER_Init(&TIMER_TC); 
   85              	 .loc 1 87 0
-  86 004a 2D48     	 ldr r0,.L16+16
+  86 004a 2948     	 ldr r0,.L15+16
   87 004c FFF7FEFF 	 bl TIMER_Init
   88 0050 0346     	 mov r3,r0
   89 0052 FB71     	 strb r3,[r7,#7]
@@ -184,7 +184,7 @@
   91:../Dave/Generated/DAVE.c **** 	 /**  Initialization of TIMER APP instance TIMER_TIMESTAMP */
   92:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)TIMER_Init(&TIMER_TIMESTAMP); 
   95              	 .loc 1 92 0
-  96 005a 2A48     	 ldr r0,.L16+20
+  96 005a 2648     	 ldr r0,.L15+20
   97 005c FFF7FEFF 	 bl TIMER_Init
   98 0060 0346     	 mov r3,r0
   99 0062 FB71     	 strb r3,[r7,#7]
@@ -199,7 +199,7 @@
   96:../Dave/Generated/DAVE.c **** 	 /**  Initialization of PIN_INTERRUPT APP instance PIN_INTERRUPT_ADC0 */
   97:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)PIN_INTERRUPT_Init(&PIN_INTERRUPT_ADC0); 
  105              	 .loc 1 97 0
- 106 006a 2748     	 ldr r0,.L16+24
+ 106 006a 2348     	 ldr r0,.L15+24
  107 006c FFF7FEFF 	 bl PIN_INTERRUPT_Init
  108 0070 0346     	 mov r3,r0
  109 0072 FB71     	 strb r3,[r7,#7]
@@ -214,7 +214,7 @@
  101:../Dave/Generated/DAVE.c **** 	 /**  Initialization of PIN_INTERRUPT APP instance PIN_INTERRUPT_ADC1 */
  102:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)PIN_INTERRUPT_Init(&PIN_INTERRUPT_ADC1); 
  115              	 .loc 1 102 0
- 116 007a 2448     	 ldr r0,.L16+28
+ 116 007a 2048     	 ldr r0,.L15+28
  117 007c FFF7FEFF 	 bl PIN_INTERRUPT_Init
  118 0080 0346     	 mov r3,r0
  119 0082 FB71     	 strb r3,[r7,#7]
@@ -229,7 +229,7 @@
  106:../Dave/Generated/DAVE.c **** 	 /**  Initialization of INTERRUPT APP instance INTERRUPT_TC */
  107:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)INTERRUPT_Init(&INTERRUPT_TC); 
  125              	 .loc 1 107 0
- 126 008a 2148     	 ldr r0,.L16+32
+ 126 008a 1D48     	 ldr r0,.L15+32
  127 008c FFF7FEFF 	 bl INTERRUPT_Init
  128 0090 0346     	 mov r3,r0
  129 0092 FB71     	 strb r3,[r7,#7]
@@ -244,7 +244,7 @@
  111:../Dave/Generated/DAVE.c **** 	 /**  Initialization of INTERRUPT APP instance INTERRUPT_TIMESTAMP */
  112:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)INTERRUPT_Init(&INTERRUPT_TIMESTAMP); 
  135              	 .loc 1 112 0
- 136 009a 1E48     	 ldr r0,.L16+36
+ 136 009a 1A48     	 ldr r0,.L15+36
  137 009c FFF7FEFF 	 bl INTERRUPT_Init
  138 00a0 0346     	 mov r3,r0
  139 00a2 FB71     	 strb r3,[r7,#7]
@@ -259,7 +259,7 @@
  116:../Dave/Generated/DAVE.c **** 	 /**  Initialization of SPI_MASTER APP instance SPI_MASTER_TC */
  117:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)SPI_MASTER_Init(&SPI_MASTER_TC); 
  145              	 .loc 1 117 0
- 146 00aa 1B48     	 ldr r0,.L16+40
+ 146 00aa 1748     	 ldr r0,.L15+40
  147 00ac FFF7FEFF 	 bl SPI_MASTER_Init
  148 00b0 0346     	 mov r3,r0
  149 00b2 FB71     	 strb r3,[r7,#7]
@@ -274,7 +274,7 @@
  121:../Dave/Generated/DAVE.c **** 	 /**  Initialization of INTERRUPT APP instance INTERRUPT_ETH */
  122:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)INTERRUPT_Init(&INTERRUPT_ETH); 
  155              	 .loc 1 122 0
- 156 00ba 1848     	 ldr r0,.L16+44
+ 156 00ba 1448     	 ldr r0,.L15+44
  157 00bc FFF7FEFF 	 bl INTERRUPT_Init
  158 00c0 0346     	 mov r3,r0
  159 00c2 FB71     	 strb r3,[r7,#7]
@@ -289,109 +289,89 @@
  126:../Dave/Generated/DAVE.c **** 	 /**  Initialization of E_EEPROM_XMC4 APP instance E_EEPROM_XMC4_0 */
  127:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)E_EEPROM_XMC4_Init(&E_EEPROM_XMC4_0); 
  165              	 .loc 1 127 0
- 166 00ca 1548     	 ldr r0,.L16+48
+ 166 00ca 1148     	 ldr r0,.L15+48
  167 00cc FFF7FEFF 	 bl E_EEPROM_XMC4_Init
  168 00d0 0346     	 mov r3,r0
  169 00d2 FB71     	 strb r3,[r7,#7]
  170              	.L13:
- 128:../Dave/Generated/DAVE.c ****    } 
- 129:../Dave/Generated/DAVE.c ****   if (init_status == DAVE_STATUS_SUCCESS)
+ 128:../Dave/Generated/DAVE.c ****    }  
+ 129:../Dave/Generated/DAVE.c ****   return init_status;
  171              	 .loc 1 129 0
  172 00d4 FB79     	 ldrb r3,[r7,#7]
- 173 00d6 002B     	 cmp r3,#0
- 174 00d8 04D1     	 bne .L14
- 130:../Dave/Generated/DAVE.c ****   {
- 131:../Dave/Generated/DAVE.c **** 	 /**  Initialization of UART APP instance UART_0 */
- 132:../Dave/Generated/DAVE.c **** 	 init_status = (DAVE_STATUS_t)UART_Init(&UART_0); 
- 175              	 .loc 1 132 0
- 176 00da 1248     	 ldr r0,.L16+52
- 177 00dc FFF7FEFF 	 bl UART_Init
- 178 00e0 0346     	 mov r3,r0
- 179 00e2 FB71     	 strb r3,[r7,#7]
- 180              	.L14:
- 133:../Dave/Generated/DAVE.c ****    }  
- 134:../Dave/Generated/DAVE.c ****   return init_status;
- 181              	 .loc 1 134 0
- 182 00e4 FB79     	 ldrb r3,[r7,#7]
- 135:../Dave/Generated/DAVE.c **** } /**  End of function DAVE_Init */
- 183              	 .loc 1 135 0
- 184 00e6 1846     	 mov r0,r3
- 185 00e8 0837     	 adds r7,r7,#8
- 186              	.LCFI3:
- 187              	 .cfi_def_cfa_offset 8
- 188 00ea BD46     	 mov sp,r7
- 189              	.LCFI4:
- 190              	 .cfi_def_cfa_register 13
- 191              	 
- 192 00ec 80BD     	 pop {r7,pc}
- 193              	.L17:
- 194 00ee 00BF     	 .align 2
- 195              	.L16:
- 196 00f0 00000000 	 .word CLOCK_XMC4_0
- 197 00f4 00000000 	 .word ETH_LWIP_0
- 198 00f8 00000000 	 .word LED_INDICATOR
- 199 00fc 00000000 	 .word SPI_MASTER_ADC
- 200 0100 00000000 	 .word TIMER_TC
- 201 0104 00000000 	 .word TIMER_TIMESTAMP
- 202 0108 00000000 	 .word PIN_INTERRUPT_ADC0
- 203 010c 00000000 	 .word PIN_INTERRUPT_ADC1
- 204 0110 00000000 	 .word INTERRUPT_TC
- 205 0114 00000000 	 .word INTERRUPT_TIMESTAMP
- 206 0118 00000000 	 .word SPI_MASTER_TC
- 207 011c 00000000 	 .word INTERRUPT_ETH
- 208 0120 00000000 	 .word E_EEPROM_XMC4_0
- 209 0124 00000000 	 .word UART_0
- 210              	 .cfi_endproc
- 211              	.LFE521:
- 213              	 .text
- 214              	.Letext0:
- 215              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 216              	 .file 3 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 217              	 .file 4 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
- 218              	 .file 5 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_scu.h"
- 219              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_gpio.h"
- 220              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_gpio.h"
- 221              	 .file 8 "../Dave/Generated/CLOCK_XMC4/clock_xmc4.h"
- 222              	 .file 9 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/../../port/include/arch/cc.h"
- 223              	 .file 10 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/err.h"
- 224              	 .file 11 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eth_mac.h"
- 225              	 .file 12 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/pbuf.h"
- 226              	 .file 13 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/../ipv4/lwip/ip_addr.h"
- 227              	 .file 14 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/netif.h"
- 228              	 .file 15 "../Dave/Generated/ETH_LWIP/eth_lwip.h"
- 229              	 .file 16 "../Dave/Generated/DIGITAL_IO/digital_io.h"
- 230              	 .file 17 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_dma.h"
- 231              	 .file 18 "../Dave/Generated/GLOBAL_DMA/global_dma.h"
- 232              	 .file 19 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_usic.h"
- 233              	 .file 20 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_spi.h"
- 234              	 .file 21 "../Dave/Generated/SPI_MASTER/spi_master.h"
- 235              	 .file 22 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_ccu4.h"
- 236              	 .file 23 "../Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
- 237              	 .file 24 "../Dave/Generated/TIMER/timer.h"
- 238              	 .file 25 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eru.h"
- 239              	 .file 26 "../Dave/Generated/PIN_INTERRUPT/pin_interrupt.h"
- 240              	 .file 27 "../Dave/Generated/INTERRUPT/interrupt.h"
- 241              	 .file 28 "../Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4.h"
- 242              	 .file 29 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_uart.h"
- 243              	 .file 30 "../Dave/Generated/UART/uart.h"
- 244              	 .file 31 "../Dave/Generated/DAVE.h"
- 245              	 .file 32 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/cmsis_gcc.h"
- 246              	 .file 33 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
- 247              	 .file 34 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
- 248              	 .file 35 "../Dave/Generated/CLOCK_XMC4/clock_xmc4_extern.h"
- 249              	 .file 36 "../Dave/Generated/ETH_LWIP/eth_lwip_extern.h"
- 250              	 .file 37 "../Dave/Generated/DIGITAL_IO/digital_io_extern.h"
- 251              	 .file 38 "../Dave/Generated/SPI_MASTER/spi_master_extern.h"
- 252              	 .file 39 "../Dave/Generated/TIMER/timer_extern.h"
- 253              	 .file 40 "../Dave/Generated/PIN_INTERRUPT/pin_interrupt_extern.h"
- 254              	 .file 41 "../Dave/Generated/INTERRUPT/interrupt_extern.h"
- 255              	 .file 42 "../Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4_extern.h"
- 256              	 .file 43 "../Dave/Generated/UART/uart_extern.h"
+ 130:../Dave/Generated/DAVE.c **** } /**  End of function DAVE_Init */
+ 173              	 .loc 1 130 0
+ 174 00d6 1846     	 mov r0,r3
+ 175 00d8 0837     	 adds r7,r7,#8
+ 176              	.LCFI3:
+ 177              	 .cfi_def_cfa_offset 8
+ 178 00da BD46     	 mov sp,r7
+ 179              	.LCFI4:
+ 180              	 .cfi_def_cfa_register 13
+ 181              	 
+ 182 00dc 80BD     	 pop {r7,pc}
+ 183              	.L16:
+ 184 00de 00BF     	 .align 2
+ 185              	.L15:
+ 186 00e0 00000000 	 .word CLOCK_XMC4_0
+ 187 00e4 00000000 	 .word ETH_LWIP_0
+ 188 00e8 00000000 	 .word LED_INDICATOR
+ 189 00ec 00000000 	 .word SPI_MASTER_ADC
+ 190 00f0 00000000 	 .word TIMER_TC
+ 191 00f4 00000000 	 .word TIMER_TIMESTAMP
+ 192 00f8 00000000 	 .word PIN_INTERRUPT_ADC0
+ 193 00fc 00000000 	 .word PIN_INTERRUPT_ADC1
+ 194 0100 00000000 	 .word INTERRUPT_TC
+ 195 0104 00000000 	 .word INTERRUPT_TIMESTAMP
+ 196 0108 00000000 	 .word SPI_MASTER_TC
+ 197 010c 00000000 	 .word INTERRUPT_ETH
+ 198 0110 00000000 	 .word E_EEPROM_XMC4_0
+ 199              	 .cfi_endproc
+ 200              	.LFE446:
+ 202              	 .text
+ 203              	.Letext0:
+ 204              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 205              	 .file 3 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 206              	 .file 4 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
+ 207              	 .file 5 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_scu.h"
+ 208              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_gpio.h"
+ 209              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 210              	 .file 8 "../Dave/Generated/CLOCK_XMC4/clock_xmc4.h"
+ 211              	 .file 9 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/../../port/include/arch/cc.h"
+ 212              	 .file 10 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/err.h"
+ 213              	 .file 11 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eth_mac.h"
+ 214              	 .file 12 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/pbuf.h"
+ 215              	 .file 13 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/../ipv4/lwip/ip_addr.h"
+ 216              	 .file 14 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/netif.h"
+ 217              	 .file 15 "../Dave/Generated/ETH_LWIP/eth_lwip.h"
+ 218              	 .file 16 "../Dave/Generated/DIGITAL_IO/digital_io.h"
+ 219              	 .file 17 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_dma.h"
+ 220              	 .file 18 "../Dave/Generated/GLOBAL_DMA/global_dma.h"
+ 221              	 .file 19 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_usic.h"
+ 222              	 .file 20 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_spi.h"
+ 223              	 .file 21 "../Dave/Generated/SPI_MASTER/spi_master.h"
+ 224              	 .file 22 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_ccu4.h"
+ 225              	 .file 23 "../Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
+ 226              	 .file 24 "../Dave/Generated/TIMER/timer.h"
+ 227              	 .file 25 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eru.h"
+ 228              	 .file 26 "../Dave/Generated/PIN_INTERRUPT/pin_interrupt.h"
+ 229              	 .file 27 "../Dave/Generated/INTERRUPT/interrupt.h"
+ 230              	 .file 28 "../Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4.h"
+ 231              	 .file 29 "../Dave/Generated/DAVE.h"
+ 232              	 .file 30 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+ 233              	 .file 31 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+ 234              	 .file 32 "../Dave/Generated/CLOCK_XMC4/clock_xmc4_extern.h"
+ 235              	 .file 33 "../Dave/Generated/ETH_LWIP/eth_lwip_extern.h"
+ 236              	 .file 34 "../Dave/Generated/DIGITAL_IO/digital_io_extern.h"
+ 237              	 .file 35 "../Dave/Generated/SPI_MASTER/spi_master_extern.h"
+ 238              	 .file 36 "../Dave/Generated/TIMER/timer_extern.h"
+ 239              	 .file 37 "../Dave/Generated/PIN_INTERRUPT/pin_interrupt_extern.h"
+ 240              	 .file 38 "../Dave/Generated/INTERRUPT/interrupt_extern.h"
+ 241              	 .file 39 "../Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4_extern.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 DAVE.c
     {standard input}:20     .text.DAVE_Init:00000000 $t
     {standard input}:25     .text.DAVE_Init:00000000 DAVE_Init
-    {standard input}:196    .text.DAVE_Init:000000f0 $d
+    {standard input}:186    .text.DAVE_Init:000000e0 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
@@ -403,7 +383,6 @@ TIMER_Init
 PIN_INTERRUPT_Init
 INTERRUPT_Init
 E_EEPROM_XMC4_Init
-UART_Init
 CLOCK_XMC4_0
 ETH_LWIP_0
 LED_INDICATOR
@@ -417,4 +396,3 @@ INTERRUPT_TIMESTAMP
 SPI_MASTER_TC
 INTERRUPT_ETH
 E_EEPROM_XMC4_0
-UART_0

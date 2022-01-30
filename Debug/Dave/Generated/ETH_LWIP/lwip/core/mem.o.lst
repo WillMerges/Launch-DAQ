@@ -34,7 +34,7 @@
   40              	 .thumb
   41              	 .thumb_func
   43              	plug_holes:
-  44              	.LFB133:
+  44              	.LFB128:
   45              	 .file 1 "../Dave/Generated/ETH_LWIP/lwip/core/mem.c"
    1:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** /**
    2:../Dave/Generated/ETH_LWIP/lwip/core/mem.c ****  * @file
@@ -438,14 +438,14 @@
  177 00b4 00000000 	 .word ram_end
  178 00b8 00000000 	 .word lfree
  179              	 .cfi_endproc
- 180              	.LFE133:
+ 180              	.LFE128:
  182              	 .section .text.mem_init,"ax",%progbits
  183              	 .align 2
  184              	 .global mem_init
  185              	 .thumb
  186              	 .thumb_func
  188              	mem_init:
- 189              	.LFB134:
+ 189              	.LFB129:
  269:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** 
  270:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** /**
  271:../Dave/Generated/ETH_LWIP/lwip/core/mem.c ****  * Zero the heap and initialize start, end and lowest-free
@@ -565,14 +565,14 @@
  272 0070 00000000 	 .word ram_end
  273 0074 00000000 	 .word lfree
  274              	 .cfi_endproc
- 275              	.LFE134:
+ 275              	.LFE129:
  277              	 .section .text.mem_free,"ax",%progbits
  278              	 .align 2
  279              	 .global mem_free
  280              	 .thumb
  281              	 .thumb_func
  283              	mem_free:
- 284              	.LFB135:
+ 284              	.LFB130:
  303:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** 
  304:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** /**
  305:../Dave/Generated/ETH_LWIP/lwip/core/mem.c ****  * Put a struct mem back on the heap
@@ -705,14 +705,14 @@
  360 0054 00000000 	 .word ram_end
  361 0058 00000000 	 .word lfree
  362              	 .cfi_endproc
- 363              	.LFE135:
+ 363              	.LFE130:
  365              	 .section .text.mem_trim,"ax",%progbits
  366              	 .align 2
  367              	 .global mem_trim
  368              	 .thumb
  369              	 .thumb_func
  371              	mem_trim:
- 372              	.LFB136:
+ 372              	.LFB131:
  357:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** 
  358:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** /**
  359:../Dave/Generated/ETH_LWIP/lwip/core/mem.c ****  * Shrink memory returned by mem_malloc().
@@ -1095,14 +1095,14 @@
  626 016c 00000000 	 .word ram_end
  627 0170 00000000 	 .word lfree
  628              	 .cfi_endproc
- 629              	.LFE136:
+ 629              	.LFE131:
  631              	 .section .text.mem_malloc,"ax",%progbits
  632              	 .align 2
  633              	 .global mem_malloc
  634              	 .thumb
  635              	 .thumb_func
  637              	mem_malloc:
- 638              	.LFB137:
+ 638              	.LFB132:
  483:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** 
  484:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** /**
  485:../Dave/Generated/ETH_LWIP/lwip/core/mem.c ****  * Adam's mem_malloc() plus solution for bug #17922
@@ -1486,14 +1486,14 @@
  863 0140 00000000 	 .word ram
  864 0144 00000000 	 .word ram_end
  865              	 .cfi_endproc
- 866              	.LFE137:
+ 866              	.LFE132:
  868              	 .section .text.mem_calloc,"ax",%progbits
  869              	 .align 2
  870              	 .global mem_calloc
  871              	 .thumb
  872              	 .thumb_func
  874              	mem_calloc:
- 875              	.LFB138:
+ 875              	.LFB133:
  634:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** 
  635:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** #endif /* MEM_USE_POOLS */
  636:../Dave/Generated/ETH_LWIP/lwip/core/mem.c **** /**
@@ -1572,15 +1572,14 @@
  927              	 
  928 0042 80BD     	 pop {r7,pc}
  929              	 .cfi_endproc
- 930              	.LFE138:
+ 930              	.LFE133:
  932              	 .text
  933              	.Letext0:
  934              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  935              	 .file 3 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
  936              	 .file 4 "../Dave/Generated/ETH_LWIP/lwip/core/../include/lwip/../../port/include/arch/cc.h"
  937              	 .file 5 "../Dave/Generated/ETH_LWIP/lwip/core/../include/lwip/mem.h"
- 938              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/cmsis_gcc.h"
- 939              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+ 938              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 mem.c
                             *COM*:00000654 ram_heap

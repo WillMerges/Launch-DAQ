@@ -271,7 +271,6 @@
     <enumValues xsi:type="ResourceModel:RegEnumValue" value="#10" description="HW1 control path can override the software configuration."/>
   </provided>
   <provided xsi:type="ResourceModel:ResourceGroup" name="P1.9 / #113" URI="http://resources/48.0.0/port/p/1/pad/9">
-    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/UART/v4_1_14/UART_0.app#//@hwResources.2"/>
     <resourcesList name="hwsel_hw" requiredResourceUri="http://resources/48.0.0/port/p/1/hwsel/hw9"/>
     <resourcesList name="in_p" requiredResourceUri="http://resources/48.0.0/port/p/1/in/p9"/>
     <resourcesList name="iocr_oe" requiredResourceUri="http://resources/48.0.0/port/p/1/iocr8/pc9_4"/>

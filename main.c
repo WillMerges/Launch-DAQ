@@ -186,7 +186,7 @@ const char* okay_msg = 	"okay\n";
 static inline void send_err_msg() {
 	// send error message
 	for(size_t i = 0; i < strlen(err_msg); i++) {
-		XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)err_msg[i]);
+//		XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)err_msg[i]);
 	}
 }
 
@@ -197,7 +197,7 @@ void parse_command() {
 	if(strcmp(str, "help") == 0) {
 		// help option
 		for(size_t i = 0; i < strlen(help_msg); i++) {
-			XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)help_msg[i]);
+//			XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)help_msg[i]);
 		}
 
 		return;
@@ -258,7 +258,7 @@ void parse_command() {
 	}
 
 	for(size_t i = 0; i < strlen(okay_msg); i++) {
-		XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)okay_msg[i]);
+//		XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)okay_msg[i]);
 	}
 
 	local_udp_reset();
@@ -407,7 +407,8 @@ int main(void) {
 
 	// Called when UART receives data
 	void UART_Recv_Callback() {
-		uint8_t read = (uint8_t)XMC_UART_CH_GetReceivedData(UART_0.channel);
+//		uint8_t read = (uint8_t)XMC_UART_CH_GetReceivedData(UART_0.channel);
+		uint8_t read = 0;
 
 		if(read == '\n') {
 			// end of command

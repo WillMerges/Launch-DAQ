@@ -35,9 +35,8 @@
   35              	 .file 8 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/../ipv4/lwip/ip_addr.h"
   36              	 .file 9 "../Dave/Generated/ETH_LWIP/lwip/include/lwip/netif.h"
   37              	 .file 10 "../Dave/Generated/ETH_LWIP/eth_lwip.h"
-  38              	 .file 11 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/cmsis_gcc.h"
-  39              	 .file 12 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
-  40              	 .file 13 "../Dave/Generated/ETH_LWIP/eth_lwip_conf.c"
+  38              	 .file 11 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+  39              	 .file 12 "../Dave/Generated/ETH_LWIP/eth_lwip_conf.c"
 DEFINED SYMBOLS
                             *ABS*:00000000 eth_lwip_conf.c
     {standard input}:24     .bss.ETH_LWIP_0:00000000 ETH_LWIP_0

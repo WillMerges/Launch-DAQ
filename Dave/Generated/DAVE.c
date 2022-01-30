@@ -125,11 +125,6 @@ DAVE_STATUS_t DAVE_Init(void)
   {
 	 /**  Initialization of E_EEPROM_XMC4 APP instance E_EEPROM_XMC4_0 */
 	 init_status = (DAVE_STATUS_t)E_EEPROM_XMC4_Init(&E_EEPROM_XMC4_0); 
-   } 
-  if (init_status == DAVE_STATUS_SUCCESS)
-  {
-	 /**  Initialization of UART APP instance UART_0 */
-	 init_status = (DAVE_STATUS_t)UART_Init(&UART_0); 
    }  
   return init_status;
 } /**  End of function DAVE_Init */

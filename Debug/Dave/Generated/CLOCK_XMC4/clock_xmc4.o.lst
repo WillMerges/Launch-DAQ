@@ -22,7 +22,7 @@
   22              	 .thumb
   23              	 .thumb_func
   25              	CLOCK_XMC4_GetAppVersion:
-  26              	.LFB181:
+  26              	.LFB172:
   27              	 .file 1 "../Dave/Generated/CLOCK_XMC4/clock_xmc4.c"
    1:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c **** /**
    2:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c ****  * @file clock_xmc4.c
@@ -170,14 +170,14 @@
   80              	 .cfi_def_cfa_offset 0
   81 0040 7047     	 bx lr
   82              	 .cfi_endproc
-  83              	.LFE181:
+  83              	.LFE172:
   85 0042 00BF     	 .section .text.CLOCK_XMC4_Init,"ax",%progbits
   86              	 .align 2
   87              	 .global CLOCK_XMC4_Init
   88              	 .thumb
   89              	 .thumb_func
   91              	CLOCK_XMC4_Init:
-  92              	.LFB182:
+  92              	.LFB173:
   92:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c **** 
   93:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c **** /*
   94:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c ****  * API to initialize the CLOCK_XMC4 APP TRAP events
@@ -232,14 +232,14 @@
  130              	 .cfi_def_cfa_offset 0
  131 001e 7047     	 bx lr
  132              	 .cfi_endproc
- 133              	.LFE182:
+ 133              	.LFE173:
  135              	 .section .text.OSCHP_GetFrequency,"ax",%progbits
  136              	 .align 2
  137              	 .global OSCHP_GetFrequency
  138              	 .thumb
  139              	 .thumb_func
  141              	OSCHP_GetFrequency:
- 142              	.LFB183:
+ 142              	.LFB174:
  106:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c **** 
  107:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c **** #ifdef CLOCK_XMC4_OSCHP_ENABLED
  108:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c **** /*  API to retrieve high precision external oscillator frequency */
@@ -277,14 +277,14 @@
  170              	.L7:
  171 0010 001BB700 	 .word 12000000
  172              	 .cfi_endproc
- 173              	.LFE183:
+ 173              	.LFE174:
  175              	 .section .text.CLOCK_XMC4_StepSystemPllFrequency,"ax",%progbits
  176              	 .align 2
  177              	 .global CLOCK_XMC4_StepSystemPllFrequency
  178              	 .thumb
  179              	 .thumb_func
  181              	CLOCK_XMC4_StepSystemPllFrequency:
- 182              	.LFB184:
+ 182              	.LFB175:
  113:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c **** #endif
  114:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c **** 
  115:../Dave/Generated/CLOCK_XMC4/clock_xmc4.c **** /*  API for ramping down the system PLL clock frequency */
@@ -322,16 +322,15 @@
  209              	 
  210 0012 80BD     	 pop {r7,pc}
  211              	 .cfi_endproc
- 212              	.LFE184:
+ 212              	.LFE175:
  214              	 .text
  215              	.Letext0:
  216              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  217              	 .file 3 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
  218              	 .file 4 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/DAVE_Common.h"
  219              	 .file 5 "../Dave/Generated/CLOCK_XMC4/clock_xmc4.h"
- 220              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/cmsis_gcc.h"
- 221              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
- 222              	 .file 8 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+ 220              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+ 221              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 clock_xmc4.c
     {standard input}:20     .text.CLOCK_XMC4_GetAppVersion:00000000 $t
