@@ -114,6 +114,10 @@ typedef struct {
 } tftp_data_t;
 
 uint16_t curr_block = 0;
+uint16_t ack_num = 0;
+uint8_t tftp_send = 0;
+ip_addr_t last_addr;
+uint16_t last_port;
 
 const char* help_msg = "write requests are files made up of zero or more commands\n" \
 					   "each command must be newline terminated\n" \
@@ -129,6 +133,10 @@ const char* help_msg = "write requests are files made up of zero or more command
 						"    udp.adc0=[destination port for ADC0 packets]\n" \
 						"    udp.adc1=[destination port for ADC1 packets]\n" \
 						"    udp.tc=[destination port for thermocouple packets]\n";
+
+int write_flash_config();
+void local_udp_reset();
+void tftp_err(const char* msg, ip_addr_t* addr, uint16_t port);
 
 // parse the commands in the TFTP buffer
 // returns 1 on success, 0 on failure
@@ -161,6 +169,8 @@ uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 			for(size_t i = 0; i < strlen(str); i++) {
 				if(str[i] == '=') {
 					val = &str[i + 1];
+					str[i] = '\0';
+					break;
 				}
 			}
 
@@ -223,8 +233,15 @@ uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 	}
 
 	if(ret) {
+		// update network interface w/ new addresses
 		local_udp_reset();
-		load_flash_config();
+
+		if(write_flash_config() < 0) {
+			// failed to save config, still set though
+
+			tftp_err("failed to save configuration to flash", addr, port);
+			ret = 0;
+		}
 	}
 
 	return ret;
@@ -254,8 +271,20 @@ void tftp_send_data(const char* str, ip_addr_t* addr, uint16_t port) {
 
 			udp_sendto_if(tftp_pcb, tftp_p, addr, port, netif);
 
-			block_num++;
+			// wait for the ACK to come in or timeout
+			uint32_t start = millisec;
+			while(ack_num != block_num - 1) {
+				if(millisec - start > 2000) {
+					// 2s elapsed
+					// don't resend, just wait for another request
+					tftp_err("timed out waiting for acknowledgment", addr, port);
+					return;
+				}
+			};
+
+			ack_num = 0;
 			len -= 512;
+			str = &str[512];
 		} else if(len == 0) {
 			// special case where we send just the header
 			tftp_p->len = tftp_p->tot_len = sizeof(tftp_data_t);
@@ -379,6 +408,11 @@ void tftp_recv(void* arg, struct udp_pcb* pcb, struct pbuf* p, ip_addr_t* addr, 
 
 	if(opcode == TFTP_WRQ) {
 		if(curr_block == 0) {
+			if(tftp_send) {
+				tftp_err("server busy", addr, port);
+				return;
+			}
+
 			// we don't care what the filename is, always change our config info
 			// we just care that the data is in octet mode
 			if(!tftp_check_octet_mode((char*)p->payload, p->len, addr, port)) {
@@ -399,12 +433,17 @@ void tftp_recv(void* arg, struct udp_pcb* pcb, struct pbuf* p, ip_addr_t* addr, 
 			return;
 		}
 
+		if(tftp_send) {
+			tftp_err("server busy", addr, port);
+			return;
+		}
+
 		if(p->len - 4 > 512) {
 			tftp_err("too much data in one packet", addr, port);
 			return;
 		}
 
-		uint16_t block_num = ntohs(*((uint16_t*)p->payload + 2));
+		uint16_t block_num = ntohs(*((uint16_t*)(p->payload + 2)));
 
 		if(block_num != curr_block) {
 			tftp_err("unexpected block number", addr, port);
@@ -412,16 +451,18 @@ void tftp_recv(void* arg, struct udp_pcb* pcb, struct pbuf* p, ip_addr_t* addr, 
 		}
 
 		// copy the data into the buffer
-		if(tftp_buffer_index + p->len - 4 >= TFTP_BUFFER_SIZE) {
+		if(tftp_buff_index + p->len - 4 >= TFTP_BUFFER_SIZE) {
 			tftp_err("file too large", addr, port);
-			tftp_buffer_index = 0;
+			tftp_buff_index = 0;
 			curr_block = 0;
 
 			return;
 		}
 
 		uint8_t* data = (uint8_t*)(p->payload + 4);
-		memcpy(tftp_buffer + tftp_buffer_index, data, p->len - 4);
+		memcpy(tftp_buff + tftp_buff_index, data, p->len - 4);
+
+		tftp_buff_index += (p->len - 4);
 
 		// send the ACK
 		tftp_ack(curr_block, addr, port);
@@ -434,22 +475,30 @@ void tftp_recv(void* arg, struct udp_pcb* pcb, struct pbuf* p, ip_addr_t* addr, 
 			} // otherwise sent an error message
 
 			// mark the end of the transfer regardless
+			tftp_buff_index = 0;
 			curr_block = 0;
 		} else {
 			// otherwise we have more data to receive and expect the next block
 			curr_block++;
 		}
 	} else if(opcode == TFTP_RRQ) {
+		if(tftp_send) {
+			tftp_err("server busy", addr, port);
+			return;
+		}
+
 		// we don't care what the filename is as long as the mode is octet
 		if(!tftp_check_octet_mode((char*)p->payload, p->len, addr, port)) {
 			return;
 		}
 
-		// always just send out the help message
-		tftp_send_data(help_msg, addr, port);
+		last_addr = *addr;
+		last_port = port;
+
+		// we can't send immediately because we need to listen for ACKs
+		tftp_send = 1;
 	} else if(opcode == TFTP_ACK) {
-		// ignore ACKs, but don't error
-		return;
+		ack_num = ntohs(*(uint16_t*)(p->payload + 2));
 	} else {
 		tftp_err("unsupported opcode", addr, port);
 	}
@@ -458,12 +507,12 @@ void tftp_recv(void* arg, struct udp_pcb* pcb, struct pbuf* p, ip_addr_t* addr, 
 // initialize TFTP server
 // should only be called once
 void tftp_init() {
-	pcb = udp_new();
-	udp_bind(pcb, IP_ADDR_ANY, TFTP_PORT);
-	p = pbuf_alloc(PBUF_TRANSPORT, sizeof(tftp_data_t) + 512, PBUF_RAM);
+	tftp_pcb = udp_new();
+	udp_bind(tftp_pcb, IP_ADDR_ANY, TFTP_PORT);
+	tftp_p = pbuf_alloc(PBUF_TRANSPORT, sizeof(tftp_data_t) + 512, PBUF_RAM);
 
 	// set the TFTP callback for any packets we receive
-	udp_recv(pcb, &tftp_recv, NULL);
+	udp_recv(tftp_pcb, &tftp_recv, NULL);
 }
 
 // loads network configuration from persistent flash memory into 'flash' variable
@@ -498,16 +547,22 @@ int load_flash_config() {
 		flash.tc_port = DEF_TC_PORT;
 
 		// write out the default configuration to flash
-		if(E_EEPROM_XMC4_WriteArray(0x0, (unsigned char*)&flash, sizeof(flash))) {
-			if(E_EEPROM_XMC4_STATUS_OK != E_EEPROM_XMC4_UpdateFlashContents()) {
-				return -1;
-			}
-		} else {
-			return -1;
-		}
+		return write_flash_config();
 	} else {
 		// we have a previously set configuration to load
 		E_EEPROM_XMC4_ReadArray(0, (unsigned char*)&flash, sizeof(config_t));
+	}
+
+	return 1;
+}
+
+int write_flash_config() {
+	if(E_EEPROM_XMC4_WriteArray(0x0, (unsigned char*)&flash, sizeof(config_t))) {
+		if(E_EEPROM_XMC4_STATUS_OK != E_EEPROM_XMC4_UpdateFlashContents()) {
+			return -1;
+		}
+	} else {
+		return -1;
 	}
 
 	return 1;
@@ -550,81 +605,6 @@ void send_data(void* data, uint16_t size, uint16_t port) {
 	udp_sendto_if(pcb, p, &flash.dst_ip, port, netif);
 }
 
-// parse the current UART command
-void parse_command() {
-	char* str = (char*)uart_buff;
-
-	if(strcmp(str, "help") == 0) {
-		// help option
-		for(size_t i = 0; i < strlen(help_msg); i++) {
-//			XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)help_msg[i]);
-		}
-
-		return;
-	}
-
-	char* val = NULL;
-	for(size_t i = 0; i < strlen(str); i++) {
-		if(i == '=') {
-			str[i] = '\0';
-			val = &str[i + 1];
-		}
-	}
-
-	if(val == NULL) {
-//		send_err_msg();
-		return;
-	}
-
-	if(strcmp(str, "ip.src") == 0) {
-		ip_addr_t ip;
-		if(!ipaddr_aton(val, &ip)) {
-//			send_err_msg();
-		}
-
-		flash.src_ip = ip;
-	} else if(strcmp(str, "ip.dst") == 0) {
-		ip_addr_t ip;
-		if(!ipaddr_aton(val, &ip)) {
-//			send_err_msg();
-		}
-
-		flash.dst_ip = ip;
-	} else if(strcmp(str, "ip.gw") == 0) {
-		ip_addr_t ip;
-		if(!ipaddr_aton(val, &ip)) {
-//			send_err_msg();
-		}
-
-		flash.default_gw = ip;
-	} else if(strcmp(str, "ip.subnet") == 0) {
-		ip_addr_t ip;
-		if(!ipaddr_aton(val, &ip)) {
-//			send_err_msg();
-		}
-
-		flash.subnet = ip;
-	} else if(strcmp(str, "udp.src") == 0) {
-		flash.src_port = (uint16_t)atoi(val);
-	} else if(strcmp(str, "udp.adc0") == 0) {
-		flash.adc0_port = (uint16_t)atoi(val);
-	} else if(strcmp(str, "udp.adc1") == 0) {
-		flash.adc1_port = (uint16_t)atoi(val);
-	} else if(strcmp(str, "udp.tc") == 0) {
-		flash.tc_port = (uint16_t)atoi(val);
-	} else {
-//		send_err_msg();
-		return;
-	}
-
-//	for(size_t i = 0; i < strlen(okay_msg); i++) {
-//		XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)okay_msg[i]);
-//	}
-
-	local_udp_reset();
-	load_flash_config();
-}
-
 // definitions needed by main
 void adc_register_config();
 void xmc_ADC_setup();
@@ -656,6 +636,9 @@ int main(void) {
 
 	// Initialize UDP interface
 	local_udp_init();
+
+	// Init TFTP server
+	tftp_init();
 
 	//Initialize ADCs
 	//Unlock / Config
@@ -754,10 +737,10 @@ int main(void) {
 			}
 		}
 
-		// parse UART command
-		if(parse_uart) {
-			parse_command();
-			parse_uart = 0;
+		if(tftp_send) {
+			// always just send out the help message
+			tftp_send_data(help_msg, &last_addr, last_port);
+			tftp_send = 0;
 		}
 	} // End While Loop
 } // End main
