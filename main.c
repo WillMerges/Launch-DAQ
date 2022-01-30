@@ -92,6 +92,10 @@ struct pbuf* tftp_p;
 #define TFTP_ERR 5
 #define TFTP_MAX_ERR_MSG_LEN 511 // one NULL-terminated data block
 
+#define TFTP_BUFFER_SIZE 4096
+size_t tftp_buff_index = 0;
+uint8_t tftp_buff[TFTP_BUFFER_SIZE];
+
 typedef struct {
 	uint16_t opcode;
 	uint16_t block_num;
@@ -115,6 +119,7 @@ const char* help_msg = "write requests are files made up of zero or more command
 					   "each command must be newline terminated\n" \
 					   "the only supported TFTP mode is octet\n"
 					   "any write request will be interpreted as commands, and any read request will send this menu\n" \
+					   "written files can be up to 4096 bytes (8 TFTP data transfers)"
 					   "possible commands are:\n"
 						"    ip.src=[source IP address, e.g. 10.10.10.25]\n" \
 						"    ip.dst=[destination IP address]\n" \
@@ -295,7 +300,7 @@ void tftp_recv(void* arg, struct udp_pcb* pcb, struct pbuf* p, ip_addr_t* addr, 
 		}
 
 		if(p->len - 4 > 512) {
-			tftp_err("too much data", addr, port);
+			tftp_err("too much data in one packet", addr, port);
 			return;
 		}
 
@@ -306,16 +311,26 @@ void tftp_recv(void* arg, struct udp_pcb* pcb, struct pbuf* p, ip_addr_t* addr, 
 			return;
 		}
 
-		// parse the data
-		uint8_t* data = (uint8_t*)(p->payload + 4);
+		// copy the data into the buffer
+		if(tftp_buffer_index + p->len - 4 >= TFTP_BUFFER_SIZE) {
+			tftp_err("file too large", addr, port);
+			tftp_buffer_index = 0;
+			curr_block = 0;
 
-		// TODO do something with the commands
+			return;
+		}
+
+		uint8_t* data = (uint8_t*)(p->payload + 4);
+		memcpy(tftp_buffer + tftp_buffer_index, data, p->len - 4);
 
 		// send the ACK
 		tftp_ack(curr_block, addr, port);
 
 		if(p->len - 4 < 512) {
 			// last data packet, end of transfer
+
+			// TODO parse the buffer
+
 			curr_block = 0;
 		} else {
 			// otherwise we have more data to receive and expect the next block
@@ -651,25 +666,6 @@ int main(void) {
 
 
 // INTERRUPTS /////////////////////////////////////////////////////////////////////////////////////
-
-	// Called when UART receives data
-	void UART_Recv_Callback() {
-//		uint8_t read = (uint8_t)XMC_UART_CH_GetReceivedData(UART_0.channel);
-		uint8_t read = 0;
-
-		if(read == '\n') {
-			// end of command
-			uart_buff[uart_buff_i] = '\0';
-
-			parse_uart = 1;
-		} else {
-			if(uart_buff_i > 254) {
-				// quietly ignore this command
-				// TODO could send an error message over UART
-				uart_buff_i = 0;
-			}
-		}
-	}
 
 	// Timer configured with 1000us period = 1ms
 		void TimeStampIRQ(void) {
