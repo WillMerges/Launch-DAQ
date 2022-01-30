@@ -130,6 +130,106 @@ const char* help_msg = "write requests are files made up of zero or more command
 						"    udp.adc1=[destination port for ADC1 packets]\n" \
 						"    udp.tc=[destination port for thermocouple packets]\n";
 
+// parse the commands in the TFTP buffer
+// returns 1 on success, 0 on failure
+uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
+	uint8_t ret = 1;
+
+	size_t index = 0;
+	char* str = NULL;
+
+	while(index < tftp_buff_index) {
+		str = (char*)&tftp_buff[index];
+
+		uint8_t newline = 0;
+		for(; index < tftp_buff_index; index++) {
+			if((char)tftp_buff[index] == '\n') {
+				tftp_buff[index] = '\0';
+				newline = 1;
+				index++;
+				break;
+			}
+		}
+
+		if(!newline) {
+			// reached the end of the buffer with no newline
+			tftp_err("command not newline terminated", addr, port);
+			ret = 0;
+			break;
+		} else {
+			char* val = NULL;
+			for(size_t i = 0; i < strlen(str); i++) {
+				if(str[i] == '=') {
+					val = &str[i + 1];
+				}
+			}
+
+			if(!val) {
+				tftp_err("invalid command", addr, port);
+				ret = 0;
+				break;
+			}
+
+			if(strcmp(str, "ip.src") == 0) {
+				ip_addr_t ip;
+				if(!ipaddr_aton(val, &ip)) {
+					tftp_err("unable to parse ip.src", addr, port);
+					ret = 0;
+					break;
+				}
+
+				flash.src_ip = ip;
+			} else if(strcmp(str, "ip.dst") == 0) {
+				ip_addr_t ip;
+				if(!ipaddr_aton(val, &ip)) {
+					tftp_err("unable to parse ip.dst", addr, port);
+					ret = 0;
+					break;
+				}
+
+				flash.dst_ip = ip;
+			} else if(strcmp(str, "ip.gw") == 0) {
+				ip_addr_t ip;
+				if(!ipaddr_aton(val, &ip)) {
+					tftp_err("unable to parse ip.gw", addr, port);
+					ret = 0;
+					break;
+				}
+
+				flash.default_gw = ip;
+			} else if(strcmp(str, "ip.subnet") == 0) {
+				ip_addr_t ip;
+				if(!ipaddr_aton(val, &ip)) {
+					tftp_err("unable to parse ip.subnet", addr, port);
+					ret = 0;
+					break;
+				}
+
+				flash.subnet = ip;
+			} else if(strcmp(str, "udp.src") == 0) {
+				flash.src_port = (uint16_t)atoi(val);
+			} else if(strcmp(str, "udp.adc0") == 0) {
+				flash.adc0_port = (uint16_t)atoi(val);
+			} else if(strcmp(str, "udp.adc1") == 0) {
+				flash.adc1_port = (uint16_t)atoi(val);
+			} else if(strcmp(str, "udp.tc") == 0) {
+				flash.tc_port = (uint16_t)atoi(val);
+			} else {
+				tftp_err("unknown config parameter", addr, port);
+				ret = 0;
+				break;
+			}
+		}
+	}
+
+	if(ret) {
+		local_udp_reset();
+		load_flash_config();
+	}
+
+	return ret;
+}
+
 // send TFTP data blocks in response to a read request
 // assumes 'str' is a NULL-terminated string
 // NOTE: does not wait for ACKs, just sends all data immediately
@@ -329,8 +429,11 @@ void tftp_recv(void* arg, struct udp_pcb* pcb, struct pbuf* p, ip_addr_t* addr, 
 		if(p->len - 4 < 512) {
 			// last data packet, end of transfer
 
-			// TODO parse the buffer
+			if(parse_config_commands(addr, port)) {
+				tftp_ack(curr_block, addr, port);
+			} // otherwise sent an error message
 
+			// mark the end of the transfer regardless
 			curr_block = 0;
 		} else {
 			// otherwise we have more data to receive and expect the next block
@@ -446,11 +549,6 @@ void send_data(void* data, uint16_t size, uint16_t port) {
 
 	udp_sendto_if(pcb, p, &flash.dst_ip, port, netif);
 }
-
-// UART data
-uint8_t parse_uart = 0; // flag that signals when a command needs to be parsed
-uint8_t uart_buff[256];
-uint8_t uart_buff_i = 0;
 
 // parse the current UART command
 void parse_command() {
