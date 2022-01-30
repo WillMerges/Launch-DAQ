@@ -9,6 +9,7 @@
   <upwardMapList xsi:type="ResourceModel:RequiredApp" href="../../GLOBAL_DMA/v4_0_10/GLOBAL_DMA_0.app#//@requiredApps.0"/>
   <upwardMapList xsi:type="ResourceModel:RequiredApp" href="../../GLOBAL_DMA/v4_0_10/GLOBAL_DMA_1.app#//@requiredApps.0"/>
   <upwardMapList xsi:type="ResourceModel:RequiredApp" href="../../INTERRUPT/v4_0_10/INTERRUPT_2.app#//@requiredApps.0"/>
+  <upwardMapList xsi:type="ResourceModel:RequiredApp" href="../../UART/v4_1_14/UART_0.app#//@requiredApps.1"/>
   <properties singleton="true" sharable="true"/>
   <virtualSignals name="nmi_irq" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/vs_nmi_irq" hwSignal="nmi_in" hwResource="//@hwResources.0" visible="true"/>
   <virtualSignals name="jtag tck" URI="http://resources/4.0.12/app/CPU_CTRL_XMC4/0/vs_jtag_tck" hwSignal="db_tck" hwResource="//@hwResources.5" required="false" visible="true"/>

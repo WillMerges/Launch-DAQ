@@ -120,6 +120,9 @@
   <nodes xsi:type="ApplicationModel:PeripheralNode">
     <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/fce/fce_0.dd#/"/>
   </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/UART/v4_1_14/UART_0.app#/"/>
+  </nodes>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.1" target="//@nodes.2"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.1" target="//@nodes.0"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.3" target="//@nodes.0"/>
@@ -138,6 +141,8 @@
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.33" target="//@nodes.35"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.35" target="//@nodes.0"/>
   <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.37" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.40" target="//@nodes.2"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.40" target="//@nodes.0"/>
   <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_12/CPU_CTRL_XMC4_0.app#//@connections.7"/>
   <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_12/CPU_CTRL_XMC4_0.app#//@connections.8"/>
   <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_12/CPU_CTRL_XMC4_0.app#//@connections.9"/>
@@ -300,4 +305,12 @@
   <hwConnections href="APPS/SPI_MASTER/v4_3_30/SPI_MASTER_1.app#//@connections.1"/>
   <hwConnections href="APPS/SPI_MASTER/v4_3_30/SPI_MASTER_1.app#//@connections.0"/>
   <hwConnections href="APPS/SPI_MASTER/v4_3_30/SPI_MASTER_1.app#//@connections.2"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.0"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.1"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.8"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.9"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.18"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.19"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.20"/>
+  <hwConnections href="APPS/UART/v4_1_14/UART_0.app#//@connections.21"/>
 </ApplicationModel:ApplicationData>

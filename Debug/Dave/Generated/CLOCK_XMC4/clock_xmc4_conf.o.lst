@@ -45,7 +45,7 @@
   47              	 .thumb
   48              	 .thumb_func
   50              	SystemCoreClockSetup:
-  51              	.LFB172:
+  51              	.LFB181:
   52              	 .file 1 "../Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.c"
    1:../Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.c **** /**************************************************************************************************
    2:../Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.c **** * DAVE APP Name : CLOCK_XMC4       APP Version: 4.0.22
@@ -266,15 +266,16 @@
  115              	.L2:
  116 0050 00000000 	 .word .LC0
  117              	 .cfi_endproc
- 118              	.LFE172:
+ 118              	.LFE181:
  120              	 .text
  121              	.Letext0:
  122              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
  123              	 .file 3 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
  124              	 .file 4 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_scu.h"
  125              	 .file 5 "../Dave/Generated/CLOCK_XMC4/clock_xmc4.h"
- 126              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
- 127              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+ 126              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 127              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+ 128              	 .file 8 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 clock_xmc4_conf.c
     {standard input}:24     .bss.CLOCK_XMC4_0:00000000 CLOCK_XMC4_0

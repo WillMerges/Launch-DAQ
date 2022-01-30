@@ -22,7 +22,7 @@
   22              	 .thumb
   23              	 .thumb_func
   25              	DIGITAL_IO_GetAppVersion:
-  26              	.LFB142:
+  26              	.LFB147:
   27              	 .file 1 "../Dave/Generated/DIGITAL_IO/digital_io.c"
    1:../Dave/Generated/DIGITAL_IO/digital_io.c **** /**
    2:../Dave/Generated/DIGITAL_IO/digital_io.c ****  * @file digital_io.c
@@ -167,14 +167,14 @@
   80              	 .cfi_def_cfa_offset 0
   81 0040 7047     	 bx lr
   82              	 .cfi_endproc
-  83              	.LFE142:
+  83              	.LFE147:
   85 0042 00BF     	 .section .text.DIGITAL_IO_Init,"ax",%progbits
   86              	 .align 2
   87              	 .global DIGITAL_IO_Init
   88              	 .thumb
   89              	 .thumb_func
   91              	DIGITAL_IO_Init:
-  92              	.LFB143:
+  92              	.LFB148:
   89:../Dave/Generated/DIGITAL_IO/digital_io.c **** 
   90:../Dave/Generated/DIGITAL_IO/digital_io.c **** 
   91:../Dave/Generated/DIGITAL_IO/digital_io.c **** /**
@@ -246,7 +246,7 @@
  141              	 
  142 003c 80BD     	 pop {r7,pc}
  143              	 .cfi_endproc
- 144              	.LFE143:
+ 144              	.LFE148:
  146 003e 00BF     	 .text
  147              	.Letext0:
  148              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
@@ -255,7 +255,8 @@
  151              	 .file 5 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_gpio.h"
  152              	 .file 6 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/DAVE_Common.h"
  153              	 .file 7 "../Dave/Generated/DIGITAL_IO/digital_io.h"
- 154              	 .file 8 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+ 154              	 .file 8 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 155              	 .file 9 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 digital_io.c
     {standard input}:20     .text.DIGITAL_IO_GetAppVersion:00000000 $t

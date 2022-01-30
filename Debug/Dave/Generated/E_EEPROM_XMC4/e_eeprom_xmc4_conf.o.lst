@@ -26,8 +26,9 @@
   28              	 .file 1 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
   29              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
   30              	 .file 3 "../Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4.h"
-  31              	 .file 4 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
-  32              	 .file 5 "../Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4_conf.c"
+  31              	 .file 4 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/cmsis_gcc.h"
+  32              	 .file 5 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+  33              	 .file 6 "../Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4_conf.c"
 DEFINED SYMBOLS
                             *ABS*:00000000 e_eeprom_xmc4_conf.c
     {standard input}:24     .bss.E_EEPROM_XMC4_0:00000000 E_EEPROM_XMC4_0

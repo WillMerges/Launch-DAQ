@@ -20,6 +20,9 @@ C_SRCS += \
 ../Libraries/XMCLib/src/xmc_ecat.c \
 ../Libraries/XMCLib/src/xmc_eru.c \
 ../Libraries/XMCLib/src/xmc_eth_mac.c \
+../Libraries/XMCLib/src/xmc_eth_phy_dp83848.c \
+../Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.c \
+../Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.c \
 ../Libraries/XMCLib/src/xmc_fce.c \
 ../Libraries/XMCLib/src/xmc_gpio.c \
 ../Libraries/XMCLib/src/xmc_hrpwm.c \
@@ -54,6 +57,9 @@ OBJS += \
 ./Libraries/XMCLib/src/xmc_ecat.o \
 ./Libraries/XMCLib/src/xmc_eru.o \
 ./Libraries/XMCLib/src/xmc_eth_mac.o \
+./Libraries/XMCLib/src/xmc_eth_phy_dp83848.o \
+./Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.o \
+./Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.o \
 ./Libraries/XMCLib/src/xmc_fce.o \
 ./Libraries/XMCLib/src/xmc_gpio.o \
 ./Libraries/XMCLib/src/xmc_hrpwm.o \
@@ -88,6 +94,9 @@ C_DEPS += \
 ./Libraries/XMCLib/src/xmc_ecat.d \
 ./Libraries/XMCLib/src/xmc_eru.d \
 ./Libraries/XMCLib/src/xmc_eth_mac.d \
+./Libraries/XMCLib/src/xmc_eth_phy_dp83848.d \
+./Libraries/XMCLib/src/xmc_eth_phy_ksz8031rnl.d \
+./Libraries/XMCLib/src/xmc_eth_phy_ksz8081rnb.d \
 ./Libraries/XMCLib/src/xmc_fce.d \
 ./Libraries/XMCLib/src/xmc_gpio.d \
 ./Libraries/XMCLib/src/xmc_hrpwm.d \

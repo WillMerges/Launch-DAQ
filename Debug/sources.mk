@@ -41,6 +41,7 @@ Dave/Generated/PIN_INTERRUPT \
 Dave/Generated/SPI_MASTER \
 Dave/Generated/SYSTIMER \
 Dave/Generated/TIMER \
+Dave/Generated/UART \
 Libraries/Newlib \
 Libraries/XMCLib/src \
 Startup \

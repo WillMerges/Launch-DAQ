@@ -1,9 +1,6 @@
-/****************************************************************
-* HEADER FILES
-***************************************************************/
-#include <DAVE.h>                 //Declarations from DAVE Code Generation (includes SFR declaration)
+#include <DAVE.h>
 
-// data types
+// packet data types
 
 typedef struct {
 	uint32_t ms;
@@ -42,80 +39,108 @@ ADC_packet_t ADC1_buff;
 thermocouple_packet_t TC_buff;
 
 // read flags
-uint8_t read_tc = 0;		// Flag for Thermocouple read
+uint8_t read_tc = 0;	// Flag for Thermocouple read
 uint8_t read_adc0 = 0;	// Flag for ADC0 Read -- Interrupt
 uint8_t read_adc1 = 0;	// Flag for ADC1 Read -- Interrupt
 
-// config array
+// config array for ADCs
 uint8_t configArray[56] = {0x00}; // Note: overwritten by each ADC, so put a breakpoint after each ADC config if you want to read the data for an individal ADC
 
-// Networking
-#define MAX_IP_CHARS 17 // 4 3-character numbers + 4 dots + 1 null
-#define DST_IP_EEPROM_OFFSET 0
-static char DST_IP[MAX_IP_CHARS] = "10.10.10.75"; // NOTE: this has to be an array, not a pointer! this is the default address
-#define SRC_PORT 8080
-#define ADC0_PORT 8080
-#define ADC1_PORT 8081
-#define TC_PORT 8082
+
+// Networking //
+
+// holds persistent configuration information stored in flash
+// NOTE: size must be smaller than emulated EEPROM size in DAVE app
+typedef struct {
+	ip_addr_t src_ip;
+	ip_addr_t dst_ip;
+	ip_addr_t default_gw;
+	ip_addr_t subnet;
+	uint16_t src_port;
+	uint16_t adc0_port;
+	uint16_t adc1_port;
+	uint16_t tc_port;
+} config_t;
+
+config_t flash;
+
+// default values
+// NOTE: the IP addresses specified in the ETH_LWIP_0 DAVE app will
+//		 be overwritten by either these defaults or data set in persistent flash storage
+#define DEF_SRC_IP 		"10.10.10.75"
+#define DEF_DST_IP 		"10.10.10.25"
+#define DEF_DEF_GW 		"10.10.10.25"
+#define DEF_SUBNET		"255.255.255.0"
+#define DEF_SRC_PORT 	8080
+#define DEF_ADC0_PORT	8080
+#define DEF_ADC1_PORT 	8081
+#define DEF_TC_PORT 	8082
 
 struct udp_pcb* pcb;
 struct pbuf* p;
-ip_addr_t dst_ip;
 struct netif* netif;
 
-
-int set_dst_ip(const char* addr) {
-	if(addr == NULL) {
-		if(!E_EEPROM_XMC4_IsFlashEmpty()) {
-			// if there's data in flash, copy it to DST_IP
-			E_EEPROM_XMC4_ReadArray(0, (unsigned char*)DST_IP, MAX_IP_CHARS);
-		}
-
-		// set our address based on what's in DST_IP
-		if(!ipaddr_aton(DST_IP, &dst_ip)) {
-			// invalid addr
+// loads network configuration from persistent flash memory into 'flash' variable
+// if there is no configuration in flash (e.g. after re-flashing), writes defaults to flash
+// returns: 1 on success, -1 on error
+int load_flash_config() {
+	if(E_EEPROM_XMC4_IsFlashEmpty()) {
+		// nothing in flash, set the defaults and save them to flash
+		if(!ipaddr_aton(DEF_SRC_IP, &flash.src_ip)) {
+			// bad address
 			return -1;
 		}
-	}
 
-	// otherwise we need to write the address to flash AND update our local copy
+		if(!ipaddr_aton(DEF_DST_IP, &flash.dst_ip)) {
+			// bad address
+			return -1;
+		}
 
-	size_t len = strlen(addr) + 1;
+		if(!ipaddr_aton(DEF_DEF_GW, &flash.default_gw)) {
+			// bad address
+			return -1;
+		}
 
-	if(len > MAX_IP_CHARS) {
-		// invalid addr
-		return -1;
-	}
+		if(!ipaddr_aton(DEF_SUBNET, &flash.subnet)) {
+			// bad address
+			return -1;
+		}
 
-	if(!ipaddr_aton(addr, &dst_ip)) {
-		// invalid addr
-		return -1;
-	}
+		flash.src_port = DEF_SRC_PORT;
+		flash.adc0_port = DEF_ADC0_PORT;
+		flash.adc1_port = DEF_ADC1_PORT;
+		flash.tc_port = DEF_TC_PORT;
 
-	// save the new address locally
-	memcpy(DST_IP, addr, len);
-
-	// write the new address out to flash
-	if(E_EEPROM_XMC4_WriteArray(DST_IP_EEPROM_OFFSET, (unsigned char*)DST_IP, MAX_IP_CHARS)) {
-		if(E_EEPROM_XMC4_STATUS_OK == E_EEPROM_XMC4_UpdateFlashContents()) {
-			return 1;
+		// write out the default configuration to flash
+		if(E_EEPROM_XMC4_WriteArray(0x0, (unsigned char*)&flash, sizeof(flash))) {
+			if(E_EEPROM_XMC4_STATUS_OK != E_EEPROM_XMC4_UpdateFlashContents()) {
+				return -1;
+			}
 		} else {
 			return -1;
 		}
 	} else {
-		return -1;
+		// we have a previously set configuration to load
+		E_EEPROM_XMC4_ReadArray(0, (unsigned char*)&flash, sizeof(config_t));
 	}
 
 	return 1;
 }
 
+// reset UDP configuration
+// assumes 'local_udp_init' has been called but one of the addresses/ports in 'flash' has changed
+void local_udp_reset() {
+	// bind to the source port
+	udp_bind(pcb, IP_ADDR_ANY, flash.src_port);
+
+	// set IP addresses
+	netif_set_addr(netif, &flash.src_ip, &flash.subnet, &flash.default_gw);
+}
+
+// initialize UDP interface
+// should only be called once, if network configuration changes call 'local_udp_reset'
 void local_udp_init() {
 	pcb = udp_new();
-	// our IP is set in the ETH DAVE app, we just want to bind to a port to send from
-	udp_bind(pcb, IP_ADDR_ANY, SRC_PORT);
-
-	// NOTE: not checking for errors currently
-	set_dst_ip(NULL);
 
 	// allocate buffer at least the size of the largest packet we'll send
 	if(sizeof(ADC_data_t) + sizeof(header_t) > sizeof(thermocouple_packet_t)) {
@@ -126,15 +151,121 @@ void local_udp_init() {
 
 	// set the interface to send on
 	netif = ETH_LWIP_0.xnetif;
+
+	// set addresses and things
+	local_udp_reset();
 }
 
+// send data over the Ethernet
 void send_data(void* data, uint16_t size, uint16_t port) {
 	memcpy(p->payload, data, size);
 	p->len = p->tot_len = size;
 
-	udp_sendto_if(pcb, p, &dst_ip, port, netif);
+	udp_sendto_if(pcb, p, &flash.dst_ip, port, netif);
 }
 
+// UART data
+uint8_t parse_uart = 0; // flag that signals when a command needs to be parsed
+uint8_t uart_buff[256];
+uint8_t uart_buff_i = 0;
+
+const char* help_msg = "enter command followed by newline, possible commands:\n" \
+						"	 help -- displays this menu" \
+						"    ip.src=[source IP address, e.g. 10.10.10.25]\n" \
+						"    ip.dst=[destination IP address]\n" \
+						"    ip.gw=[default gateway IP address]\n" \
+						"    ip.subnet=[subnet mask IP address]\n" \
+						"    udp.src=[source UDP port]\n" \
+						"    udp.adc0=[destination port for ADC0 packets]\n" \
+						"    udp.adc1=[destination port for ADC1 packets]\n" \
+						"    udp.tc=[destination port for thermocouple packets]\n";
+
+const char* err_msg  = 	"error\n";
+const char* okay_msg = 	"okay\n";
+
+static inline void send_err_msg() {
+	// send error message
+	for(size_t i = 0; i < strlen(err_msg); i++) {
+		XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)err_msg[i]);
+	}
+}
+
+// parse the current UART command
+void parse_command() {
+	char* str = (char*)uart_buff;
+
+	if(strcmp(str, "help") == 0) {
+		// help option
+		for(size_t i = 0; i < strlen(help_msg); i++) {
+			XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)help_msg[i]);
+		}
+
+		return;
+	}
+
+	char* val = NULL;
+	for(size_t i = 0; i < strlen(str); i++) {
+		if(i == '=') {
+			str[i] = '\0';
+			val = &str[i + 1];
+		}
+	}
+
+	if(val == NULL) {
+		send_err_msg();
+		return;
+	}
+
+	if(strcmp(str, "ip.src") == 0) {
+		ip_addr_t ip;
+		if(!ipaddr_aton(val, &ip)) {
+			send_err_msg();
+		}
+
+		flash.src_ip = ip;
+	} else if(strcmp(str, "ip.dst") == 0) {
+		ip_addr_t ip;
+		if(!ipaddr_aton(val, &ip)) {
+			send_err_msg();
+		}
+
+		flash.dst_ip = ip;
+	} else if(strcmp(str, "ip.gw") == 0) {
+		ip_addr_t ip;
+		if(!ipaddr_aton(val, &ip)) {
+			send_err_msg();
+		}
+
+		flash.default_gw = ip;
+	} else if(strcmp(str, "ip.subnet") == 0) {
+		ip_addr_t ip;
+		if(!ipaddr_aton(val, &ip)) {
+			send_err_msg();
+		}
+
+		flash.subnet = ip;
+	} else if(strcmp(str, "udp.src") == 0) {
+		flash.src_port = (uint16_t)atoi(val);
+	} else if(strcmp(str, "udp.adc0") == 0) {
+		flash.adc0_port = (uint16_t)atoi(val);
+	} else if(strcmp(str, "udp.adc1") == 0) {
+		flash.adc1_port = (uint16_t)atoi(val);
+	} else if(strcmp(str, "udp.tc") == 0) {
+		flash.tc_port = (uint16_t)atoi(val);
+	} else {
+		send_err_msg();
+		return;
+	}
+
+	for(size_t i = 0; i < strlen(okay_msg); i++) {
+		XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)okay_msg[i]);
+	}
+
+	local_udp_reset();
+	load_flash_config();
+}
+
+// definitions needed by main
 void adc_register_config();
 void xmc_ADC_setup();
 
@@ -159,6 +290,9 @@ int main(void) {
 		XMC_DEBUG("DAVE APPs initialization failed\n");
 		while(1) {};
 	}
+
+	// load config from flash
+	load_flash_config();
 
 	// Initialize UDP interface
 	local_udp_init();
@@ -221,7 +355,7 @@ int main(void) {
 					// Send out TC packet
 					TC_buff.header.seq_num = sequence_number;
 					sequence_number++;
-					send_data((void*)&TC_buff, sizeof(thermocouple_packet_t), TC_PORT);
+					send_data((void*)&TC_buff, sizeof(thermocouple_packet_t), flash.tc_port);
 				}
 			}
 		} // End TC Read
@@ -241,7 +375,7 @@ int main(void) {
 				ADC0_buff.header.seq_num = sequence_number;
 				sequence_number++;
 				// be careful not to send zeros
-				send_data((void*)&ADC0_buff, sizeof(ADC_packet_t) + sizeof(header_t), ADC0_PORT);
+				send_data((void*)&ADC0_buff, sizeof(ADC_data_t) + sizeof(header_t), flash.adc0_port);
 			}
 		}
 
@@ -256,14 +390,38 @@ int main(void) {
 				ADC1_buff.header.seq_num = sequence_number;
 				sequence_number++;
 				// be careful not to send zeros
-				send_data((void*)&ADC1_buff, sizeof(ADC_packet_t) + sizeof(header_t), ADC1_PORT);
+				send_data((void*)&ADC1_buff, sizeof(ADC_data_t) + sizeof(header_t), flash.adc1_port);
 			}
+		}
+
+		// parse UART command
+		if(parse_uart) {
+			parse_command();
+			parse_uart = 0;
 		}
 	} // End While Loop
 } // End main
 
 
 // INTERRUPTS /////////////////////////////////////////////////////////////////////////////////////
+
+	// Called when UART receives data
+	void UART_Recv_Callback() {
+		uint8_t read = (uint8_t)XMC_UART_CH_GetReceivedData(UART_0.channel);
+
+		if(read == '\n') {
+			// end of command
+			uart_buff[uart_buff_i] = '\0';
+
+			parse_uart = 1;
+		} else {
+			if(uart_buff_i > 254) {
+				// quietly ignore this command
+				// TODO could send an error message over UART
+				uart_buff_i = 0;
+			}
+		}
+	}
 
 	// Timer configured with 1000us period = 1ms
 		void TimeStampIRQ(void) {

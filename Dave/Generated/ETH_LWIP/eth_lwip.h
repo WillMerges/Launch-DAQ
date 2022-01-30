@@ -65,7 +65,7 @@
  **********************************************************************************************************************/
 #if (!((XMC_LIB_MAJOR_VERSION == 2U) && \
        (XMC_LIB_MINOR_VERSION >= 1U) && \
-       (XMC_LIB_PATCH_VERSION >= 8U)))
+       (XMC_LIB_PATCH_VERSION >= 0U)))
 #error "ETH_LWIP APP requires XMC Peripheral Library v2.1.8 or higher"
 #endif
 
