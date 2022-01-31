@@ -80,6 +80,274 @@ struct udp_pcb* pcb;
 struct pbuf* p;
 struct netif* netif;
 
+// TFTP server
+struct udp_pcb* tftp_pcb;
+struct pbuf* tftp_p;
+
+#define TFTP_PORT 69
+#define TFTP_RRQ 1
+#define TFTP_WRQ 2
+#define TFTP_DATA 3
+#define TFTP_ACK 4
+#define TFTP_ERR 5
+#define TFTP_MAX_ERR_MSG_LEN 511 // one NULL-terminated data block
+
+typedef struct {
+	uint16_t opcode;
+	uint16_t block_num;
+} tftp_ack_t;
+
+typedef struct {
+	uint16_t opcode;
+	uint16_t error_code;
+	// followed by a NULL terminated string
+} tftp_err_t;
+
+typedef struct {
+	uint16_t opcode;
+	uint16_t block_num;
+	// followed by up to 512 bytes of data
+} tftp_data_t;
+
+uint16_t curr_block = 0;
+
+const char* help_msg = "write requests are files made up of zero or more commands\n" \
+					   "each command must be newline terminated\n" \
+					   "the only supported TFTP mode is octet\n"
+					   "any write request will be interpreted as commands, and any read request will send this menu\n" \
+					   "possible commands are:\n"
+						"    ip.src=[source IP address, e.g. 10.10.10.25]\n" \
+						"    ip.dst=[destination IP address]\n" \
+						"    ip.gw=[default gateway IP address]\n" \
+						"    ip.subnet=[subnet mask IP address]\n" \
+						"    udp.src=[source UDP port]\n" \
+						"    udp.adc0=[destination port for ADC0 packets]\n" \
+						"    udp.adc1=[destination port for ADC1 packets]\n" \
+						"    udp.tc=[destination port for thermocouple packets]\n";
+
+// send TFTP data blocks in response to a read request
+// assumes 'str' is a NULL-terminated string
+// NOTE: does not wait for ACKs, just sends all data immediately
+void tftp_send_data(const char* str, ip_addr_t* addr, uint16_t port) {
+	uint16_t block_num = 1;
+
+	tftp_data_t header;
+	header.opcode = htons(TFTP_DATA);
+
+	ssize_t len = strlen(str);
+
+	while(1) {
+		header.block_num = htons(block_num);
+		block_num++;
+		memcpy(tftp_p->payload, (void*)&header, sizeof(tftp_data_t));
+
+		if(len > 511) {
+			// send 512 bytes in this packet then send another one
+			memcpy(tftp_p->payload + sizeof(tftp_data_t), (void*)str, 512);
+
+			tftp_p->len = tftp_p->tot_len = sizeof(tftp_data_t) + 512;
+
+			udp_sendto_if(tftp_pcb, tftp_p, addr, port, netif);
+
+			block_num++;
+			len -= 512;
+		} else if(len == 0) {
+			// special case where we send just the header
+			tftp_p->len = tftp_p->tot_len = sizeof(tftp_data_t);
+
+			udp_sendto_if(tftp_pcb, tftp_p, addr, port, netif);
+
+			// we're done sending at this point
+			break;
+		} else {
+			// we can send this all in one packet (511 bytes or less)
+			memcpy(tftp_p->payload + sizeof(tftp_data_t), (void*)str, len);
+
+			tftp_p->len = tftp_p->tot_len = sizeof(tftp_data_t) + len;
+
+			udp_sendto_if(tftp_pcb, tftp_p, addr, port, netif);
+
+			// we're done sending at this point
+			break;
+		}
+	}
+}
+
+// send TFTP error message
+void tftp_err(const char* msg, ip_addr_t* addr, uint16_t port) {
+	tftp_err_t header;
+	header.opcode = htons(TFTP_ERR); // ERROR opcode
+	header.error_code = htons(4); // Illegal TFTP operation error code
+
+	memcpy(tftp_p->payload, (void*)&header, sizeof(tftp_err_t));
+
+	size_t len = strlen(msg);
+	if(len > TFTP_MAX_ERR_MSG_LEN - 1) {
+		len = TFTP_MAX_ERR_MSG_LEN - 1;
+	}
+	memcpy(tftp_p->payload + sizeof(tftp_err_t), (void*)msg, len);
+	((char*)tftp_p->payload)[len + sizeof(tftp_err_t)] = '\0';
+
+	tftp_p->len = tftp_p->tot_len = sizeof(tftp_err_t) + len + 1;
+
+	udp_sendto_if(tftp_pcb, tftp_p, addr, port, netif);
+}
+
+// send TFTP ack for a block number
+void tftp_ack(uint16_t block, ip_addr_t* addr, uint16_t port) {
+	tftp_ack_t header;
+	header.opcode = htons(TFTP_ACK); // ACK opcode
+	header.block_num = htons(block);
+
+	memcpy(tftp_p->payload, (void*)&header, sizeof(tftp_ack_t));
+
+	tftp_p->len = tftp_p->tot_len = sizeof(tftp_ack_t);
+
+	udp_sendto_if(tftp_pcb, tftp_p, addr, port, netif);
+}
+
+// convert a character to lower case
+// NOTE: only converts basic alphabet
+char my_tolower(char c) {
+	if(c >= 'A' && c <= 'Z') {
+		return c + ('a' - 'A');
+	}
+
+	return c;
+}
+
+// checks that a TFTP RRQ/WRQ packet has a mode of 'octet'
+// ignores the filename
+// assumes the packet at 'data' is a WRQ/RRQ packet at least 4 bytes long
+// returns 0 on failure, 1 on success
+uint8_t tftp_check_octet_mode(char* data, size_t len, ip_addr_t* addr, uint16_t port) {
+	if(len < 4) {
+		return 0;
+	}
+
+	// we don't care what the filename is, always change our config info
+	char* mode = NULL;
+	size_t i = 2; // start reading at filename
+	for(; i < len; i++) {
+		if(data[i] == '\0') {
+			mode = &data[++i];
+			break;
+		}
+	}
+
+	if(mode == NULL) {
+		tftp_err("no filename given", addr, port);
+		return 0;
+	}
+
+	if(((char*)p->payload)[p->len - 1] != '\0') {
+		tftp_err("mode string not null-terminated", addr, port);
+		return 0;
+	}
+
+	// convert to lower case
+	for(size_t j = 0; j < strlen(mode); j++) {
+		mode[j] = my_tolower(mode[j]);
+	}
+
+	if(strcmp(mode, "octet") != 0) {
+		tftp_err("only supported mode is octet", addr, port);
+		return 0;
+	}
+
+	return 1;
+}
+
+// TFTP UDP interface receive callback
+void tftp_recv(void* arg, struct udp_pcb* pcb, struct pbuf* p, ip_addr_t* addr, uint16_t port) {
+	if(p->len != p->tot_len) {
+		tftp_err("cannot fragment packets", addr, port);
+		return;
+	}
+
+	if(p->len < 4) {
+		// need at least an opcode, and two zeros / a block number
+		tftp_err("packet too small", addr, port);
+	}
+
+	uint16_t opcode = ntohs(*((uint16_t*)p->payload));
+
+	if(opcode == TFTP_WRQ) {
+		if(curr_block == 0) {
+			// we don't care what the filename is, always change our config info
+			// we just care that the data is in octet mode
+			if(!tftp_check_octet_mode((char*)p->payload, p->len, addr, port)) {
+				return;
+			}
+
+			tftp_ack(curr_block, addr, port);
+			curr_block++;
+		} else {
+			tftp_err("write request already in progress, abandoning", addr, port);
+			curr_block = 0; // reset and abandon the current WRQ
+
+			return;
+		}
+	} else if(opcode == TFTP_DATA) {
+		if(curr_block == 0) {
+			tftp_err("no write request in progress", addr, port);
+			return;
+		}
+
+		if(p->len - 4 > 512) {
+			tftp_err("too much data", addr, port);
+			return;
+		}
+
+		uint16_t block_num = ntohs(*((uint16_t*)p->payload + 2));
+
+		if(block_num != curr_block) {
+			tftp_err("unexpected block number", addr, port);
+			return;
+		}
+
+		// parse the data
+		uint8_t* data = (uint8_t*)(p->payload + 4);
+
+		// TODO do something with the commands
+
+		// send the ACK
+		tftp_ack(curr_block, addr, port);
+
+		if(p->len - 4 < 512) {
+			// last data packet, end of transfer
+			curr_block = 0;
+		} else {
+			// otherwise we have more data to receive and expect the next block
+			curr_block++;
+		}
+	} else if(opcode == TFTP_RRQ) {
+		// we don't care what the filename is as long as the mode is octet
+		if(!tftp_check_octet_mode((char*)p->payload, p->len, addr, port)) {
+			return;
+		}
+
+		// always just send out the help message
+		tftp_send_data(help_msg, addr, port);
+	} else if(opcode == TFTP_ACK) {
+		// ignore ACKs, but don't error
+		return;
+	} else {
+		tftp_err("unsupported opcode", addr, port);
+	}
+}
+
+// initialize TFTP server
+// should only be called once
+void tftp_init() {
+	pcb = udp_new();
+	udp_bind(pcb, IP_ADDR_ANY, TFTP_PORT);
+	p = pbuf_alloc(PBUF_TRANSPORT, sizeof(tftp_data_t) + 512, PBUF_RAM);
+
+	// set the TFTP callback for any packets we receive
+	udp_recv(pcb, &tftp_recv, NULL);
+}
+
 // loads network configuration from persistent flash memory into 'flash' variable
 // if there is no configuration in flash (e.g. after re-flashing), writes defaults to flash
 // returns: 1 on success, -1 on error
@@ -169,27 +437,6 @@ uint8_t parse_uart = 0; // flag that signals when a command needs to be parsed
 uint8_t uart_buff[256];
 uint8_t uart_buff_i = 0;
 
-const char* help_msg = "enter command followed by newline, possible commands:\n" \
-						"	 help -- displays this menu" \
-						"    ip.src=[source IP address, e.g. 10.10.10.25]\n" \
-						"    ip.dst=[destination IP address]\n" \
-						"    ip.gw=[default gateway IP address]\n" \
-						"    ip.subnet=[subnet mask IP address]\n" \
-						"    udp.src=[source UDP port]\n" \
-						"    udp.adc0=[destination port for ADC0 packets]\n" \
-						"    udp.adc1=[destination port for ADC1 packets]\n" \
-						"    udp.tc=[destination port for thermocouple packets]\n";
-
-const char* err_msg  = 	"error\n";
-const char* okay_msg = 	"okay\n";
-
-static inline void send_err_msg() {
-	// send error message
-	for(size_t i = 0; i < strlen(err_msg); i++) {
-//		XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)err_msg[i]);
-	}
-}
-
 // parse the current UART command
 void parse_command() {
 	char* str = (char*)uart_buff;
@@ -212,35 +459,35 @@ void parse_command() {
 	}
 
 	if(val == NULL) {
-		send_err_msg();
+//		send_err_msg();
 		return;
 	}
 
 	if(strcmp(str, "ip.src") == 0) {
 		ip_addr_t ip;
 		if(!ipaddr_aton(val, &ip)) {
-			send_err_msg();
+//			send_err_msg();
 		}
 
 		flash.src_ip = ip;
 	} else if(strcmp(str, "ip.dst") == 0) {
 		ip_addr_t ip;
 		if(!ipaddr_aton(val, &ip)) {
-			send_err_msg();
+//			send_err_msg();
 		}
 
 		flash.dst_ip = ip;
 	} else if(strcmp(str, "ip.gw") == 0) {
 		ip_addr_t ip;
 		if(!ipaddr_aton(val, &ip)) {
-			send_err_msg();
+//			send_err_msg();
 		}
 
 		flash.default_gw = ip;
 	} else if(strcmp(str, "ip.subnet") == 0) {
 		ip_addr_t ip;
 		if(!ipaddr_aton(val, &ip)) {
-			send_err_msg();
+//			send_err_msg();
 		}
 
 		flash.subnet = ip;
@@ -253,13 +500,13 @@ void parse_command() {
 	} else if(strcmp(str, "udp.tc") == 0) {
 		flash.tc_port = (uint16_t)atoi(val);
 	} else {
-		send_err_msg();
+//		send_err_msg();
 		return;
 	}
 
-	for(size_t i = 0; i < strlen(okay_msg); i++) {
+//	for(size_t i = 0; i < strlen(okay_msg); i++) {
 //		XMC_UART_CH_Transmit(UART_0.channel, (uint16_t)okay_msg[i]);
-	}
+//	}
 
 	local_udp_reset();
 	load_flash_config();
