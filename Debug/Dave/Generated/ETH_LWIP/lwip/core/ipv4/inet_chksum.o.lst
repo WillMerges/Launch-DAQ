@@ -1,0 +1,1173 @@
+   1              	 .syntax unified
+   2              	 .cpu cortex-m4
+   3              	 .eabi_attribute 27,3
+   4              	 .fpu fpv4-sp-d16
+   5              	 .eabi_attribute 20,1
+   6              	 .eabi_attribute 21,1
+   7              	 .eabi_attribute 23,3
+   8              	 .eabi_attribute 24,1
+   9              	 .eabi_attribute 25,1
+  10              	 .eabi_attribute 26,1
+  11              	 .eabi_attribute 30,6
+  12              	 .eabi_attribute 34,1
+  13              	 .eabi_attribute 18,4
+  14              	 .thumb
+  15              	 .file "inet_chksum.c"
+  16              	 .text
+  17              	.Ltext0:
+  18              	 .cfi_sections .debug_frame
+  19              	 .section .text.lwip_standard_chksum,"ax",%progbits
+  20              	 .align 2
+  21              	 .thumb
+  22              	 .thumb_func
+  24              	lwip_standard_chksum:
+  25              	.LFB128:
+  26              	 .file 1 "../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c"
+   1:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /**
+   2:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @file
+   3:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Incluse internet checksum functions.
+   4:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+   5:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+   6:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+   7:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /*
+   8:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Copyright (c) 2001-2004 Swedish Institute of Computer Science.
+   9:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * All rights reserved.
+  10:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+  11:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Redistribution and use in source and binary forms, with or without modification,
+  12:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * are permitted provided that the following conditions are met:
+  13:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+  14:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * 1. Redistributions of source code must retain the above copyright notice,
+  15:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *    this list of conditions and the following disclaimer.
+  16:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  17:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *    this list of conditions and the following disclaimer in the documentation
+  18:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *    and/or other materials provided with the distribution.
+  19:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * 3. The name of the author may not be used to endorse or promote products
+  20:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *    derived from this software without specific prior written permission.
+  21:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+  22:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+  23:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+  24:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+  25:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  26:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT
+  27:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+  30:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
+  31:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * OF SUCH DAMAGE.
+  32:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+  33:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * This file is part of the lwIP TCP/IP stack.
+  34:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+  35:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Author: Adam Dunkels <adam@sics.se>
+  36:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+  37:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+  38:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+  39:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #include "../../include/lwip/opt.h"
+  40:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+  41:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #include "../../include/ipv4/lwip/inet_chksum.h"
+  42:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #include "../../include/lwip/def.h"
+  43:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+  44:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #include <stddef.h>
+  45:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #include <string.h>
+  46:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+  47:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /* These are some reference implementations of the checksum algorithm, with the
+  48:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * aim of being simple, correct and fully portable. Checksumming is the
+  49:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * first thing you would want to optimize for your platform. If you create
+  50:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * your own version, link it in and in your cc.h put:
+  51:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * 
+  52:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * #define LWIP_CHKSUM <your_checksum_routine> 
+  53:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+  54:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Or you can select from the implementations below by defining
+  55:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * LWIP_CHKSUM_ALGORITHM to 1, 2 or 3.
+  56:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+  57:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+  58:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #ifndef LWIP_CHKSUM
+  59:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** # define LWIP_CHKSUM lwip_standard_chksum
+  60:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** # ifndef LWIP_CHKSUM_ALGORITHM
+  61:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #  define LWIP_CHKSUM_ALGORITHM 2
+  62:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** # endif
+  63:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #endif
+  64:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /* If none set: */
+  65:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #ifndef LWIP_CHKSUM_ALGORITHM
+  66:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** # define LWIP_CHKSUM_ALGORITHM 0
+  67:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #endif
+  68:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+  69:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #if (LWIP_CHKSUM_ALGORITHM == 1) /* Version #1 */
+  70:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /**
+  71:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * lwip checksum
+  72:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+  73:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param dataptr points to start of data to be summed at any boundary
+  74:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param len length of data to be summed
+  75:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @return host order (!) lwip checksum (non-inverted Internet sum) 
+  76:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+  77:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @note accumulator size limits summable length to 64k
+  78:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @note host endianess is irrelevant (p3 RFC1071)
+  79:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+  80:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** static u16_t
+  81:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** lwip_standard_chksum(void *dataptr, u16_t len)
+  82:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** {
+  83:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u32_t acc;
+  84:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u16_t src;
+  85:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u8_t *octetptr;
+  86:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+  87:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc = 0;
+  88:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* dataptr may be at odd or even addresses */
+  89:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   octetptr = (u8_t*)dataptr;
+  90:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   while (len > 1) {
+  91:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     /* declare first octet as most significant
+  92:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****        thus assume network order, ignoring host order */
+  93:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     src = (*octetptr) << 8;
+  94:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     octetptr++;
+  95:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     /* declare second octet as least significant */
+  96:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     src |= (*octetptr);
+  97:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     octetptr++;
+  98:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc += src;
+  99:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     len -= 2;
+ 100:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 101:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (len > 0) {
+ 102:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     /* accumulate remaining octet */
+ 103:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     src = (*octetptr) << 8;
+ 104:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc += src;
+ 105:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 106:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* add deferred carry bits */
+ 107:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc = (acc >> 16) + (acc & 0x0000ffffUL);
+ 108:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if ((acc & 0xffff0000UL) != 0) {
+ 109:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc = (acc >> 16) + (acc & 0x0000ffffUL);
+ 110:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 111:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* This maybe a little confusing: reorder sum using htons()
+ 112:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****      instead of ntohs() since it has a little less call overhead.
+ 113:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****      The caller must invert bits for Internet sum ! */
+ 114:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   return htons((u16_t)acc);
+ 115:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** }
+ 116:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #endif
+ 117:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 118:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #if (LWIP_CHKSUM_ALGORITHM == 2) /* Alternative version #2 */
+ 119:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /*
+ 120:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Curt McDowell
+ 121:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Broadcom Corp.
+ 122:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * csm@broadcom.com
+ 123:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 124:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * IP checksum two bytes at a time with support for
+ 125:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * unaligned buffer.
+ 126:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Works for len up to and including 0x20000.
+ 127:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * by Curt McDowell, Broadcom Corp. 12/08/2005
+ 128:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 129:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param dataptr points to start of data to be summed at any boundary
+ 130:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param len length of data to be summed
+ 131:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @return host order (!) lwip checksum (non-inverted Internet sum) 
+ 132:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+ 133:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 134:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** static u16_t
+ 135:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** lwip_standard_chksum(void *dataptr, int len)
+ 136:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** {
+  27              	 .loc 1 136 0
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31              	 
+  32 0000 80B4     	 push {r7}
+  33              	.LCFI0:
+  34              	 .cfi_def_cfa_offset 4
+  35              	 .cfi_offset 7,-4
+  36 0002 89B0     	 sub sp,sp,#36
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 40
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+  43 0008 3960     	 str r1,[r7]
+ 137:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u8_t *pb = (u8_t *)dataptr;
+  44              	 .loc 1 137 0
+  45 000a 7B68     	 ldr r3,[r7,#4]
+  46 000c FB61     	 str r3,[r7,#28]
+ 138:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u16_t *ps, t = 0;
+  47              	 .loc 1 138 0
+  48 000e 0023     	 movs r3,#0
+  49 0010 FB81     	 strh r3,[r7,#14]
+ 139:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u32_t sum = 0;
+  50              	 .loc 1 139 0
+  51 0012 0023     	 movs r3,#0
+  52 0014 7B61     	 str r3,[r7,#20]
+ 140:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   int odd = ((mem_ptr_t)pb & 1);
+  53              	 .loc 1 140 0
+  54 0016 FB69     	 ldr r3,[r7,#28]
+  55 0018 03F00103 	 and r3,r3,#1
+  56 001c 3B61     	 str r3,[r7,#16]
+ 141:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 142:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* Get aligned to u16_t */
+ 143:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (odd && len > 0) {
+  57              	 .loc 1 143 0
+  58 001e 3B69     	 ldr r3,[r7,#16]
+  59 0020 002B     	 cmp r3,#0
+  60 0022 0DD0     	 beq .L2
+  61              	 .loc 1 143 0 is_stmt 0 discriminator 1
+  62 0024 3B68     	 ldr r3,[r7]
+  63 0026 002B     	 cmp r3,#0
+  64 0028 0ADD     	 ble .L2
+ 144:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     ((u8_t *)&t)[1] = *pb++;
+  65              	 .loc 1 144 0 is_stmt 1
+  66 002a 07F10E03 	 add r3,r7,#14
+  67 002e 0133     	 adds r3,r3,#1
+  68 0030 FA69     	 ldr r2,[r7,#28]
+  69 0032 511C     	 adds r1,r2,#1
+  70 0034 F961     	 str r1,[r7,#28]
+  71 0036 1278     	 ldrb r2,[r2]
+  72 0038 1A70     	 strb r2,[r3]
+ 145:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     len--;
+  73              	 .loc 1 145 0
+  74 003a 3B68     	 ldr r3,[r7]
+  75 003c 013B     	 subs r3,r3,#1
+  76 003e 3B60     	 str r3,[r7]
+  77              	.L2:
+ 146:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 147:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 148:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* Add the bulk of the data */
+ 149:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   ps = (u16_t *)(void *)pb;
+  78              	 .loc 1 149 0
+  79 0040 FB69     	 ldr r3,[r7,#28]
+  80 0042 BB61     	 str r3,[r7,#24]
+ 150:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   while (len > 1) {
+  81              	 .loc 1 150 0
+  82 0044 0AE0     	 b .L3
+  83              	.L4:
+ 151:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     sum += *ps++;
+  84              	 .loc 1 151 0
+  85 0046 BB69     	 ldr r3,[r7,#24]
+  86 0048 9A1C     	 adds r2,r3,#2
+  87 004a BA61     	 str r2,[r7,#24]
+  88 004c 1B88     	 ldrh r3,[r3]
+  89 004e 1A46     	 mov r2,r3
+  90 0050 7B69     	 ldr r3,[r7,#20]
+  91 0052 1344     	 add r3,r3,r2
+  92 0054 7B61     	 str r3,[r7,#20]
+ 152:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     len -= 2;
+  93              	 .loc 1 152 0
+  94 0056 3B68     	 ldr r3,[r7]
+  95 0058 023B     	 subs r3,r3,#2
+  96 005a 3B60     	 str r3,[r7]
+  97              	.L3:
+ 150:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   while (len > 1) {
+  98              	 .loc 1 150 0
+  99 005c 3B68     	 ldr r3,[r7]
+ 100 005e 012B     	 cmp r3,#1
+ 101 0060 F1DC     	 bgt .L4
+ 153:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 154:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 155:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* Consume left-over byte, if any */
+ 156:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (len > 0) {
+ 102              	 .loc 1 156 0
+ 103 0062 3B68     	 ldr r3,[r7]
+ 104 0064 002B     	 cmp r3,#0
+ 105 0066 04DD     	 ble .L5
+ 157:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     ((u8_t *)&t)[0] = *(u8_t *)ps;
+ 106              	 .loc 1 157 0
+ 107 0068 07F10E03 	 add r3,r7,#14
+ 108 006c BA69     	 ldr r2,[r7,#24]
+ 109 006e 1278     	 ldrb r2,[r2]
+ 110 0070 1A70     	 strb r2,[r3]
+ 111              	.L5:
+ 158:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 159:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 160:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* Add end bytes */
+ 161:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   sum += t;
+ 112              	 .loc 1 161 0
+ 113 0072 FB89     	 ldrh r3,[r7,#14]
+ 114 0074 1A46     	 mov r2,r3
+ 115 0076 7B69     	 ldr r3,[r7,#20]
+ 116 0078 1344     	 add r3,r3,r2
+ 117 007a 7B61     	 str r3,[r7,#20]
+ 162:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 163:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* Fold 32-bit sum to 16 bits
+ 164:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****      calling this twice is propably faster than if statements... */
+ 165:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   sum = FOLD_U32T(sum);
+ 118              	 .loc 1 165 0
+ 119 007c 7B69     	 ldr r3,[r7,#20]
+ 120 007e 1A0C     	 lsrs r2,r3,#16
+ 121 0080 7B69     	 ldr r3,[r7,#20]
+ 122 0082 9BB2     	 uxth r3,r3
+ 123 0084 1344     	 add r3,r3,r2
+ 124 0086 7B61     	 str r3,[r7,#20]
+ 166:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   sum = FOLD_U32T(sum);
+ 125              	 .loc 1 166 0
+ 126 0088 7B69     	 ldr r3,[r7,#20]
+ 127 008a 1A0C     	 lsrs r2,r3,#16
+ 128 008c 7B69     	 ldr r3,[r7,#20]
+ 129 008e 9BB2     	 uxth r3,r3
+ 130 0090 1344     	 add r3,r3,r2
+ 131 0092 7B61     	 str r3,[r7,#20]
+ 167:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 168:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* Swap if alignment was odd */
+ 169:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (odd) {
+ 132              	 .loc 1 169 0
+ 133 0094 3B69     	 ldr r3,[r7,#16]
+ 134 0096 002B     	 cmp r3,#0
+ 135 0098 08D0     	 beq .L6
+ 170:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     sum = SWAP_BYTES_IN_WORD(sum);
+ 136              	 .loc 1 170 0
+ 137 009a 7B69     	 ldr r3,[r7,#20]
+ 138 009c 1B02     	 lsls r3,r3,#8
+ 139 009e 9AB2     	 uxth r2,r3
+ 140 00a0 7B69     	 ldr r3,[r7,#20]
+ 141 00a2 03F47F43 	 and r3,r3,#65280
+ 142 00a6 1B0A     	 lsrs r3,r3,#8
+ 143 00a8 1343     	 orrs r3,r3,r2
+ 144 00aa 7B61     	 str r3,[r7,#20]
+ 145              	.L6:
+ 171:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 172:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 173:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   return (u16_t)sum;
+ 146              	 .loc 1 173 0
+ 147 00ac 7B69     	 ldr r3,[r7,#20]
+ 148 00ae 9BB2     	 uxth r3,r3
+ 174:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** }
+ 149              	 .loc 1 174 0
+ 150 00b0 1846     	 mov r0,r3
+ 151 00b2 2437     	 adds r7,r7,#36
+ 152              	.LCFI3:
+ 153              	 .cfi_def_cfa_offset 4
+ 154 00b4 BD46     	 mov sp,r7
+ 155              	.LCFI4:
+ 156              	 .cfi_def_cfa_register 13
+ 157              	 
+ 158 00b6 5DF8047B 	 ldr r7,[sp],#4
+ 159              	.LCFI5:
+ 160              	 .cfi_restore 7
+ 161              	 .cfi_def_cfa_offset 0
+ 162 00ba 7047     	 bx lr
+ 163              	 .cfi_endproc
+ 164              	.LFE128:
+ 166              	 .section .text.inet_chksum_pseudo,"ax",%progbits
+ 167              	 .align 2
+ 168              	 .global inet_chksum_pseudo
+ 169              	 .thumb
+ 170              	 .thumb_func
+ 172              	inet_chksum_pseudo:
+ 173              	.LFB129:
+ 175:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #endif
+ 176:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 177:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #if (LWIP_CHKSUM_ALGORITHM == 3) /* Alternative version #3 */
+ 178:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /**
+ 179:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * An optimized checksum routine. Basically, it uses loop-unrolling on
+ 180:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * the checksum loop, treating the head and tail bytes specially, whereas
+ 181:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * the inner loop acts on 8 bytes at a time. 
+ 182:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 183:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @arg start of buffer to be checksummed. May be an odd byte address.
+ 184:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @len number of bytes in the buffer to be checksummed.
+ 185:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @return host order (!) lwip checksum (non-inverted Internet sum) 
+ 186:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * 
+ 187:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * by Curt McDowell, Broadcom Corp. December 8th, 2005
+ 188:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+ 189:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 190:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** static u16_t
+ 191:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** lwip_standard_chksum(void *dataptr, int len)
+ 192:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** {
+ 193:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u8_t *pb = (u8_t *)dataptr;
+ 194:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u16_t *ps, t = 0;
+ 195:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u32_t *pl;
+ 196:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u32_t sum = 0, tmp;
+ 197:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* starts at odd byte address? */
+ 198:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   int odd = ((mem_ptr_t)pb & 1);
+ 199:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 200:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (odd && len > 0) {
+ 201:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     ((u8_t *)&t)[1] = *pb++;
+ 202:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     len--;
+ 203:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 204:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 205:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   ps = (u16_t *)pb;
+ 206:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 207:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (((mem_ptr_t)ps & 3) && len > 1) {
+ 208:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     sum += *ps++;
+ 209:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     len -= 2;
+ 210:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 211:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 212:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   pl = (u32_t *)ps;
+ 213:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 214:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   while (len > 7)  {
+ 215:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     tmp = sum + *pl++;          /* ping */
+ 216:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     if (tmp < sum) {
+ 217:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       tmp++;                    /* add back carry */
+ 218:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     }
+ 219:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 220:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     sum = tmp + *pl++;          /* pong */
+ 221:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     if (sum < tmp) {
+ 222:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       sum++;                    /* add back carry */
+ 223:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     }
+ 224:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 225:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     len -= 8;
+ 226:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 227:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 228:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* make room in upper bits */
+ 229:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   sum = FOLD_U32T(sum);
+ 230:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 231:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   ps = (u16_t *)pl;
+ 232:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 233:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* 16-bit aligned word remaining? */
+ 234:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   while (len > 1) {
+ 235:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     sum += *ps++;
+ 236:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     len -= 2;
+ 237:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 238:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 239:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* dangling tail byte remaining? */
+ 240:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (len > 0) {                /* include odd byte */
+ 241:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     ((u8_t *)&t)[0] = *(u8_t *)ps;
+ 242:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 243:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 244:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   sum += t;                     /* add end bytes */
+ 245:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 246:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* Fold 32-bit sum to 16 bits
+ 247:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****      calling this twice is propably faster than if statements... */
+ 248:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   sum = FOLD_U32T(sum);
+ 249:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   sum = FOLD_U32T(sum);
+ 250:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 251:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (odd) {
+ 252:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     sum = SWAP_BYTES_IN_WORD(sum);
+ 253:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 254:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 255:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   return (u16_t)sum;
+ 256:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** }
+ 257:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** #endif
+ 258:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 259:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /* inet_chksum_pseudo:
+ 260:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 261:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Calculates the pseudo Internet checksum used by TCP and UDP for a pbuf chain.
+ 262:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * IP addresses are expected to be in network byte order.
+ 263:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 264:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param p chain of pbufs over that a checksum should be calculated (ip data part)
+ 265:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param src source ip address (used for checksum of pseudo header)
+ 266:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param dst destination ip address (used for checksum of pseudo header)
+ 267:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param proto ip protocol (used for checksum of pseudo header)
+ 268:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param proto_len length of the ip data part (used for checksum of pseudo header)
+ 269:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @return checksum (as u16_t) to be saved directly in the protocol header
+ 270:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+ 271:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** u16_t
+ 272:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** inet_chksum_pseudo(struct pbuf *p,
+ 273:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****        ip_addr_t *src, ip_addr_t *dest,
+ 274:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****        u8_t proto, u16_t proto_len)
+ 275:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** {
+ 174              	 .loc 1 275 0
+ 175              	 .cfi_startproc
+ 176              	 
+ 177              	 
+ 178 0000 80B5     	 push {r7,lr}
+ 179              	.LCFI6:
+ 180              	 .cfi_def_cfa_offset 8
+ 181              	 .cfi_offset 7,-8
+ 182              	 .cfi_offset 14,-4
+ 183 0002 88B0     	 sub sp,sp,#32
+ 184              	.LCFI7:
+ 185              	 .cfi_def_cfa_offset 40
+ 186 0004 00AF     	 add r7,sp,#0
+ 187              	.LCFI8:
+ 188              	 .cfi_def_cfa_register 7
+ 189 0006 F860     	 str r0,[r7,#12]
+ 190 0008 B960     	 str r1,[r7,#8]
+ 191 000a 7A60     	 str r2,[r7,#4]
+ 192 000c FB70     	 strb r3,[r7,#3]
+ 276:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u32_t acc;
+ 277:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u32_t addr;
+ 278:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   struct pbuf *q;
+ 279:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u8_t swapped;
+ 280:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 281:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc = 0;
+ 193              	 .loc 1 281 0
+ 194 000e 0023     	 movs r3,#0
+ 195 0010 FB61     	 str r3,[r7,#28]
+ 282:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   swapped = 0;
+ 196              	 .loc 1 282 0
+ 197 0012 0023     	 movs r3,#0
+ 198 0014 FB75     	 strb r3,[r7,#23]
+ 283:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* iterate through all pbuf in chain */
+ 284:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   for(q = p; q != NULL; q = q->next) {
+ 199              	 .loc 1 284 0
+ 200 0016 FB68     	 ldr r3,[r7,#12]
+ 201 0018 BB61     	 str r3,[r7,#24]
+ 202 001a 29E0     	 b .L9
+ 203              	.L11:
+ 285:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+ 286:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       (void *)q, (void *)q->next));
+ 287:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc += LWIP_CHKSUM(q->payload, q->len);
+ 204              	 .loc 1 287 0
+ 205 001c BB69     	 ldr r3,[r7,#24]
+ 206 001e 5A68     	 ldr r2,[r3,#4]
+ 207 0020 BB69     	 ldr r3,[r7,#24]
+ 208 0022 5B89     	 ldrh r3,[r3,#10]
+ 209 0024 1046     	 mov r0,r2
+ 210 0026 1946     	 mov r1,r3
+ 211 0028 FFF7FEFF 	 bl lwip_standard_chksum
+ 212 002c 0346     	 mov r3,r0
+ 213 002e 1A46     	 mov r2,r3
+ 214 0030 FB69     	 ldr r3,[r7,#28]
+ 215 0032 1344     	 add r3,r3,r2
+ 216 0034 FB61     	 str r3,[r7,#28]
+ 288:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*
+ 289:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     /* just executing this next line is probably faster that the if statement needed
+ 290:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****        to check whether we really need to execute it, and does no harm */
+ 291:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc = FOLD_U32T(acc);
+ 217              	 .loc 1 291 0
+ 218 0036 FB69     	 ldr r3,[r7,#28]
+ 219 0038 1A0C     	 lsrs r2,r3,#16
+ 220 003a FB69     	 ldr r3,[r7,#28]
+ 221 003c 9BB2     	 uxth r3,r3
+ 222 003e 1344     	 add r3,r3,r2
+ 223 0040 FB61     	 str r3,[r7,#28]
+ 292:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     if (q->len % 2 != 0) {
+ 224              	 .loc 1 292 0
+ 225 0042 BB69     	 ldr r3,[r7,#24]
+ 226 0044 5B89     	 ldrh r3,[r3,#10]
+ 227 0046 03F00103 	 and r3,r3,#1
+ 228 004a 9BB2     	 uxth r3,r3
+ 229 004c 002B     	 cmp r3,#0
+ 230 004e 0CD0     	 beq .L10
+ 293:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       swapped = 1 - swapped;
+ 231              	 .loc 1 293 0
+ 232 0050 FB7D     	 ldrb r3,[r7,#23]
+ 233 0052 C3F10103 	 rsb r3,r3,#1
+ 234 0056 FB75     	 strb r3,[r7,#23]
+ 294:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       acc = SWAP_BYTES_IN_WORD(acc);
+ 235              	 .loc 1 294 0
+ 236 0058 FB69     	 ldr r3,[r7,#28]
+ 237 005a 1B02     	 lsls r3,r3,#8
+ 238 005c 9AB2     	 uxth r2,r3
+ 239 005e FB69     	 ldr r3,[r7,#28]
+ 240 0060 03F47F43 	 and r3,r3,#65280
+ 241 0064 1B0A     	 lsrs r3,r3,#8
+ 242 0066 1343     	 orrs r3,r3,r2
+ 243 0068 FB61     	 str r3,[r7,#28]
+ 244              	.L10:
+ 284:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+ 245              	 .loc 1 284 0 discriminator 2
+ 246 006a BB69     	 ldr r3,[r7,#24]
+ 247 006c 1B68     	 ldr r3,[r3]
+ 248 006e BB61     	 str r3,[r7,#24]
+ 249              	.L9:
+ 284:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+ 250              	 .loc 1 284 0 is_stmt 0 discriminator 1
+ 251 0070 BB69     	 ldr r3,[r7,#24]
+ 252 0072 002B     	 cmp r3,#0
+ 253 0074 D2D1     	 bne .L11
+ 295:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     }
+ 296:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): wrapped lwip_chksum()=%"X32_F" \n", acc));*/
+ 297:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 298:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 299:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (swapped) {
+ 254              	 .loc 1 299 0 is_stmt 1
+ 255 0076 FB7D     	 ldrb r3,[r7,#23]
+ 256 0078 002B     	 cmp r3,#0
+ 257 007a 08D0     	 beq .L12
+ 300:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc = SWAP_BYTES_IN_WORD(acc);
+ 258              	 .loc 1 300 0
+ 259 007c FB69     	 ldr r3,[r7,#28]
+ 260 007e 1B02     	 lsls r3,r3,#8
+ 261 0080 9AB2     	 uxth r2,r3
+ 262 0082 FB69     	 ldr r3,[r7,#28]
+ 263 0084 03F47F43 	 and r3,r3,#65280
+ 264 0088 1B0A     	 lsrs r3,r3,#8
+ 265 008a 1343     	 orrs r3,r3,r2
+ 266 008c FB61     	 str r3,[r7,#28]
+ 267              	.L12:
+ 301:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 302:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   addr = ip4_addr_get_u32(src);
+ 268              	 .loc 1 302 0
+ 269 008e BB68     	 ldr r3,[r7,#8]
+ 270 0090 1B68     	 ldr r3,[r3]
+ 271 0092 3B61     	 str r3,[r7,#16]
+ 303:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += (addr & 0xffffUL);
+ 272              	 .loc 1 303 0
+ 273 0094 3B69     	 ldr r3,[r7,#16]
+ 274 0096 9BB2     	 uxth r3,r3
+ 275 0098 FA69     	 ldr r2,[r7,#28]
+ 276 009a 1344     	 add r3,r3,r2
+ 277 009c FB61     	 str r3,[r7,#28]
+ 304:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += ((addr >> 16) & 0xffffUL);
+ 278              	 .loc 1 304 0
+ 279 009e 3B69     	 ldr r3,[r7,#16]
+ 280 00a0 1B0C     	 lsrs r3,r3,#16
+ 281 00a2 FA69     	 ldr r2,[r7,#28]
+ 282 00a4 1344     	 add r3,r3,r2
+ 283 00a6 FB61     	 str r3,[r7,#28]
+ 305:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   addr = ip4_addr_get_u32(dest);
+ 284              	 .loc 1 305 0
+ 285 00a8 7B68     	 ldr r3,[r7,#4]
+ 286 00aa 1B68     	 ldr r3,[r3]
+ 287 00ac 3B61     	 str r3,[r7,#16]
+ 306:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += (addr & 0xffffUL);
+ 288              	 .loc 1 306 0
+ 289 00ae 3B69     	 ldr r3,[r7,#16]
+ 290 00b0 9BB2     	 uxth r3,r3
+ 291 00b2 FA69     	 ldr r2,[r7,#28]
+ 292 00b4 1344     	 add r3,r3,r2
+ 293 00b6 FB61     	 str r3,[r7,#28]
+ 307:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += ((addr >> 16) & 0xffffUL);
+ 294              	 .loc 1 307 0
+ 295 00b8 3B69     	 ldr r3,[r7,#16]
+ 296 00ba 1B0C     	 lsrs r3,r3,#16
+ 297 00bc FA69     	 ldr r2,[r7,#28]
+ 298 00be 1344     	 add r3,r3,r2
+ 299 00c0 FB61     	 str r3,[r7,#28]
+ 308:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += (u32_t)htons((u16_t)proto);
+ 300              	 .loc 1 308 0
+ 301 00c2 FB78     	 ldrb r3,[r7,#3]
+ 302 00c4 9BB2     	 uxth r3,r3
+ 303 00c6 1846     	 mov r0,r3
+ 304 00c8 FFF7FEFF 	 bl lwip_htons
+ 305 00cc 0346     	 mov r3,r0
+ 306 00ce 1A46     	 mov r2,r3
+ 307 00d0 FB69     	 ldr r3,[r7,#28]
+ 308 00d2 1344     	 add r3,r3,r2
+ 309 00d4 FB61     	 str r3,[r7,#28]
+ 309:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += (u32_t)htons(proto_len);
+ 310              	 .loc 1 309 0
+ 311 00d6 3B8D     	 ldrh r3,[r7,#40]
+ 312 00d8 1846     	 mov r0,r3
+ 313 00da FFF7FEFF 	 bl lwip_htons
+ 314 00de 0346     	 mov r3,r0
+ 315 00e0 1A46     	 mov r2,r3
+ 316 00e2 FB69     	 ldr r3,[r7,#28]
+ 317 00e4 1344     	 add r3,r3,r2
+ 318 00e6 FB61     	 str r3,[r7,#28]
+ 310:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 311:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* Fold 32-bit sum to 16 bits
+ 312:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****      calling this twice is propably faster than if statements... */
+ 313:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc = FOLD_U32T(acc);
+ 319              	 .loc 1 313 0
+ 320 00e8 FB69     	 ldr r3,[r7,#28]
+ 321 00ea 1A0C     	 lsrs r2,r3,#16
+ 322 00ec FB69     	 ldr r3,[r7,#28]
+ 323 00ee 9BB2     	 uxth r3,r3
+ 324 00f0 1344     	 add r3,r3,r2
+ 325 00f2 FB61     	 str r3,[r7,#28]
+ 314:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc = FOLD_U32T(acc);
+ 326              	 .loc 1 314 0
+ 327 00f4 FB69     	 ldr r3,[r7,#28]
+ 328 00f6 1A0C     	 lsrs r2,r3,#16
+ 329 00f8 FB69     	 ldr r3,[r7,#28]
+ 330 00fa 9BB2     	 uxth r3,r3
+ 331 00fc 1344     	 add r3,r3,r2
+ 332 00fe FB61     	 str r3,[r7,#28]
+ 315:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): pbuf chain lwip_chksum()=%"X32_F"\n", acc));
+ 316:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   return (u16_t)~(acc & 0xffffUL);
+ 333              	 .loc 1 316 0
+ 334 0100 FB69     	 ldr r3,[r7,#28]
+ 335 0102 9BB2     	 uxth r3,r3
+ 336 0104 DB43     	 mvns r3,r3
+ 337 0106 9BB2     	 uxth r3,r3
+ 317:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** }
+ 338              	 .loc 1 317 0
+ 339 0108 1846     	 mov r0,r3
+ 340 010a 2037     	 adds r7,r7,#32
+ 341              	.LCFI9:
+ 342              	 .cfi_def_cfa_offset 8
+ 343 010c BD46     	 mov sp,r7
+ 344              	.LCFI10:
+ 345              	 .cfi_def_cfa_register 13
+ 346              	 
+ 347 010e 80BD     	 pop {r7,pc}
+ 348              	 .cfi_endproc
+ 349              	.LFE129:
+ 351              	 .section .text.inet_chksum_pseudo_partial,"ax",%progbits
+ 352              	 .align 2
+ 353              	 .global inet_chksum_pseudo_partial
+ 354              	 .thumb
+ 355              	 .thumb_func
+ 357              	inet_chksum_pseudo_partial:
+ 358              	.LFB130:
+ 318:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 319:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /* inet_chksum_pseudo:
+ 320:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 321:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Calculates the pseudo Internet checksum used by TCP and UDP for a pbuf chain.
+ 322:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * IP addresses are expected to be in network byte order.
+ 323:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 324:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param p chain of pbufs over that a checksum should be calculated (ip data part)
+ 325:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param src source ip address (used for checksum of pseudo header)
+ 326:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param dst destination ip address (used for checksum of pseudo header)
+ 327:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param proto ip protocol (used for checksum of pseudo header)
+ 328:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param proto_len length of the ip data part (used for checksum of pseudo header)
+ 329:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @return checksum (as u16_t) to be saved directly in the protocol header
+ 330:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+ 331:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** u16_t
+ 332:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** inet_chksum_pseudo_partial(struct pbuf *p,
+ 333:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****        ip_addr_t *src, ip_addr_t *dest,
+ 334:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****        u8_t proto, u16_t proto_len, u16_t chksum_len)
+ 335:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** {
+ 359              	 .loc 1 335 0
+ 360              	 .cfi_startproc
+ 361              	 
+ 362              	 
+ 363 0000 80B5     	 push {r7,lr}
+ 364              	.LCFI11:
+ 365              	 .cfi_def_cfa_offset 8
+ 366              	 .cfi_offset 7,-8
+ 367              	 .cfi_offset 14,-4
+ 368 0002 88B0     	 sub sp,sp,#32
+ 369              	.LCFI12:
+ 370              	 .cfi_def_cfa_offset 40
+ 371 0004 00AF     	 add r7,sp,#0
+ 372              	.LCFI13:
+ 373              	 .cfi_def_cfa_register 7
+ 374 0006 F860     	 str r0,[r7,#12]
+ 375 0008 B960     	 str r1,[r7,#8]
+ 376 000a 7A60     	 str r2,[r7,#4]
+ 377 000c FB70     	 strb r3,[r7,#3]
+ 336:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u32_t acc;
+ 337:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u32_t addr;
+ 338:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   struct pbuf *q;
+ 339:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u8_t swapped;
+ 340:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u16_t chklen;
+ 341:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 342:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc = 0;
+ 378              	 .loc 1 342 0
+ 379 000e 0023     	 movs r3,#0
+ 380 0010 FB61     	 str r3,[r7,#28]
+ 343:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   swapped = 0;
+ 381              	 .loc 1 343 0
+ 382 0012 0023     	 movs r3,#0
+ 383 0014 FB75     	 strb r3,[r7,#23]
+ 344:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* iterate through all pbuf in chain */
+ 345:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   for(q = p; (q != NULL) && (chksum_len > 0); q = q->next) {
+ 384              	 .loc 1 345 0
+ 385 0016 FB68     	 ldr r3,[r7,#12]
+ 386 0018 BB61     	 str r3,[r7,#24]
+ 387 001a 35E0     	 b .L15
+ 388              	.L19:
+ 346:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+ 347:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       (void *)q, (void *)q->next));
+ 348:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     chklen = q->len;
+ 389              	 .loc 1 348 0
+ 390 001c BB69     	 ldr r3,[r7,#24]
+ 391 001e 5B89     	 ldrh r3,[r3,#10]
+ 392 0020 BB82     	 strh r3,[r7,#20]
+ 349:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     if (chklen > chksum_len) {
+ 393              	 .loc 1 349 0
+ 394 0022 BA8A     	 ldrh r2,[r7,#20]
+ 395 0024 BB8D     	 ldrh r3,[r7,#44]
+ 396 0026 9A42     	 cmp r2,r3
+ 397 0028 01D9     	 bls .L16
+ 350:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       chklen = chksum_len;
+ 398              	 .loc 1 350 0
+ 399 002a BB8D     	 ldrh r3,[r7,#44]
+ 400 002c BB82     	 strh r3,[r7,#20]
+ 401              	.L16:
+ 351:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     }
+ 352:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc += LWIP_CHKSUM(q->payload, chklen);
+ 402              	 .loc 1 352 0
+ 403 002e BB69     	 ldr r3,[r7,#24]
+ 404 0030 5A68     	 ldr r2,[r3,#4]
+ 405 0032 BB8A     	 ldrh r3,[r7,#20]
+ 406 0034 1046     	 mov r0,r2
+ 407 0036 1946     	 mov r1,r3
+ 408 0038 FFF7FEFF 	 bl lwip_standard_chksum
+ 409 003c 0346     	 mov r3,r0
+ 410 003e 1A46     	 mov r2,r3
+ 411 0040 FB69     	 ldr r3,[r7,#28]
+ 412 0042 1344     	 add r3,r3,r2
+ 413 0044 FB61     	 str r3,[r7,#28]
+ 353:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     chksum_len -= chklen;
+ 414              	 .loc 1 353 0
+ 415 0046 BA8D     	 ldrh r2,[r7,#44]
+ 416 0048 BB8A     	 ldrh r3,[r7,#20]
+ 417 004a D31A     	 subs r3,r2,r3
+ 418 004c BB85     	 strh r3,[r7,#44]
+ 354:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     LWIP_ASSERT("delete me", chksum_len < 0x7fff);
+ 355:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): unwrapped lwip_chksum()=%"X32_F" \n", acc));*
+ 356:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     /* fold the upper bit down */
+ 357:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc = FOLD_U32T(acc);
+ 419              	 .loc 1 357 0
+ 420 004e FB69     	 ldr r3,[r7,#28]
+ 421 0050 1A0C     	 lsrs r2,r3,#16
+ 422 0052 FB69     	 ldr r3,[r7,#28]
+ 423 0054 9BB2     	 uxth r3,r3
+ 424 0056 1344     	 add r3,r3,r2
+ 425 0058 FB61     	 str r3,[r7,#28]
+ 358:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     if (q->len % 2 != 0) {
+ 426              	 .loc 1 358 0
+ 427 005a BB69     	 ldr r3,[r7,#24]
+ 428 005c 5B89     	 ldrh r3,[r3,#10]
+ 429 005e 03F00103 	 and r3,r3,#1
+ 430 0062 9BB2     	 uxth r3,r3
+ 431 0064 002B     	 cmp r3,#0
+ 432 0066 0CD0     	 beq .L17
+ 359:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       swapped = 1 - swapped;
+ 433              	 .loc 1 359 0
+ 434 0068 FB7D     	 ldrb r3,[r7,#23]
+ 435 006a C3F10103 	 rsb r3,r3,#1
+ 436 006e FB75     	 strb r3,[r7,#23]
+ 360:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       acc = SWAP_BYTES_IN_WORD(acc);
+ 437              	 .loc 1 360 0
+ 438 0070 FB69     	 ldr r3,[r7,#28]
+ 439 0072 1B02     	 lsls r3,r3,#8
+ 440 0074 9AB2     	 uxth r2,r3
+ 441 0076 FB69     	 ldr r3,[r7,#28]
+ 442 0078 03F47F43 	 and r3,r3,#65280
+ 443 007c 1B0A     	 lsrs r3,r3,#8
+ 444 007e 1343     	 orrs r3,r3,r2
+ 445 0080 FB61     	 str r3,[r7,#28]
+ 446              	.L17:
+ 345:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+ 447              	 .loc 1 345 0 discriminator 2
+ 448 0082 BB69     	 ldr r3,[r7,#24]
+ 449 0084 1B68     	 ldr r3,[r3]
+ 450 0086 BB61     	 str r3,[r7,#24]
+ 451              	.L15:
+ 345:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+ 452              	 .loc 1 345 0 is_stmt 0 discriminator 1
+ 453 0088 BB69     	 ldr r3,[r7,#24]
+ 454 008a 002B     	 cmp r3,#0
+ 455 008c 02D0     	 beq .L18
+ 345:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): checksumming pbuf %p (has next %p) \n",
+ 456              	 .loc 1 345 0 discriminator 3
+ 457 008e BB8D     	 ldrh r3,[r7,#44]
+ 458 0090 002B     	 cmp r3,#0
+ 459 0092 C3D1     	 bne .L19
+ 460              	.L18:
+ 361:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     }
+ 362:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     /*LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): wrapped lwip_chksum()=%"X32_F" \n", acc));*/
+ 363:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 364:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 365:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (swapped) {
+ 461              	 .loc 1 365 0 is_stmt 1
+ 462 0094 FB7D     	 ldrb r3,[r7,#23]
+ 463 0096 002B     	 cmp r3,#0
+ 464 0098 08D0     	 beq .L20
+ 366:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc = SWAP_BYTES_IN_WORD(acc);
+ 465              	 .loc 1 366 0
+ 466 009a FB69     	 ldr r3,[r7,#28]
+ 467 009c 1B02     	 lsls r3,r3,#8
+ 468 009e 9AB2     	 uxth r2,r3
+ 469 00a0 FB69     	 ldr r3,[r7,#28]
+ 470 00a2 03F47F43 	 and r3,r3,#65280
+ 471 00a6 1B0A     	 lsrs r3,r3,#8
+ 472 00a8 1343     	 orrs r3,r3,r2
+ 473 00aa FB61     	 str r3,[r7,#28]
+ 474              	.L20:
+ 367:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 368:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   addr = ip4_addr_get_u32(src);
+ 475              	 .loc 1 368 0
+ 476 00ac BB68     	 ldr r3,[r7,#8]
+ 477 00ae 1B68     	 ldr r3,[r3]
+ 478 00b0 3B61     	 str r3,[r7,#16]
+ 369:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += (addr & 0xffffUL);
+ 479              	 .loc 1 369 0
+ 480 00b2 3B69     	 ldr r3,[r7,#16]
+ 481 00b4 9BB2     	 uxth r3,r3
+ 482 00b6 FA69     	 ldr r2,[r7,#28]
+ 483 00b8 1344     	 add r3,r3,r2
+ 484 00ba FB61     	 str r3,[r7,#28]
+ 370:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += ((addr >> 16) & 0xffffUL);
+ 485              	 .loc 1 370 0
+ 486 00bc 3B69     	 ldr r3,[r7,#16]
+ 487 00be 1B0C     	 lsrs r3,r3,#16
+ 488 00c0 FA69     	 ldr r2,[r7,#28]
+ 489 00c2 1344     	 add r3,r3,r2
+ 490 00c4 FB61     	 str r3,[r7,#28]
+ 371:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   addr = ip4_addr_get_u32(dest);
+ 491              	 .loc 1 371 0
+ 492 00c6 7B68     	 ldr r3,[r7,#4]
+ 493 00c8 1B68     	 ldr r3,[r3]
+ 494 00ca 3B61     	 str r3,[r7,#16]
+ 372:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += (addr & 0xffffUL);
+ 495              	 .loc 1 372 0
+ 496 00cc 3B69     	 ldr r3,[r7,#16]
+ 497 00ce 9BB2     	 uxth r3,r3
+ 498 00d0 FA69     	 ldr r2,[r7,#28]
+ 499 00d2 1344     	 add r3,r3,r2
+ 500 00d4 FB61     	 str r3,[r7,#28]
+ 373:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += ((addr >> 16) & 0xffffUL);
+ 501              	 .loc 1 373 0
+ 502 00d6 3B69     	 ldr r3,[r7,#16]
+ 503 00d8 1B0C     	 lsrs r3,r3,#16
+ 504 00da FA69     	 ldr r2,[r7,#28]
+ 505 00dc 1344     	 add r3,r3,r2
+ 506 00de FB61     	 str r3,[r7,#28]
+ 374:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += (u32_t)htons((u16_t)proto);
+ 507              	 .loc 1 374 0
+ 508 00e0 FB78     	 ldrb r3,[r7,#3]
+ 509 00e2 9BB2     	 uxth r3,r3
+ 510 00e4 1846     	 mov r0,r3
+ 511 00e6 FFF7FEFF 	 bl lwip_htons
+ 512 00ea 0346     	 mov r3,r0
+ 513 00ec 1A46     	 mov r2,r3
+ 514 00ee FB69     	 ldr r3,[r7,#28]
+ 515 00f0 1344     	 add r3,r3,r2
+ 516 00f2 FB61     	 str r3,[r7,#28]
+ 375:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc += (u32_t)htons(proto_len);
+ 517              	 .loc 1 375 0
+ 518 00f4 3B8D     	 ldrh r3,[r7,#40]
+ 519 00f6 1846     	 mov r0,r3
+ 520 00f8 FFF7FEFF 	 bl lwip_htons
+ 521 00fc 0346     	 mov r3,r0
+ 522 00fe 1A46     	 mov r2,r3
+ 523 0100 FB69     	 ldr r3,[r7,#28]
+ 524 0102 1344     	 add r3,r3,r2
+ 525 0104 FB61     	 str r3,[r7,#28]
+ 376:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 377:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   /* Fold 32-bit sum to 16 bits
+ 378:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****      calling this twice is propably faster than if statements... */
+ 379:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc = FOLD_U32T(acc);
+ 526              	 .loc 1 379 0
+ 527 0106 FB69     	 ldr r3,[r7,#28]
+ 528 0108 1A0C     	 lsrs r2,r3,#16
+ 529 010a FB69     	 ldr r3,[r7,#28]
+ 530 010c 9BB2     	 uxth r3,r3
+ 531 010e 1344     	 add r3,r3,r2
+ 532 0110 FB61     	 str r3,[r7,#28]
+ 380:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc = FOLD_U32T(acc);
+ 533              	 .loc 1 380 0
+ 534 0112 FB69     	 ldr r3,[r7,#28]
+ 535 0114 1A0C     	 lsrs r2,r3,#16
+ 536 0116 FB69     	 ldr r3,[r7,#28]
+ 537 0118 9BB2     	 uxth r3,r3
+ 538 011a 1344     	 add r3,r3,r2
+ 539 011c FB61     	 str r3,[r7,#28]
+ 381:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   LWIP_DEBUGF(INET_DEBUG, ("inet_chksum_pseudo(): pbuf chain lwip_chksum()=%"X32_F"\n", acc));
+ 382:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   return (u16_t)~(acc & 0xffffUL);
+ 540              	 .loc 1 382 0
+ 541 011e FB69     	 ldr r3,[r7,#28]
+ 542 0120 9BB2     	 uxth r3,r3
+ 543 0122 DB43     	 mvns r3,r3
+ 544 0124 9BB2     	 uxth r3,r3
+ 383:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** }
+ 545              	 .loc 1 383 0
+ 546 0126 1846     	 mov r0,r3
+ 547 0128 2037     	 adds r7,r7,#32
+ 548              	.LCFI14:
+ 549              	 .cfi_def_cfa_offset 8
+ 550 012a BD46     	 mov sp,r7
+ 551              	.LCFI15:
+ 552              	 .cfi_def_cfa_register 13
+ 553              	 
+ 554 012c 80BD     	 pop {r7,pc}
+ 555              	 .cfi_endproc
+ 556              	.LFE130:
+ 558 012e 00BF     	 .section .text.inet_chksum,"ax",%progbits
+ 559              	 .align 2
+ 560              	 .global inet_chksum
+ 561              	 .thumb
+ 562              	 .thumb_func
+ 564              	inet_chksum:
+ 565              	.LFB131:
+ 384:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 385:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /* inet_chksum:
+ 386:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 387:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Calculates the Internet checksum over a portion of memory. Used primarily for IP
+ 388:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * and ICMP.
+ 389:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 390:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param dataptr start of the buffer to calculate the checksum (no alignment needed)
+ 391:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param len length of the buffer to calculate the checksum
+ 392:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @return checksum (as u16_t) to be saved directly in the protocol header
+ 393:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+ 394:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 395:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** u16_t
+ 396:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** inet_chksum(void *dataptr, u16_t len)
+ 397:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** {
+ 566              	 .loc 1 397 0
+ 567              	 .cfi_startproc
+ 568              	 
+ 569              	 
+ 570 0000 80B5     	 push {r7,lr}
+ 571              	.LCFI16:
+ 572              	 .cfi_def_cfa_offset 8
+ 573              	 .cfi_offset 7,-8
+ 574              	 .cfi_offset 14,-4
+ 575 0002 82B0     	 sub sp,sp,#8
+ 576              	.LCFI17:
+ 577              	 .cfi_def_cfa_offset 16
+ 578 0004 00AF     	 add r7,sp,#0
+ 579              	.LCFI18:
+ 580              	 .cfi_def_cfa_register 7
+ 581 0006 7860     	 str r0,[r7,#4]
+ 582 0008 0B46     	 mov r3,r1
+ 583 000a 7B80     	 strh r3,[r7,#2]
+ 398:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   return ~LWIP_CHKSUM(dataptr, len);
+ 584              	 .loc 1 398 0
+ 585 000c 7B88     	 ldrh r3,[r7,#2]
+ 586 000e 7868     	 ldr r0,[r7,#4]
+ 587 0010 1946     	 mov r1,r3
+ 588 0012 FFF7FEFF 	 bl lwip_standard_chksum
+ 589 0016 0346     	 mov r3,r0
+ 590 0018 DB43     	 mvns r3,r3
+ 591 001a 9BB2     	 uxth r3,r3
+ 399:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** }
+ 592              	 .loc 1 399 0
+ 593 001c 1846     	 mov r0,r3
+ 594 001e 0837     	 adds r7,r7,#8
+ 595              	.LCFI19:
+ 596              	 .cfi_def_cfa_offset 8
+ 597 0020 BD46     	 mov sp,r7
+ 598              	.LCFI20:
+ 599              	 .cfi_def_cfa_register 13
+ 600              	 
+ 601 0022 80BD     	 pop {r7,pc}
+ 602              	 .cfi_endproc
+ 603              	.LFE131:
+ 605              	 .section .text.inet_chksum_pbuf,"ax",%progbits
+ 606              	 .align 2
+ 607              	 .global inet_chksum_pbuf
+ 608              	 .thumb
+ 609              	 .thumb_func
+ 611              	inet_chksum_pbuf:
+ 612              	.LFB132:
+ 400:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 401:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** /**
+ 402:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * Calculate a checksum over a chain of pbufs (without pseudo-header, much like
+ 403:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * inet_chksum only pbufs are used).
+ 404:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  *
+ 405:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @param p pbuf chain over that the checksum should be calculated
+ 406:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  * @return checksum (as u16_t) to be saved directly in the protocol header
+ 407:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****  */
+ 408:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** u16_t
+ 409:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** inet_chksum_pbuf(struct pbuf *p)
+ 410:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** {
+ 613              	 .loc 1 410 0
+ 614              	 .cfi_startproc
+ 615              	 
+ 616              	 
+ 617 0000 80B5     	 push {r7,lr}
+ 618              	.LCFI21:
+ 619              	 .cfi_def_cfa_offset 8
+ 620              	 .cfi_offset 7,-8
+ 621              	 .cfi_offset 14,-4
+ 622 0002 86B0     	 sub sp,sp,#24
+ 623              	.LCFI22:
+ 624              	 .cfi_def_cfa_offset 32
+ 625 0004 00AF     	 add r7,sp,#0
+ 626              	.LCFI23:
+ 627              	 .cfi_def_cfa_register 7
+ 628 0006 7860     	 str r0,[r7,#4]
+ 411:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u32_t acc;
+ 412:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   struct pbuf *q;
+ 413:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   u8_t swapped;
+ 414:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 415:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   acc = 0;
+ 629              	 .loc 1 415 0
+ 630 0008 0023     	 movs r3,#0
+ 631 000a 7B61     	 str r3,[r7,#20]
+ 416:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   swapped = 0;
+ 632              	 .loc 1 416 0
+ 633 000c 0023     	 movs r3,#0
+ 634 000e FB73     	 strb r3,[r7,#15]
+ 417:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   for(q = p; q != NULL; q = q->next) {
+ 635              	 .loc 1 417 0
+ 636 0010 7B68     	 ldr r3,[r7,#4]
+ 637 0012 3B61     	 str r3,[r7,#16]
+ 638 0014 29E0     	 b .L25
+ 639              	.L27:
+ 418:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc += LWIP_CHKSUM(q->payload, q->len);
+ 640              	 .loc 1 418 0
+ 641 0016 3B69     	 ldr r3,[r7,#16]
+ 642 0018 5A68     	 ldr r2,[r3,#4]
+ 643 001a 3B69     	 ldr r3,[r7,#16]
+ 644 001c 5B89     	 ldrh r3,[r3,#10]
+ 645 001e 1046     	 mov r0,r2
+ 646 0020 1946     	 mov r1,r3
+ 647 0022 FFF7FEFF 	 bl lwip_standard_chksum
+ 648 0026 0346     	 mov r3,r0
+ 649 0028 1A46     	 mov r2,r3
+ 650 002a 7B69     	 ldr r3,[r7,#20]
+ 651 002c 1344     	 add r3,r3,r2
+ 652 002e 7B61     	 str r3,[r7,#20]
+ 419:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc = FOLD_U32T(acc);
+ 653              	 .loc 1 419 0
+ 654 0030 7B69     	 ldr r3,[r7,#20]
+ 655 0032 1A0C     	 lsrs r2,r3,#16
+ 656 0034 7B69     	 ldr r3,[r7,#20]
+ 657 0036 9BB2     	 uxth r3,r3
+ 658 0038 1344     	 add r3,r3,r2
+ 659 003a 7B61     	 str r3,[r7,#20]
+ 420:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     if (q->len % 2 != 0) {
+ 660              	 .loc 1 420 0
+ 661 003c 3B69     	 ldr r3,[r7,#16]
+ 662 003e 5B89     	 ldrh r3,[r3,#10]
+ 663 0040 03F00103 	 and r3,r3,#1
+ 664 0044 9BB2     	 uxth r3,r3
+ 665 0046 002B     	 cmp r3,#0
+ 666 0048 0CD0     	 beq .L26
+ 421:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       swapped = 1 - swapped;
+ 667              	 .loc 1 421 0
+ 668 004a FB7B     	 ldrb r3,[r7,#15]
+ 669 004c C3F10103 	 rsb r3,r3,#1
+ 670 0050 FB73     	 strb r3,[r7,#15]
+ 422:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****       acc = SWAP_BYTES_IN_WORD(acc);
+ 671              	 .loc 1 422 0
+ 672 0052 7B69     	 ldr r3,[r7,#20]
+ 673 0054 1B02     	 lsls r3,r3,#8
+ 674 0056 9AB2     	 uxth r2,r3
+ 675 0058 7B69     	 ldr r3,[r7,#20]
+ 676 005a 03F47F43 	 and r3,r3,#65280
+ 677 005e 1B0A     	 lsrs r3,r3,#8
+ 678 0060 1343     	 orrs r3,r3,r2
+ 679 0062 7B61     	 str r3,[r7,#20]
+ 680              	.L26:
+ 417:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc += LWIP_CHKSUM(q->payload, q->len);
+ 681              	 .loc 1 417 0 discriminator 2
+ 682 0064 3B69     	 ldr r3,[r7,#16]
+ 683 0066 1B68     	 ldr r3,[r3]
+ 684 0068 3B61     	 str r3,[r7,#16]
+ 685              	.L25:
+ 417:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc += LWIP_CHKSUM(q->payload, q->len);
+ 686              	 .loc 1 417 0 is_stmt 0 discriminator 1
+ 687 006a 3B69     	 ldr r3,[r7,#16]
+ 688 006c 002B     	 cmp r3,#0
+ 689 006e D2D1     	 bne .L27
+ 423:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     }
+ 424:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 425:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** 
+ 426:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   if (swapped) {
+ 690              	 .loc 1 426 0 is_stmt 1
+ 691 0070 FB7B     	 ldrb r3,[r7,#15]
+ 692 0072 002B     	 cmp r3,#0
+ 693 0074 08D0     	 beq .L28
+ 427:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****     acc = SWAP_BYTES_IN_WORD(acc);
+ 694              	 .loc 1 427 0
+ 695 0076 7B69     	 ldr r3,[r7,#20]
+ 696 0078 1B02     	 lsls r3,r3,#8
+ 697 007a 9AB2     	 uxth r2,r3
+ 698 007c 7B69     	 ldr r3,[r7,#20]
+ 699 007e 03F47F43 	 and r3,r3,#65280
+ 700 0082 1B0A     	 lsrs r3,r3,#8
+ 701 0084 1343     	 orrs r3,r3,r2
+ 702 0086 7B61     	 str r3,[r7,#20]
+ 703              	.L28:
+ 428:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   }
+ 429:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c ****   return (u16_t)~(acc & 0xffffUL);
+ 704              	 .loc 1 429 0
+ 705 0088 7B69     	 ldr r3,[r7,#20]
+ 706 008a 9BB2     	 uxth r3,r3
+ 707 008c DB43     	 mvns r3,r3
+ 708 008e 9BB2     	 uxth r3,r3
+ 430:../Dave/Generated/ETH_LWIP/lwip/core/ipv4/inet_chksum.c **** }
+ 709              	 .loc 1 430 0
+ 710 0090 1846     	 mov r0,r3
+ 711 0092 1837     	 adds r7,r7,#24
+ 712              	.LCFI24:
+ 713              	 .cfi_def_cfa_offset 8
+ 714 0094 BD46     	 mov sp,r7
+ 715              	.LCFI25:
+ 716              	 .cfi_def_cfa_register 13
+ 717              	 
+ 718 0096 80BD     	 pop {r7,pc}
+ 719              	 .cfi_endproc
+ 720              	.LFE132:
+ 722              	 .text
+ 723              	.Letext0:
+ 724              	 .file 2 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 725              	 .file 3 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 726              	 .file 4 "../Dave/Generated/ETH_LWIP/lwip/core/ipv4/../../include/lwip/../../port/include/arch/cc.h"
+ 727              	 .file 5 "../Dave/Generated/ETH_LWIP/lwip/core/ipv4/../../include/ipv4/lwip/../../lwip/pbuf.h"
+ 728              	 .file 6 "../Dave/Generated/ETH_LWIP/lwip/core/ipv4/../../include/ipv4/lwip/ip_addr.h"
+ 729              	 .file 7 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Include/core_cm4.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 inet_chksum.c
+    {standard input}:20     .text.lwip_standard_chksum:00000000 $t
+    {standard input}:24     .text.lwip_standard_chksum:00000000 lwip_standard_chksum
+    {standard input}:167    .text.inet_chksum_pseudo:00000000 $t
+    {standard input}:172    .text.inet_chksum_pseudo:00000000 inet_chksum_pseudo
+    {standard input}:352    .text.inet_chksum_pseudo_partial:00000000 $t
+    {standard input}:357    .text.inet_chksum_pseudo_partial:00000000 inet_chksum_pseudo_partial
+    {standard input}:559    .text.inet_chksum:00000000 $t
+    {standard input}:564    .text.inet_chksum:00000000 inet_chksum
+    {standard input}:606    .text.inet_chksum_pbuf:00000000 $t
+    {standard input}:611    .text.inet_chksum_pbuf:00000000 inet_chksum_pbuf
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+lwip_htons

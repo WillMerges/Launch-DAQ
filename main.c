@@ -2,6 +2,10 @@
 
 // packet data types
 
+// set to 1 if flash memory that stores network config should be reset to defaults
+// set to 0 to use the last saved network config (or use defaults if flash is empty)
+#define REFLASH 0
+
 typedef struct {
 	uint32_t ms;
 	uint32_t us;
@@ -374,7 +378,7 @@ uint8_t tftp_check_octet_mode(char* data, size_t len, ip_addr_t* addr, uint16_t 
 		return 0;
 	}
 
-	if(((char*)p->payload)[p->len - 1] != '\0') {
+	if(data[len - 1] != '\0') {
 		tftp_err("mode string not null-terminated", addr, port);
 		return 0;
 	}
@@ -518,8 +522,8 @@ void tftp_init() {
 // loads network configuration from persistent flash memory into 'flash' variable
 // if there is no configuration in flash (e.g. after re-flashing), writes defaults to flash
 // returns: 1 on success, -1 on error
-int load_flash_config() {
-	if(E_EEPROM_XMC4_IsFlashEmpty()) {
+int load_flash_config(uint8_t force_default) {
+	if(E_EEPROM_XMC4_IsFlashEmpty() || force_default) {
 		// nothing in flash, set the defaults and save them to flash
 		if(!ipaddr_aton(DEF_SRC_IP, &flash.src_ip)) {
 			// bad address
@@ -632,7 +636,7 @@ int main(void) {
 	}
 
 	// load config from flash
-	load_flash_config();
+	load_flash_config(REFLASH);
 
 	// Initialize UDP interface
 	local_udp_init();
