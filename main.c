@@ -578,6 +578,10 @@ void local_udp_reset() {
 	// bind to the source port
 	udp_bind(pcb, IP_ADDR_ANY, flash.src_port);
 
+	// only call this if want to change TFTP server address when config set
+	// without this line, TFTP server address doesn't change until reboot in case of error
+//	udp_bind(tftp_pcb, IP_ADDR_ANY, TFTP_PORT);
+
 	// set IP addresses
 	netif_set_addr(netif, &flash.src_ip, &flash.subnet, &flash.default_gw);
 }
@@ -715,7 +719,7 @@ int main(void) {
 		if (read_adc0) { // Flag set
 			if (!SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)) { // SPI not already in transaction
 				SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC, SPI_MASTER_SS_SIGNAL_0); // Change to ADC0
-				SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, (uint8_t*)&ADC0_buff.data, sizeof(ADC_data_t) + 3);
+				SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, (uint8_t*)&(ADC0_buff.data), sizeof(ADC_data_t) + 3);
 				read_adc0 = 0; // Reset Flag
 
 				// send out ADC0 packet
@@ -730,7 +734,7 @@ int main(void) {
 		if (read_adc1) {
 			if (!SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)) { // SPI not already in transaction
 				SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC, SPI_MASTER_SS_SIGNAL_1); // Change to ADC1
-				SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, (uint8_t*)&ADC0_buff.data, sizeof(ADC_data_t) + 3);
+				SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, (uint8_t*)&(ADC1_buff.data), sizeof(ADC_data_t) + 3);
 				read_adc1 = 0; // Reset Flag
 
 				// send out ADC0 packet

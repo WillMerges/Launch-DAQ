@@ -8438,9 +8438,13 @@
  2367 0010 1A46     	 mov r2,r3
  2368 0012 FFF7FEFF 	 bl udp_bind
  580:../main.c     **** 
- 581:../main.c     **** 	// set IP addresses
- 582:../main.c     **** 	netif_set_addr(netif, &flash.src_ip, &flash.subnet, &flash.default_gw);
- 2369              	 .loc 7 582 0
+ 581:../main.c     **** 	// only call this if want to change TFTP server address when config set
+ 582:../main.c     **** 	// without this line, TFTP server address doesn't change until reboot in case of error
+ 583:../main.c     **** //	udp_bind(tftp_pcb, IP_ADDR_ANY, TFTP_PORT);
+ 584:../main.c     **** 
+ 585:../main.c     **** 	// set IP addresses
+ 586:../main.c     **** 	netif_set_addr(netif, &flash.src_ip, &flash.subnet, &flash.default_gw);
+ 2369              	 .loc 7 586 0
  2370 0016 074B     	 ldr r3,.L121+12
  2371 0018 1B68     	 ldr r3,[r3]
  2372 001a 1846     	 mov r0,r3
@@ -8448,8 +8452,8 @@
  2374 001e 064A     	 ldr r2,.L121+16
  2375 0020 064B     	 ldr r3,.L121+20
  2376 0022 FFF7FEFF 	 bl netif_set_addr
- 583:../main.c     **** }
- 2377              	 .loc 7 583 0
+ 587:../main.c     **** }
+ 2377              	 .loc 7 587 0
  2378 0026 80BD     	 pop {r7,pc}
  2379              	.L122:
  2380              	 .align 2
@@ -8469,11 +8473,11 @@
  2395              	 .thumb_func
  2397              	local_udp_init:
  2398              	.LFB457:
- 584:../main.c     **** 
- 585:../main.c     **** // initialize UDP interface
- 586:../main.c     **** // should only be called once, if network configuration changes call 'local_udp_reset'
- 587:../main.c     **** void local_udp_init() {
- 2399              	 .loc 7 587 0
+ 588:../main.c     **** 
+ 589:../main.c     **** // initialize UDP interface
+ 590:../main.c     **** // should only be called once, if network configuration changes call 'local_udp_reset'
+ 591:../main.c     **** void local_udp_init() {
+ 2399              	 .loc 7 591 0
  2400              	 .cfi_startproc
  2401              	 
  2402              	 
@@ -8485,19 +8489,19 @@
  2408 0002 00AF     	 add r7,sp,#0
  2409              	.LCFI86:
  2410              	 .cfi_def_cfa_register 7
- 588:../main.c     **** 	pcb = udp_new();
- 2411              	 .loc 7 588 0
+ 592:../main.c     **** 	pcb = udp_new();
+ 2411              	 .loc 7 592 0
  2412 0004 FFF7FEFF 	 bl udp_new
  2413 0008 0246     	 mov r2,r0
  2414 000a 084B     	 ldr r3,.L124
  2415 000c 1A60     	 str r2,[r3]
- 589:../main.c     **** 
- 590:../main.c     **** 	// allocate buffer at least the size of the largest packet we'll send
- 591:../main.c     **** 	if(sizeof(ADC_data_t) + sizeof(header_t) > sizeof(thermocouple_packet_t)) {
- 592:../main.c     **** 		p = pbuf_alloc(PBUF_TRANSPORT, sizeof(ADC_data_t) + sizeof(header_t), PBUF_RAM);
- 593:../main.c     **** 	} else {
- 594:../main.c     **** 		p = pbuf_alloc(PBUF_TRANSPORT, sizeof(thermocouple_packet_t), PBUF_RAM);
- 2416              	 .loc 7 594 0
+ 593:../main.c     **** 
+ 594:../main.c     **** 	// allocate buffer at least the size of the largest packet we'll send
+ 595:../main.c     **** 	if(sizeof(ADC_data_t) + sizeof(header_t) > sizeof(thermocouple_packet_t)) {
+ 596:../main.c     **** 		p = pbuf_alloc(PBUF_TRANSPORT, sizeof(ADC_data_t) + sizeof(header_t), PBUF_RAM);
+ 597:../main.c     **** 	} else {
+ 598:../main.c     **** 		p = pbuf_alloc(PBUF_TRANSPORT, sizeof(thermocouple_packet_t), PBUF_RAM);
+ 2416              	 .loc 7 598 0
  2417 000e 0020     	 movs r0,#0
  2418 0010 1C21     	 movs r1,#28
  2419 0012 0022     	 movs r2,#0
@@ -8505,22 +8509,22 @@
  2421 0018 0246     	 mov r2,r0
  2422 001a 054B     	 ldr r3,.L124+4
  2423 001c 1A60     	 str r2,[r3]
- 595:../main.c     **** 	}
- 596:../main.c     **** 
- 597:../main.c     **** 	// set the interface to send on
- 598:../main.c     **** 	netif = ETH_LWIP_0.xnetif;
- 2424              	 .loc 7 598 0
+ 599:../main.c     **** 	}
+ 600:../main.c     **** 
+ 601:../main.c     **** 	// set the interface to send on
+ 602:../main.c     **** 	netif = ETH_LWIP_0.xnetif;
+ 2424              	 .loc 7 602 0
  2425 001e 054B     	 ldr r3,.L124+8
  2426 0020 5B68     	 ldr r3,[r3,#4]
  2427 0022 054A     	 ldr r2,.L124+12
  2428 0024 1360     	 str r3,[r2]
- 599:../main.c     **** 
- 600:../main.c     **** 	// set addresses and things
- 601:../main.c     **** 	local_udp_reset();
- 2429              	 .loc 7 601 0
+ 603:../main.c     **** 
+ 604:../main.c     **** 	// set addresses and things
+ 605:../main.c     **** 	local_udp_reset();
+ 2429              	 .loc 7 605 0
  2430 0026 FFF7FEFF 	 bl local_udp_reset
- 602:../main.c     **** }
- 2431              	 .loc 7 602 0
+ 606:../main.c     **** }
+ 2431              	 .loc 7 606 0
  2432 002a 80BD     	 pop {r7,pc}
  2433              	.L125:
  2434              	 .align 2
@@ -8538,10 +8542,10 @@
  2447              	 .thumb_func
  2449              	send_data:
  2450              	.LFB458:
- 603:../main.c     **** 
- 604:../main.c     **** // send data over the Ethernet
- 605:../main.c     **** void send_data(void* data, uint16_t size, uint16_t port) {
- 2451              	 .loc 7 605 0
+ 607:../main.c     **** 
+ 608:../main.c     **** // send data over the Ethernet
+ 609:../main.c     **** void send_data(void* data, uint16_t size, uint16_t port) {
+ 2451              	 .loc 7 609 0
  2452              	 .cfi_startproc
  2453              	 
  2454              	 
@@ -8562,8 +8566,8 @@
  2469 000a 7B80     	 strh r3,[r7,#2]
  2470 000c 1346     	 mov r3,r2
  2471 000e 3B80     	 strh r3,[r7]
- 606:../main.c     **** 	memcpy(p->payload, data, size);
- 2472              	 .loc 7 606 0
+ 610:../main.c     **** 	memcpy(p->payload, data, size);
+ 2472              	 .loc 7 610 0
  2473 0010 104B     	 ldr r3,.L127
  2474 0012 1B68     	 ldr r3,[r3]
  2475 0014 5A68     	 ldr r2,[r3,#4]
@@ -8572,8 +8576,8 @@
  2478 001a 7968     	 ldr r1,[r7,#4]
  2479 001c 1A46     	 mov r2,r3
  2480 001e FFF7FEFF 	 bl memcpy
- 607:../main.c     **** 	p->len = p->tot_len = size;
- 2481              	 .loc 7 607 0
+ 611:../main.c     **** 	p->len = p->tot_len = size;
+ 2481              	 .loc 7 611 0
  2482 0022 0C4B     	 ldr r3,.L127
  2483 0024 1A68     	 ldr r2,[r3]
  2484 0026 0B4B     	 ldr r3,.L127
@@ -8582,9 +8586,9 @@
  2487 002c 1981     	 strh r1,[r3,#8]
  2488 002e 1B89     	 ldrh r3,[r3,#8]
  2489 0030 5381     	 strh r3,[r2,#10]
- 608:../main.c     **** 
- 609:../main.c     **** 	udp_sendto_if(pcb, p, &flash.dst_ip, port, netif);
- 2490              	 .loc 7 609 0
+ 612:../main.c     **** 
+ 613:../main.c     **** 	udp_sendto_if(pcb, p, &flash.dst_ip, port, netif);
+ 2490              	 .loc 7 613 0
  2491 0032 094B     	 ldr r3,.L127+4
  2492 0034 1968     	 ldr r1,[r3]
  2493 0036 074B     	 ldr r3,.L127
@@ -8598,8 +8602,8 @@
  2501 0046 064A     	 ldr r2,.L127+12
  2502 0048 2346     	 mov r3,r4
  2503 004a FFF7FEFF 	 bl udp_sendto_if
- 610:../main.c     **** }
- 2504              	 .loc 7 610 0
+ 614:../main.c     **** }
+ 2504              	 .loc 7 614 0
  2505 004e 0C37     	 adds r7,r7,#12
  2506              	.LCFI90:
  2507              	 .cfi_def_cfa_offset 12
@@ -8631,21 +8635,21 @@
  2534              	 .thumb_func
  2536              	main:
  2537              	.LFB459:
- 611:../main.c     **** 
- 612:../main.c     **** // definitions needed by main
- 613:../main.c     **** void adc_register_config();
- 614:../main.c     **** void xmc_ADC_setup();
  615:../main.c     **** 
- 616:../main.c     **** /*
- 617:../main.c     **** * @brief main() - Application entry point
- 618:../main.c     **** *
- 619:../main.c     **** * <b>Details of function</b><br>
- 620:../main.c     **** * This routine is the application entry point. It is invoked by the device startup code. It is resp
- 621:../main.c     **** * invoking the APP initialization dispatcher routine - DAVE_Init() and hosting the place-holder for
- 622:../main.c     **** * code.
- 623:../main.c     **** */
- 624:../main.c     **** int main(void) {
- 2538              	 .loc 7 624 0
+ 616:../main.c     **** // definitions needed by main
+ 617:../main.c     **** void adc_register_config();
+ 618:../main.c     **** void xmc_ADC_setup();
+ 619:../main.c     **** 
+ 620:../main.c     **** /*
+ 621:../main.c     **** * @brief main() - Application entry point
+ 622:../main.c     **** *
+ 623:../main.c     **** * <b>Details of function</b><br>
+ 624:../main.c     **** * This routine is the application entry point. It is invoked by the device startup code. It is resp
+ 625:../main.c     **** * invoking the APP initialization dispatcher routine - DAVE_Init() and hosting the place-holder for
+ 626:../main.c     **** * code.
+ 627:../main.c     **** */
+ 628:../main.c     **** int main(void) {
+ 2538              	 .loc 7 628 0
  2539              	 .cfi_startproc
  2540              	 
  2541              	 
@@ -8661,10 +8665,10 @@
  2551 0004 00AF     	 add r7,sp,#0
  2552              	.LCFI94:
  2553              	 .cfi_def_cfa_register 7
- 625:../main.c     **** 	DAVE_STATUS_t status;
- 626:../main.c     **** 	uint32_t timer_systimer_lwip; 				// Timer for Ethernet Checkouts???
- 627:../main.c     **** 	uint8_t null[18] = {0x00}; 					// Null packet to "send" during ADC Transfers
- 2554              	 .loc 7 627 0
+ 629:../main.c     **** 	DAVE_STATUS_t status;
+ 630:../main.c     **** 	uint32_t timer_systimer_lwip; 				// Timer for Ethernet Checkouts???
+ 631:../main.c     **** 	uint8_t null[18] = {0x00}; 					// Null packet to "send" during ADC Transfers
+ 2554              	 .loc 7 631 0
  2555 0006 07F11003 	 add r3,r7,#16
  2556 000a 0022     	 movs r2,#0
  2557 000c 1A60     	 str r2,[r3]
@@ -8681,240 +8685,240 @@
  2568 0022 0022     	 movs r2,#0
  2569 0024 1A80     	 strh r2,[r3]
  2570 0026 0233     	 adds r3,r3,#2
- 628:../main.c     **** 
- 629:../main.c     **** 	// DAVE STARTUP
- 630:../main.c     **** 	status = DAVE_Init(); /* Initialization of DAVE APPs  */
- 2571              	 .loc 7 630 0
+ 632:../main.c     **** 
+ 633:../main.c     **** 	// DAVE STARTUP
+ 634:../main.c     **** 	status = DAVE_Init(); /* Initialization of DAVE APPs  */
+ 2571              	 .loc 7 634 0
  2572 0028 FFF7FEFF 	 bl DAVE_Init
  2573 002c 0346     	 mov r3,r0
  2574 002e 87F82A30 	 strb r3,[r7,#42]
- 631:../main.c     **** 	if(status != DAVE_STATUS_SUCCESS) {
- 2575              	 .loc 7 631 0
+ 635:../main.c     **** 	if(status != DAVE_STATUS_SUCCESS) {
+ 2575              	 .loc 7 635 0
  2576 0032 97F82A30 	 ldrb r3,[r7,#42]
  2577 0036 002B     	 cmp r3,#0
  2578 0038 00D0     	 beq .L130
  2579              	.L131:
- 632:../main.c     **** 		/* Placeholder for error handler code.
- 633:../main.c     **** 		* The while loop below can be replaced with an user error handler. */
- 634:../main.c     **** 		XMC_DEBUG("DAVE APPs initialization failed\n");
- 635:../main.c     **** 		while(1) {};
- 2580              	 .loc 7 635 0 discriminator 1
+ 636:../main.c     **** 		/* Placeholder for error handler code.
+ 637:../main.c     **** 		* The while loop below can be replaced with an user error handler. */
+ 638:../main.c     **** 		XMC_DEBUG("DAVE APPs initialization failed\n");
+ 639:../main.c     **** 		while(1) {};
+ 2580              	 .loc 7 639 0 discriminator 1
  2581 003a FEE7     	 b .L131
  2582              	.L130:
- 636:../main.c     **** 	}
- 637:../main.c     **** 
- 638:../main.c     **** 	// load config from flash
- 639:../main.c     **** 	load_flash_config(REFLASH);
- 2583              	 .loc 7 639 0
+ 640:../main.c     **** 	}
+ 641:../main.c     **** 
+ 642:../main.c     **** 	// load config from flash
+ 643:../main.c     **** 	load_flash_config(REFLASH);
+ 2583              	 .loc 7 643 0
  2584 003c 0020     	 movs r0,#0
  2585 003e FFF7FEFF 	 bl load_flash_config
- 640:../main.c     **** 
- 641:../main.c     **** 	// Initialize UDP interface
- 642:../main.c     **** 	local_udp_init();
- 2586              	 .loc 7 642 0
+ 644:../main.c     **** 
+ 645:../main.c     **** 	// Initialize UDP interface
+ 646:../main.c     **** 	local_udp_init();
+ 2586              	 .loc 7 646 0
  2587 0042 FFF7FEFF 	 bl local_udp_init
- 643:../main.c     **** 
- 644:../main.c     **** 	// Init TFTP server
- 645:../main.c     **** 	tftp_init();
- 2588              	 .loc 7 645 0
+ 647:../main.c     **** 
+ 648:../main.c     **** 	// Init TFTP server
+ 649:../main.c     **** 	tftp_init();
+ 2588              	 .loc 7 649 0
  2589 0046 FFF7FEFF 	 bl tftp_init
- 646:../main.c     **** 
- 647:../main.c     **** 	//Initialize ADCs
- 648:../main.c     **** 	//Unlock / Config
- 649:../main.c     **** 	// ADC0
- 650:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_0); // Change slave
- 2590              	 .loc 7 650 0
+ 650:../main.c     **** 
+ 651:../main.c     **** 	//Initialize ADCs
+ 652:../main.c     **** 	//Unlock / Config
+ 653:../main.c     **** 	// ADC0
+ 654:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_0); // Change slave
+ 2590              	 .loc 7 654 0
  2591 004a 9048     	 ldr r0,.L147
  2592 004c 0021     	 movs r1,#0
  2593 004e FFF7FEFF 	 bl SPI_MASTER_EnableSlaveSelectSignal
  2594              	.LBB12:
- 651:../main.c     **** 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
- 2595              	 .loc 7 651 0
+ 655:../main.c     **** 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
+ 2595              	 .loc 7 655 0
  2596 0052 0023     	 movs r3,#0
  2597 0054 FB63     	 str r3,[r7,#60]
  2598 0056 02E0     	 b .L132
  2599              	.L133:
- 2600              	 .loc 7 651 0 is_stmt 0 discriminator 3
+ 2600              	 .loc 7 655 0 is_stmt 0 discriminator 3
  2601 0058 FB6B     	 ldr r3,[r7,#60]
  2602 005a 0133     	 adds r3,r3,#1
  2603 005c FB63     	 str r3,[r7,#60]
  2604              	.L132:
- 2605              	 .loc 7 651 0 discriminator 1
+ 2605              	 .loc 7 655 0 discriminator 1
  2606 005e FB6B     	 ldr r3,[r7,#60]
  2607 0060 42F22732 	 movw r2,#8999
  2608 0064 9342     	 cmp r3,r2
  2609 0066 F7DD     	 ble .L133
  2610              	.LBE12:
- 652:../main.c     **** 	adc_register_config();
- 2611              	 .loc 7 652 0 is_stmt 1
+ 656:../main.c     **** 	adc_register_config();
+ 2611              	 .loc 7 656 0 is_stmt 1
  2612 0068 FFF7FEFF 	 bl adc_register_config
- 653:../main.c     **** 
- 654:../main.c     **** 	// ADC 1
- 655:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_1); // Change slave
- 2613              	 .loc 7 655 0
+ 657:../main.c     **** 
+ 658:../main.c     **** 	// ADC 1
+ 659:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_1); // Change slave
+ 2613              	 .loc 7 659 0
  2614 006c 8748     	 ldr r0,.L147
  2615 006e 0121     	 movs r1,#1
  2616 0070 FFF7FEFF 	 bl SPI_MASTER_EnableSlaveSelectSignal
  2617              	.LBB13:
- 656:../main.c     **** 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
- 2618              	 .loc 7 656 0
+ 660:../main.c     **** 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
+ 2618              	 .loc 7 660 0
  2619 0074 0023     	 movs r3,#0
  2620 0076 BB63     	 str r3,[r7,#56]
  2621 0078 02E0     	 b .L134
  2622              	.L135:
- 2623              	 .loc 7 656 0 is_stmt 0 discriminator 3
+ 2623              	 .loc 7 660 0 is_stmt 0 discriminator 3
  2624 007a BB6B     	 ldr r3,[r7,#56]
  2625 007c 0133     	 adds r3,r3,#1
  2626 007e BB63     	 str r3,[r7,#56]
  2627              	.L134:
- 2628              	 .loc 7 656 0 discriminator 1
+ 2628              	 .loc 7 660 0 discriminator 1
  2629 0080 BB6B     	 ldr r3,[r7,#56]
  2630 0082 42F22732 	 movw r2,#8999
  2631 0086 9342     	 cmp r3,r2
  2632 0088 F7DD     	 ble .L135
  2633              	.LBE13:
- 657:../main.c     **** 	adc_register_config();
- 2634              	 .loc 7 657 0 is_stmt 1
+ 661:../main.c     **** 	adc_register_config();
+ 2634              	 .loc 7 661 0 is_stmt 1
  2635 008a FFF7FEFF 	 bl adc_register_config
- 658:../main.c     **** 
- 659:../main.c     **** 	// Turn on ADCs
- 660:../main.c     **** 	// ADC0
- 661:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_0); // Change slave
- 2636              	 .loc 7 661 0
+ 662:../main.c     **** 
+ 663:../main.c     **** 	// Turn on ADCs
+ 664:../main.c     **** 	// ADC0
+ 665:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_0); // Change slave
+ 2636              	 .loc 7 665 0
  2637 008e 7F48     	 ldr r0,.L147
  2638 0090 0021     	 movs r1,#0
  2639 0092 FFF7FEFF 	 bl SPI_MASTER_EnableSlaveSelectSignal
  2640              	.LBB14:
- 662:../main.c     **** 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
- 2641              	 .loc 7 662 0
+ 666:../main.c     **** 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
+ 2641              	 .loc 7 666 0
  2642 0096 0023     	 movs r3,#0
  2643 0098 7B63     	 str r3,[r7,#52]
  2644 009a 02E0     	 b .L136
  2645              	.L137:
- 2646              	 .loc 7 662 0 is_stmt 0 discriminator 3
+ 2646              	 .loc 7 666 0 is_stmt 0 discriminator 3
  2647 009c 7B6B     	 ldr r3,[r7,#52]
  2648 009e 0133     	 adds r3,r3,#1
  2649 00a0 7B63     	 str r3,[r7,#52]
  2650              	.L136:
- 2651              	 .loc 7 662 0 discriminator 1
+ 2651              	 .loc 7 666 0 discriminator 1
  2652 00a2 7B6B     	 ldr r3,[r7,#52]
  2653 00a4 42F22732 	 movw r2,#8999
  2654 00a8 9342     	 cmp r3,r2
  2655 00aa F7DD     	 ble .L137
  2656              	.LBE14:
- 663:../main.c     **** 	xmc_ADC_setup();
- 2657              	 .loc 7 663 0 is_stmt 1
+ 667:../main.c     **** 	xmc_ADC_setup();
+ 2657              	 .loc 7 667 0 is_stmt 1
  2658 00ac FFF7FEFF 	 bl xmc_ADC_setup
- 664:../main.c     **** 
- 665:../main.c     **** 	// ADC 1
- 666:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_1); // Change slave
- 2659              	 .loc 7 666 0
+ 668:../main.c     **** 
+ 669:../main.c     **** 	// ADC 1
+ 670:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_1); // Change slave
+ 2659              	 .loc 7 670 0
  2660 00b0 7648     	 ldr r0,.L147
  2661 00b2 0121     	 movs r1,#1
  2662 00b4 FFF7FEFF 	 bl SPI_MASTER_EnableSlaveSelectSignal
  2663              	.LBB15:
- 667:../main.c     **** 	for (int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
- 2664              	 .loc 7 667 0
+ 671:../main.c     **** 	for (int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
+ 2664              	 .loc 7 671 0
  2665 00b8 0023     	 movs r3,#0
  2666 00ba 3B63     	 str r3,[r7,#48]
  2667 00bc 02E0     	 b .L138
  2668              	.L139:
- 2669              	 .loc 7 667 0 is_stmt 0 discriminator 3
+ 2669              	 .loc 7 671 0 is_stmt 0 discriminator 3
  2670 00be 3B6B     	 ldr r3,[r7,#48]
  2671 00c0 0133     	 adds r3,r3,#1
  2672 00c2 3B63     	 str r3,[r7,#48]
  2673              	.L138:
- 2674              	 .loc 7 667 0 discriminator 1
+ 2674              	 .loc 7 671 0 discriminator 1
  2675 00c4 3B6B     	 ldr r3,[r7,#48]
  2676 00c6 42F22732 	 movw r2,#8999
  2677 00ca 9342     	 cmp r3,r2
  2678 00cc F7DD     	 ble .L139
  2679              	.LBE15:
- 668:../main.c     **** 	xmc_ADC_setup();
- 2680              	 .loc 7 668 0 is_stmt 1
+ 672:../main.c     **** 	xmc_ADC_setup();
+ 2680              	 .loc 7 672 0 is_stmt 1
  2681 00ce FFF7FEFF 	 bl xmc_ADC_setup
- 669:../main.c     **** 
- 670:../main.c     **** 	// RETURN TO ADC0
- 671:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_0); // Change slave
- 2682              	 .loc 7 671 0
+ 673:../main.c     **** 
+ 674:../main.c     **** 	// RETURN TO ADC0
+ 675:../main.c     **** 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_0); // Change slave
+ 2682              	 .loc 7 675 0
  2683 00d2 6E48     	 ldr r0,.L147
  2684 00d4 0021     	 movs r1,#0
  2685 00d6 FFF7FEFF 	 bl SPI_MASTER_EnableSlaveSelectSignal
  2686              	.LBB16:
- 672:../main.c     **** 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
- 2687              	 .loc 7 672 0
+ 676:../main.c     **** 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
+ 2687              	 .loc 7 676 0
  2688 00da 0023     	 movs r3,#0
  2689 00dc FB62     	 str r3,[r7,#44]
  2690 00de 02E0     	 b .L140
  2691              	.L141:
- 2692              	 .loc 7 672 0 is_stmt 0 discriminator 3
+ 2692              	 .loc 7 676 0 is_stmt 0 discriminator 3
  2693 00e0 FB6A     	 ldr r3,[r7,#44]
  2694 00e2 0133     	 adds r3,r3,#1
  2695 00e4 FB62     	 str r3,[r7,#44]
  2696              	.L140:
- 2697              	 .loc 7 672 0 discriminator 1
+ 2697              	 .loc 7 676 0 discriminator 1
  2698 00e6 FB6A     	 ldr r3,[r7,#44]
  2699 00e8 42F22732 	 movw r2,#8999
  2700 00ec 9342     	 cmp r3,r2
  2701 00ee F7DD     	 ble .L141
  2702              	.LBE16:
- 673:../main.c     **** 
- 674:../main.c     **** 
- 675:../main.c     **** 	// Initialize and start lwip system timer
- 676:../main.c     **** 	// don't need for UDP (no packets timeout, don't need to ask lwip to check)
- 677:../main.c     **** 	timer_systimer_lwip = SYSTIMER_CreateTimer(10000, SYSTIMER_MODE_PERIODIC, (SYSTIMER_CALLBACK_t)sys
- 2703              	 .loc 7 677 0 is_stmt 1
+ 677:../main.c     **** 
+ 678:../main.c     **** 
+ 679:../main.c     **** 	// Initialize and start lwip system timer
+ 680:../main.c     **** 	// don't need for UDP (no packets timeout, don't need to ask lwip to check)
+ 681:../main.c     **** 	timer_systimer_lwip = SYSTIMER_CreateTimer(10000, SYSTIMER_MODE_PERIODIC, (SYSTIMER_CALLBACK_t)sys
+ 2703              	 .loc 7 681 0 is_stmt 1
  2704 00f0 42F21070 	 movw r0,#10000
  2705 00f4 0121     	 movs r1,#1
  2706 00f6 664A     	 ldr r2,.L147+4
  2707 00f8 0023     	 movs r3,#0
  2708 00fa FFF7FEFF 	 bl SYSTIMER_CreateTimer
  2709 00fe 7862     	 str r0,[r7,#36]
- 678:../main.c     **** 	SYSTIMER_StartTimer(timer_systimer_lwip);
- 2710              	 .loc 7 678 0
+ 682:../main.c     **** 	SYSTIMER_StartTimer(timer_systimer_lwip);
+ 2710              	 .loc 7 682 0
  2711 0100 786A     	 ldr r0,[r7,#36]
  2712 0102 FFF7FEFF 	 bl SYSTIMER_StartTimer
- 679:../main.c     **** 
- 680:../main.c     **** 	// Enable interrupts once configuration complete
- 681:../main.c     **** 	PIN_INTERRUPT_Enable(&PIN_INTERRUPT_ADC0); 	// ADC0 DRDY Interrupt
- 2713              	 .loc 7 681 0
+ 683:../main.c     **** 
+ 684:../main.c     **** 	// Enable interrupts once configuration complete
+ 685:../main.c     **** 	PIN_INTERRUPT_Enable(&PIN_INTERRUPT_ADC0); 	// ADC0 DRDY Interrupt
+ 2713              	 .loc 7 685 0
  2714 0106 6348     	 ldr r0,.L147+8
  2715 0108 FFF7FEFF 	 bl PIN_INTERRUPT_Enable
- 682:../main.c     **** 	PIN_INTERRUPT_Enable(&PIN_INTERRUPT_ADC1); 	// ADC1 DRDY Interrupt
- 2716              	 .loc 7 682 0
+ 686:../main.c     **** 	PIN_INTERRUPT_Enable(&PIN_INTERRUPT_ADC1); 	// ADC1 DRDY Interrupt
+ 2716              	 .loc 7 686 0
  2717 010c 6248     	 ldr r0,.L147+12
  2718 010e FFF7FEFF 	 bl PIN_INTERRUPT_Enable
- 683:../main.c     **** 	INTERRUPT_Enable(&INTERRUPT_TC);			// Thermocouple Timer Interrupt
- 2719              	 .loc 7 683 0
+ 687:../main.c     **** 	INTERRUPT_Enable(&INTERRUPT_TC);			// Thermocouple Timer Interrupt
+ 2719              	 .loc 7 687 0
  2720 0112 6248     	 ldr r0,.L147+16
  2721 0114 FFF7FEFF 	 bl INTERRUPT_Enable
- 684:../main.c     **** 	INTERRUPT_Enable(&INTERRUPT_TIMESTAMP);		// Millisecond Timestamping Interrupt Enabled
- 2722              	 .loc 7 684 0
+ 688:../main.c     **** 	INTERRUPT_Enable(&INTERRUPT_TIMESTAMP);		// Millisecond Timestamping Interrupt Enabled
+ 2722              	 .loc 7 688 0
  2723 0118 6148     	 ldr r0,.L147+20
  2724 011a FFF7FEFF 	 bl INTERRUPT_Enable
- 685:../main.c     **** 
- 686:../main.c     **** 	enum XMC_SPI_CH_SLAVE_SELECT slave_select[NUM_TC] = {SPI_MASTER_SS_SIGNAL_0, SPI_MASTER_SS_SIGNAL_
- 2725              	 .loc 7 686 0
+ 689:../main.c     **** 
+ 690:../main.c     **** 	enum XMC_SPI_CH_SLAVE_SELECT slave_select[NUM_TC] = {SPI_MASTER_SS_SIGNAL_0, SPI_MASTER_SS_SIGNAL_
+ 2725              	 .loc 7 690 0
  2726 011e 614B     	 ldr r3,.L147+24
  2727 0120 3C46     	 mov r4,r7
  2728 0122 0FCB     	 ldmia r3,{r0,r1,r2,r3}
  2729 0124 84E80F00 	 stmia r4,{r0,r1,r2,r3}
- 687:../main.c     **** 	uint8_t tc_index = 0;
- 2730              	 .loc 7 687 0
+ 691:../main.c     **** 	uint8_t tc_index = 0;
+ 2730              	 .loc 7 691 0
  2731 0128 0023     	 movs r3,#0
  2732 012a 87F82B30 	 strb r3,[r7,#43]
  2733              	.L146:
- 688:../main.c     **** 
- 689:../main.c     **** 	while(1) {
- 690:../main.c     **** 		// Thermocouple SPI Transfers
- 691:../main.c     **** 		if(read_tc == 1){ // Does timer say we should transfer?
- 2734              	 .loc 7 691 0
+ 692:../main.c     **** 
+ 693:../main.c     **** 	while(1) {
+ 694:../main.c     **** 		// Thermocouple SPI Transfers
+ 695:../main.c     **** 		if(read_tc == 1){ // Does timer say we should transfer?
+ 2734              	 .loc 7 695 0
  2735 012e 5E4B     	 ldr r3,.L147+28
  2736 0130 1B78     	 ldrb r3,[r3]
  2737 0132 012B     	 cmp r3,#1
  2738 0134 40D1     	 bne .L142
- 692:../main.c     **** 			if (!SPI_MASTER_IsRxBusy(&SPI_MASTER_TC)) { // Check if SPI is not busy
- 2739              	 .loc 7 692 0
+ 696:../main.c     **** 			if (!SPI_MASTER_IsRxBusy(&SPI_MASTER_TC)) { // Check if SPI is not busy
+ 2739              	 .loc 7 696 0
  2740 0136 5D48     	 ldr r0,.L147+32
  2741 0138 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
  2742 013c 0346     	 mov r3,r0
@@ -8922,8 +8926,8 @@
  2744 0142 DBB2     	 uxtb r3,r3
  2745 0144 002B     	 cmp r3,#0
  2746 0146 37D0     	 beq .L142
- 693:../main.c     **** 				SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_TC, slave_select[tc_index]);
- 2747              	 .loc 7 693 0
+ 697:../main.c     **** 				SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_TC, slave_select[tc_index]);
+ 2747              	 .loc 7 697 0
  2748 0148 97F82B30 	 ldrb r3,[r7,#43]
  2749 014c 9B00     	 lsls r3,r3,#2
  2750 014e 07F14002 	 add r2,r7,#64
@@ -8933,8 +8937,8 @@
  2754 015a 5448     	 ldr r0,.L147+32
  2755 015c 1946     	 mov r1,r3
  2756 015e FFF7FEFF 	 bl SPI_MASTER_EnableSlaveSelectSignal
- 694:../main.c     **** 				SPI_MASTER_Receive(&SPI_MASTER_TC, (uint8_t*)&(TC_buff.data[tc_index]), sizeof(uint32_t));
- 2757              	 .loc 7 694 0
+ 698:../main.c     **** 				SPI_MASTER_Receive(&SPI_MASTER_TC, (uint8_t*)&(TC_buff.data[tc_index]), sizeof(uint32_t));
+ 2757              	 .loc 7 698 0
  2758 0162 97F82B30 	 ldrb r3,[r7,#43]
  2759 0166 0233     	 adds r3,r3,#2
  2760 0168 9B00     	 lsls r3,r3,#2
@@ -8945,44 +8949,44 @@
  2765 0172 1946     	 mov r1,r3
  2766 0174 0422     	 movs r2,#4
  2767 0176 FFF7FEFF 	 bl SPI_MASTER_Receive
- 695:../main.c     **** 
- 696:../main.c     **** 				tc_index++;
- 2768              	 .loc 7 696 0
+ 699:../main.c     **** 
+ 700:../main.c     **** 				tc_index++;
+ 2768              	 .loc 7 700 0
  2769 017a 97F82B30 	 ldrb r3,[r7,#43]
  2770 017e 0133     	 adds r3,r3,#1
  2771 0180 87F82B30 	 strb r3,[r7,#43]
- 697:../main.c     **** 
- 698:../main.c     **** 				if(tc_index == NUM_TC) {
- 2772              	 .loc 7 698 0
+ 701:../main.c     **** 
+ 702:../main.c     **** 				if(tc_index == NUM_TC) {
+ 2772              	 .loc 7 702 0
  2773 0184 97F82B30 	 ldrb r3,[r7,#43]
  2774 0188 042B     	 cmp r3,#4
  2775 018a 15D1     	 bne .L142
- 699:../main.c     **** 					tc_index = 0;
- 2776              	 .loc 7 699 0
+ 703:../main.c     **** 					tc_index = 0;
+ 2776              	 .loc 7 703 0
  2777 018c 0023     	 movs r3,#0
  2778 018e 87F82B30 	 strb r3,[r7,#43]
- 700:../main.c     **** 					read_tc = 0;
- 2779              	 .loc 7 700 0
+ 704:../main.c     **** 					read_tc = 0;
+ 2779              	 .loc 7 704 0
  2780 0192 454B     	 ldr r3,.L147+28
  2781 0194 0022     	 movs r2,#0
  2782 0196 1A70     	 strb r2,[r3]
- 701:../main.c     **** 
- 702:../main.c     **** 					// Send out TC packet
- 703:../main.c     **** 					TC_buff.header.seq_num = sequence_number;
- 2783              	 .loc 7 703 0
+ 705:../main.c     **** 
+ 706:../main.c     **** 					// Send out TC packet
+ 707:../main.c     **** 					TC_buff.header.seq_num = sequence_number;
+ 2783              	 .loc 7 707 0
  2784 0198 464B     	 ldr r3,.L147+40
  2785 019a 1B68     	 ldr r3,[r3]
  2786 019c 444A     	 ldr r2,.L147+36
  2787 019e 9360     	 str r3,[r2,#8]
- 704:../main.c     **** 					sequence_number++;
- 2788              	 .loc 7 704 0
+ 708:../main.c     **** 					sequence_number++;
+ 2788              	 .loc 7 708 0
  2789 01a0 444B     	 ldr r3,.L147+40
  2790 01a2 1B68     	 ldr r3,[r3]
  2791 01a4 0133     	 adds r3,r3,#1
  2792 01a6 434A     	 ldr r2,.L147+40
  2793 01a8 1360     	 str r3,[r2]
- 705:../main.c     **** 					send_data((void*)&TC_buff, sizeof(thermocouple_packet_t), flash.tc_port);
- 2794              	 .loc 7 705 0
+ 709:../main.c     **** 					send_data((void*)&TC_buff, sizeof(thermocouple_packet_t), flash.tc_port);
+ 2794              	 .loc 7 709 0
  2795 01aa 434B     	 ldr r3,.L147+44
  2796 01ac DB8A     	 ldrh r3,[r3,#22]
  2797 01ae 4048     	 ldr r0,.L147+36
@@ -8990,23 +8994,23 @@
  2799 01b2 1A46     	 mov r2,r3
  2800 01b4 FFF7FEFF 	 bl send_data
  2801              	.L142:
- 706:../main.c     **** 				}
- 707:../main.c     **** 			}
- 708:../main.c     **** 		} // End TC Read
- 709:../main.c     **** 
- 710:../main.c     **** 		// ADC SPI Transfers
- 711:../main.c     **** 		// NEED TO SET SOME SORT OF PRIORITY HERE, WHERE WE NEED TO HAVE ADC1 HAPPEN, EVEN IF ADC1 IS REA
- 712:../main.c     **** 		// NOTE: I HAD TO MAKE THE FIFO IN THE DAVE APP 32, NOT 16, BECAUSE 16 WOULD NOT HOLD ENOUGH DATA
+ 710:../main.c     **** 				}
+ 711:../main.c     **** 			}
+ 712:../main.c     **** 		} // End TC Read
  713:../main.c     **** 
- 714:../main.c     **** 		// ADC0 SPI Transfers
- 715:../main.c     **** 		if (read_adc0) { // Flag set
- 2802              	 .loc 7 715 0
+ 714:../main.c     **** 		// ADC SPI Transfers
+ 715:../main.c     **** 		// NEED TO SET SOME SORT OF PRIORITY HERE, WHERE WE NEED TO HAVE ADC1 HAPPEN, EVEN IF ADC1 IS REA
+ 716:../main.c     **** 		// NOTE: I HAD TO MAKE THE FIFO IN THE DAVE APP 32, NOT 16, BECAUSE 16 WOULD NOT HOLD ENOUGH DATA
+ 717:../main.c     **** 
+ 718:../main.c     **** 		// ADC0 SPI Transfers
+ 719:../main.c     **** 		if (read_adc0) { // Flag set
+ 2802              	 .loc 7 719 0
  2803 01b8 404B     	 ldr r3,.L147+48
  2804 01ba 1B78     	 ldrb r3,[r3]
  2805 01bc 002B     	 cmp r3,#0
  2806 01be 27D0     	 beq .L143
- 716:../main.c     **** 			if (!SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)) { // SPI not already in transaction
- 2807              	 .loc 7 716 0
+ 720:../main.c     **** 			if (!SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)) { // SPI not already in transaction
+ 2807              	 .loc 7 720 0
  2808 01c0 3248     	 ldr r0,.L147
  2809 01c2 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
  2810 01c6 0346     	 mov r3,r0
@@ -9014,42 +9018,42 @@
  2812 01cc DBB2     	 uxtb r3,r3
  2813 01ce 002B     	 cmp r3,#0
  2814 01d0 1ED0     	 beq .L143
- 717:../main.c     **** 				SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC, SPI_MASTER_SS_SIGNAL_0); // Change to ADC0
- 2815              	 .loc 7 717 0
+ 721:../main.c     **** 				SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC, SPI_MASTER_SS_SIGNAL_0); // Change to ADC0
+ 2815              	 .loc 7 721 0
  2816 01d2 2E48     	 ldr r0,.L147
  2817 01d4 0021     	 movs r1,#0
  2818 01d6 FFF7FEFF 	 bl SPI_MASTER_EnableSlaveSelectSignal
- 718:../main.c     **** 				SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, (uint8_t*)&ADC0_buff.data, sizeof(ADC_data_t) + 3);
- 2819              	 .loc 7 718 0
+ 722:../main.c     **** 				SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, (uint8_t*)&(ADC0_buff.data), sizeof(ADC_data_t) + 3)
+ 2819              	 .loc 7 722 0
  2820 01da 07F11003 	 add r3,r7,#16
  2821 01de 2B48     	 ldr r0,.L147
  2822 01e0 1946     	 mov r1,r3
  2823 01e2 374A     	 ldr r2,.L147+52
  2824 01e4 1223     	 movs r3,#18
  2825 01e6 FFF7FEFF 	 bl SPI_MASTER_Transfer
- 719:../main.c     **** 				read_adc0 = 0; // Reset Flag
- 2826              	 .loc 7 719 0
+ 723:../main.c     **** 				read_adc0 = 0; // Reset Flag
+ 2826              	 .loc 7 723 0
  2827 01ea 344B     	 ldr r3,.L147+48
  2828 01ec 0022     	 movs r2,#0
  2829 01ee 1A70     	 strb r2,[r3]
- 720:../main.c     **** 
- 721:../main.c     **** 				// send out ADC0 packet
- 722:../main.c     **** 				ADC0_buff.header.seq_num = sequence_number;
- 2830              	 .loc 7 722 0
+ 724:../main.c     **** 
+ 725:../main.c     **** 				// send out ADC0 packet
+ 726:../main.c     **** 				ADC0_buff.header.seq_num = sequence_number;
+ 2830              	 .loc 7 726 0
  2831 01f0 304B     	 ldr r3,.L147+40
  2832 01f2 1B68     	 ldr r3,[r3]
  2833 01f4 334A     	 ldr r2,.L147+56
  2834 01f6 9360     	 str r3,[r2,#8]
- 723:../main.c     **** 				sequence_number++;
- 2835              	 .loc 7 723 0
+ 727:../main.c     **** 				sequence_number++;
+ 2835              	 .loc 7 727 0
  2836 01f8 2E4B     	 ldr r3,.L147+40
  2837 01fa 1B68     	 ldr r3,[r3]
  2838 01fc 0133     	 adds r3,r3,#1
  2839 01fe 2D4A     	 ldr r2,.L147+40
  2840 0200 1360     	 str r3,[r2]
- 724:../main.c     **** 				// be careful not to send zeros
- 725:../main.c     **** 				send_data((void*)&ADC0_buff, sizeof(ADC_data_t) + sizeof(header_t), flash.adc0_port);
- 2841              	 .loc 7 725 0
+ 728:../main.c     **** 				// be careful not to send zeros
+ 729:../main.c     **** 				send_data((void*)&ADC0_buff, sizeof(ADC_data_t) + sizeof(header_t), flash.adc0_port);
+ 2841              	 .loc 7 729 0
  2842 0202 2D4B     	 ldr r3,.L147+44
  2843 0204 5B8A     	 ldrh r3,[r3,#18]
  2844 0206 2F48     	 ldr r0,.L147+56
@@ -9057,18 +9061,18 @@
  2846 020a 1A46     	 mov r2,r3
  2847 020c FFF7FEFF 	 bl send_data
  2848              	.L143:
- 726:../main.c     **** 			}
- 727:../main.c     **** 		}
- 728:../main.c     **** 
- 729:../main.c     **** 		// ADC1 SPI Transfers
- 730:../main.c     **** 		if (read_adc1) {
- 2849              	 .loc 7 730 0
+ 730:../main.c     **** 			}
+ 731:../main.c     **** 		}
+ 732:../main.c     **** 
+ 733:../main.c     **** 		// ADC1 SPI Transfers
+ 734:../main.c     **** 		if (read_adc1) {
+ 2849              	 .loc 7 734 0
  2850 0210 2D4B     	 ldr r3,.L147+60
  2851 0212 1B78     	 ldrb r3,[r3]
  2852 0214 002B     	 cmp r3,#0
  2853 0216 27D0     	 beq .L144
- 731:../main.c     **** 			if (!SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)) { // SPI not already in transaction
- 2854              	 .loc 7 731 0
+ 735:../main.c     **** 			if (!SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)) { // SPI not already in transaction
+ 2854              	 .loc 7 735 0
  2855 0218 1C48     	 ldr r0,.L147
  2856 021a FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
  2857 021e 0346     	 mov r3,r0
@@ -9076,78 +9080,78 @@
  2859 0224 DBB2     	 uxtb r3,r3
  2860 0226 002B     	 cmp r3,#0
  2861 0228 1ED0     	 beq .L144
- 732:../main.c     **** 				SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC, SPI_MASTER_SS_SIGNAL_1); // Change to ADC1
- 2862              	 .loc 7 732 0
+ 736:../main.c     **** 				SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC, SPI_MASTER_SS_SIGNAL_1); // Change to ADC1
+ 2862              	 .loc 7 736 0
  2863 022a 1848     	 ldr r0,.L147
  2864 022c 0121     	 movs r1,#1
  2865 022e FFF7FEFF 	 bl SPI_MASTER_EnableSlaveSelectSignal
- 733:../main.c     **** 				SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, (uint8_t*)&ADC0_buff.data, sizeof(ADC_data_t) + 3);
- 2866              	 .loc 7 733 0
+ 737:../main.c     **** 				SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, (uint8_t*)&(ADC1_buff.data), sizeof(ADC_data_t) + 3)
+ 2866              	 .loc 7 737 0
  2867 0232 07F11003 	 add r3,r7,#16
  2868 0236 1548     	 ldr r0,.L147
  2869 0238 1946     	 mov r1,r3
- 2870 023a 214A     	 ldr r2,.L147+52
+ 2870 023a 244A     	 ldr r2,.L147+64
  2871 023c 1223     	 movs r3,#18
  2872 023e FFF7FEFF 	 bl SPI_MASTER_Transfer
- 734:../main.c     **** 				read_adc1 = 0; // Reset Flag
- 2873              	 .loc 7 734 0
+ 738:../main.c     **** 				read_adc1 = 0; // Reset Flag
+ 2873              	 .loc 7 738 0
  2874 0242 214B     	 ldr r3,.L147+60
  2875 0244 0022     	 movs r2,#0
  2876 0246 1A70     	 strb r2,[r3]
- 735:../main.c     **** 
- 736:../main.c     **** 				// send out ADC0 packet
- 737:../main.c     **** 				ADC1_buff.header.seq_num = sequence_number;
- 2877              	 .loc 7 737 0
+ 739:../main.c     **** 
+ 740:../main.c     **** 				// send out ADC0 packet
+ 741:../main.c     **** 				ADC1_buff.header.seq_num = sequence_number;
+ 2877              	 .loc 7 741 0
  2878 0248 1A4B     	 ldr r3,.L147+40
  2879 024a 1B68     	 ldr r3,[r3]
- 2880 024c 1F4A     	 ldr r2,.L147+64
+ 2880 024c 204A     	 ldr r2,.L147+68
  2881 024e 9360     	 str r3,[r2,#8]
- 738:../main.c     **** 				sequence_number++;
- 2882              	 .loc 7 738 0
+ 742:../main.c     **** 				sequence_number++;
+ 2882              	 .loc 7 742 0
  2883 0250 184B     	 ldr r3,.L147+40
  2884 0252 1B68     	 ldr r3,[r3]
  2885 0254 0133     	 adds r3,r3,#1
  2886 0256 174A     	 ldr r2,.L147+40
  2887 0258 1360     	 str r3,[r2]
- 739:../main.c     **** 				// be careful not to send zeros
- 740:../main.c     **** 				send_data((void*)&ADC1_buff, sizeof(ADC_data_t) + sizeof(header_t), flash.adc1_port);
- 2888              	 .loc 7 740 0
+ 743:../main.c     **** 				// be careful not to send zeros
+ 744:../main.c     **** 				send_data((void*)&ADC1_buff, sizeof(ADC_data_t) + sizeof(header_t), flash.adc1_port);
+ 2888              	 .loc 7 744 0
  2889 025a 174B     	 ldr r3,.L147+44
  2890 025c 9B8A     	 ldrh r3,[r3,#20]
- 2891 025e 1B48     	 ldr r0,.L147+64
+ 2891 025e 1C48     	 ldr r0,.L147+68
  2892 0260 1B21     	 movs r1,#27
  2893 0262 1A46     	 mov r2,r3
  2894 0264 FFF7FEFF 	 bl send_data
  2895              	.L144:
- 741:../main.c     **** 			}
- 742:../main.c     **** 		}
- 743:../main.c     **** 
- 744:../main.c     **** 		if(tftp_send) {
- 2896              	 .loc 7 744 0
- 2897 0268 194B     	 ldr r3,.L147+68
+ 745:../main.c     **** 			}
+ 746:../main.c     **** 		}
+ 747:../main.c     **** 
+ 748:../main.c     **** 		if(tftp_send) {
+ 2896              	 .loc 7 748 0
+ 2897 0268 1A4B     	 ldr r3,.L147+72
  2898 026a 1B78     	 ldrb r3,[r3]
  2899 026c 002B     	 cmp r3,#0
  2900 026e 0BD0     	 beq .L145
- 745:../main.c     **** 			// always just send out the help message
- 746:../main.c     **** 			tftp_send_data(help_msg, &last_addr, last_port);
- 2901              	 .loc 7 746 0
- 2902 0270 184B     	 ldr r3,.L147+72
+ 749:../main.c     **** 			// always just send out the help message
+ 750:../main.c     **** 			tftp_send_data(help_msg, &last_addr, last_port);
+ 2901              	 .loc 7 750 0
+ 2902 0270 194B     	 ldr r3,.L147+76
  2903 0272 1A68     	 ldr r2,[r3]
- 2904 0274 184B     	 ldr r3,.L147+76
+ 2904 0274 194B     	 ldr r3,.L147+80
  2905 0276 1B88     	 ldrh r3,[r3]
  2906 0278 1046     	 mov r0,r2
- 2907 027a 1849     	 ldr r1,.L147+80
+ 2907 027a 1949     	 ldr r1,.L147+84
  2908 027c 1A46     	 mov r2,r3
  2909 027e FFF7FEFF 	 bl tftp_send_data
- 747:../main.c     **** 			tftp_send = 0;
- 2910              	 .loc 7 747 0
- 2911 0282 134B     	 ldr r3,.L147+68
+ 751:../main.c     **** 			tftp_send = 0;
+ 2910              	 .loc 7 751 0
+ 2911 0282 144B     	 ldr r3,.L147+72
  2912 0284 0022     	 movs r2,#0
  2913 0286 1A70     	 strb r2,[r3]
  2914              	.L145:
- 748:../main.c     **** 		}
- 749:../main.c     **** 	} // End While Loop
- 2915              	 .loc 7 749 0
+ 752:../main.c     **** 		}
+ 753:../main.c     **** 	} // End While Loop
+ 2915              	 .loc 7 753 0
  2916 0288 51E7     	 b .L146
  2917              	.L148:
  2918 028a 00BF     	 .align 2
@@ -9168,839 +9172,840 @@
  2933 02c0 0C000000 	 .word ADC0_buff+12
  2934 02c4 00000000 	 .word ADC0_buff
  2935 02c8 00000000 	 .word read_adc1
- 2936 02cc 00000000 	 .word ADC1_buff
- 2937 02d0 00000000 	 .word tftp_send
- 2938 02d4 00000000 	 .word help_msg
- 2939 02d8 00000000 	 .word last_port
- 2940 02dc 00000000 	 .word last_addr
- 2941              	 .cfi_endproc
- 2942              	.LFE459:
- 2944              	 .section .text.CCU43_1_IRQHandler,"ax",%progbits
- 2945              	 .align 2
- 2946              	 .global CCU43_1_IRQHandler
- 2947              	 .thumb
- 2948              	 .thumb_func
- 2950              	CCU43_1_IRQHandler:
- 2951              	.LFB460:
- 750:../main.c     **** } // End main
- 751:../main.c     **** 
- 752:../main.c     **** 
- 753:../main.c     **** // INTERRUPTS /////////////////////////////////////////////////////////////////////////////////////
- 754:../main.c     **** 
- 755:../main.c     **** 	// Timer configured with 1000us period = 1ms
- 756:../main.c     **** 		void TimeStampIRQ(void) {
- 2952              	 .loc 7 756 0
- 2953              	 .cfi_startproc
- 2954              	 
+ 2936 02cc 0C000000 	 .word ADC1_buff+12
+ 2937 02d0 00000000 	 .word ADC1_buff
+ 2938 02d4 00000000 	 .word tftp_send
+ 2939 02d8 00000000 	 .word help_msg
+ 2940 02dc 00000000 	 .word last_port
+ 2941 02e0 00000000 	 .word last_addr
+ 2942              	 .cfi_endproc
+ 2943              	.LFE459:
+ 2945              	 .section .text.CCU43_1_IRQHandler,"ax",%progbits
+ 2946              	 .align 2
+ 2947              	 .global CCU43_1_IRQHandler
+ 2948              	 .thumb
+ 2949              	 .thumb_func
+ 2951              	CCU43_1_IRQHandler:
+ 2952              	.LFB460:
+ 754:../main.c     **** } // End main
+ 755:../main.c     **** 
+ 756:../main.c     **** 
+ 757:../main.c     **** // INTERRUPTS /////////////////////////////////////////////////////////////////////////////////////
+ 758:../main.c     **** 
+ 759:../main.c     **** 	// Timer configured with 1000us period = 1ms
+ 760:../main.c     **** 		void TimeStampIRQ(void) {
+ 2953              	 .loc 7 760 0
+ 2954              	 .cfi_startproc
  2955              	 
- 2956 0000 80B5     	 push {r7,lr}
- 2957              	.LCFI95:
- 2958              	 .cfi_def_cfa_offset 8
- 2959              	 .cfi_offset 7,-8
- 2960              	 .cfi_offset 14,-4
- 2961 0002 00AF     	 add r7,sp,#0
- 2962              	.LCFI96:
- 2963              	 .cfi_def_cfa_register 7
- 757:../main.c     **** 			TIMER_ClearEvent(&TIMER_TIMESTAMP); // Clear Event Flag
- 2964              	 .loc 7 757 0
- 2965 0004 0448     	 ldr r0,.L151
- 2966 0006 FFF7FEFF 	 bl TIMER_ClearEvent
- 758:../main.c     **** 			millisec++; 						// New device uptime
- 2967              	 .loc 7 758 0
- 2968 000a 044B     	 ldr r3,.L151+4
- 2969 000c 1B68     	 ldr r3,[r3]
- 2970 000e 0133     	 adds r3,r3,#1
- 2971 0010 024A     	 ldr r2,.L151+4
- 2972 0012 1360     	 str r3,[r2]
- 759:../main.c     **** 			return;
- 2973              	 .loc 7 759 0
- 2974 0014 00BF     	 nop
- 760:../main.c     **** 		}
- 2975              	 .loc 7 760 0
- 2976 0016 80BD     	 pop {r7,pc}
- 2977              	.L152:
- 2978              	 .align 2
- 2979              	.L151:
- 2980 0018 00000000 	 .word TIMER_TIMESTAMP
- 2981 001c 00000000 	 .word millisec
- 2982              	 .cfi_endproc
- 2983              	.LFE460:
- 2985              	 .section .text.CCU43_0_IRQHandler,"ax",%progbits
- 2986              	 .align 2
- 2987              	 .global CCU43_0_IRQHandler
- 2988              	 .thumb
- 2989              	 .thumb_func
- 2991              	CCU43_0_IRQHandler:
- 2992              	.LFB461:
- 761:../main.c     **** 
- 762:../main.c     **** 	// Thermocouple trigger -- Timer configured with 100000us period = 100ms = 10Hz
- 763:../main.c     **** 		void TCIRQ(void) {
- 2993              	 .loc 7 763 0
- 2994              	 .cfi_startproc
- 2995              	 
+ 2956              	 
+ 2957 0000 80B5     	 push {r7,lr}
+ 2958              	.LCFI95:
+ 2959              	 .cfi_def_cfa_offset 8
+ 2960              	 .cfi_offset 7,-8
+ 2961              	 .cfi_offset 14,-4
+ 2962 0002 00AF     	 add r7,sp,#0
+ 2963              	.LCFI96:
+ 2964              	 .cfi_def_cfa_register 7
+ 761:../main.c     **** 			TIMER_ClearEvent(&TIMER_TIMESTAMP); // Clear Event Flag
+ 2965              	 .loc 7 761 0
+ 2966 0004 0448     	 ldr r0,.L151
+ 2967 0006 FFF7FEFF 	 bl TIMER_ClearEvent
+ 762:../main.c     **** 			millisec++; 						// New device uptime
+ 2968              	 .loc 7 762 0
+ 2969 000a 044B     	 ldr r3,.L151+4
+ 2970 000c 1B68     	 ldr r3,[r3]
+ 2971 000e 0133     	 adds r3,r3,#1
+ 2972 0010 024A     	 ldr r2,.L151+4
+ 2973 0012 1360     	 str r3,[r2]
+ 763:../main.c     **** 			return;
+ 2974              	 .loc 7 763 0
+ 2975 0014 00BF     	 nop
+ 764:../main.c     **** 		}
+ 2976              	 .loc 7 764 0
+ 2977 0016 80BD     	 pop {r7,pc}
+ 2978              	.L152:
+ 2979              	 .align 2
+ 2980              	.L151:
+ 2981 0018 00000000 	 .word TIMER_TIMESTAMP
+ 2982 001c 00000000 	 .word millisec
+ 2983              	 .cfi_endproc
+ 2984              	.LFE460:
+ 2986              	 .section .text.CCU43_0_IRQHandler,"ax",%progbits
+ 2987              	 .align 2
+ 2988              	 .global CCU43_0_IRQHandler
+ 2989              	 .thumb
+ 2990              	 .thumb_func
+ 2992              	CCU43_0_IRQHandler:
+ 2993              	.LFB461:
+ 765:../main.c     **** 
+ 766:../main.c     **** 	// Thermocouple trigger -- Timer configured with 100000us period = 100ms = 10Hz
+ 767:../main.c     **** 		void TCIRQ(void) {
+ 2994              	 .loc 7 767 0
+ 2995              	 .cfi_startproc
  2996              	 
- 2997 0000 80B5     	 push {r7,lr}
- 2998              	.LCFI97:
- 2999              	 .cfi_def_cfa_offset 8
- 3000              	 .cfi_offset 7,-8
- 3001              	 .cfi_offset 14,-4
- 3002 0002 00AF     	 add r7,sp,#0
- 3003              	.LCFI98:
- 3004              	 .cfi_def_cfa_register 7
- 764:../main.c     **** 			TIMER_ClearEvent(&TIMER_TC);		// Clear Event Flag
- 3005              	 .loc 7 764 0
- 3006 0004 0A48     	 ldr r0,.L154
- 3007 0006 FFF7FEFF 	 bl TIMER_ClearEvent
- 765:../main.c     **** 			TC_buff.header.ms = millisec;
- 3008              	 .loc 7 765 0
- 3009 000a 0A4B     	 ldr r3,.L154+4
- 3010 000c 1B68     	 ldr r3,[r3]
- 3011 000e 0A4A     	 ldr r2,.L154+8
- 3012 0010 1360     	 str r3,[r2]
- 766:../main.c     **** 			TC_buff.header.us = TIMER_GetTime(&TIMER_TIMESTAMP) / 100;
- 3013              	 .loc 7 766 0
- 3014 0012 0A48     	 ldr r0,.L154+12
- 3015 0014 FFF7FEFF 	 bl TIMER_GetTime
- 3016 0018 0246     	 mov r2,r0
- 3017 001a 094B     	 ldr r3,.L154+16
- 3018 001c A3FB0223 	 umull r2,r3,r3,r2
- 3019 0020 5B09     	 lsrs r3,r3,#5
- 3020 0022 054A     	 ldr r2,.L154+8
- 3021 0024 5360     	 str r3,[r2,#4]
- 767:../main.c     **** 			read_tc = 1;		// Set flag to read Thermocouples
- 3022              	 .loc 7 767 0
- 3023 0026 074B     	 ldr r3,.L154+20
- 3024 0028 0122     	 movs r2,#1
- 3025 002a 1A70     	 strb r2,[r3]
- 768:../main.c     **** 		}
- 3026              	 .loc 7 768 0
- 3027 002c 80BD     	 pop {r7,pc}
- 3028              	.L155:
- 3029 002e 00BF     	 .align 2
- 3030              	.L154:
- 3031 0030 00000000 	 .word TIMER_TC
- 3032 0034 00000000 	 .word millisec
- 3033 0038 00000000 	 .word TC_buff
- 3034 003c 00000000 	 .word TIMER_TIMESTAMP
- 3035 0040 1F85EB51 	 .word 1374389535
- 3036 0044 00000000 	 .word read_tc
- 3037              	 .cfi_endproc
- 3038              	.LFE461:
- 3040              	 .section .text.ERU0_3_IRQHandler,"ax",%progbits
- 3041              	 .align 2
- 3042              	 .global ERU0_3_IRQHandler
- 3043              	 .thumb
- 3044              	 .thumb_func
- 3046              	ERU0_3_IRQHandler:
- 3047              	.LFB462:
- 769:../main.c     **** 
- 770:../main.c     **** 
- 771:../main.c     **** 	// Data Ready Interrupt for ADC0
- 772:../main.c     **** 		void ADC0_DRDY_INT(){
- 3048              	 .loc 7 772 0
- 3049              	 .cfi_startproc
- 3050              	 
+ 2997              	 
+ 2998 0000 80B5     	 push {r7,lr}
+ 2999              	.LCFI97:
+ 3000              	 .cfi_def_cfa_offset 8
+ 3001              	 .cfi_offset 7,-8
+ 3002              	 .cfi_offset 14,-4
+ 3003 0002 00AF     	 add r7,sp,#0
+ 3004              	.LCFI98:
+ 3005              	 .cfi_def_cfa_register 7
+ 768:../main.c     **** 			TIMER_ClearEvent(&TIMER_TC);		// Clear Event Flag
+ 3006              	 .loc 7 768 0
+ 3007 0004 0A48     	 ldr r0,.L154
+ 3008 0006 FFF7FEFF 	 bl TIMER_ClearEvent
+ 769:../main.c     **** 			TC_buff.header.ms = millisec;
+ 3009              	 .loc 7 769 0
+ 3010 000a 0A4B     	 ldr r3,.L154+4
+ 3011 000c 1B68     	 ldr r3,[r3]
+ 3012 000e 0A4A     	 ldr r2,.L154+8
+ 3013 0010 1360     	 str r3,[r2]
+ 770:../main.c     **** 			TC_buff.header.us = TIMER_GetTime(&TIMER_TIMESTAMP) / 100;
+ 3014              	 .loc 7 770 0
+ 3015 0012 0A48     	 ldr r0,.L154+12
+ 3016 0014 FFF7FEFF 	 bl TIMER_GetTime
+ 3017 0018 0246     	 mov r2,r0
+ 3018 001a 094B     	 ldr r3,.L154+16
+ 3019 001c A3FB0223 	 umull r2,r3,r3,r2
+ 3020 0020 5B09     	 lsrs r3,r3,#5
+ 3021 0022 054A     	 ldr r2,.L154+8
+ 3022 0024 5360     	 str r3,[r2,#4]
+ 771:../main.c     **** 			read_tc = 1;		// Set flag to read Thermocouples
+ 3023              	 .loc 7 771 0
+ 3024 0026 074B     	 ldr r3,.L154+20
+ 3025 0028 0122     	 movs r2,#1
+ 3026 002a 1A70     	 strb r2,[r3]
+ 772:../main.c     **** 		}
+ 3027              	 .loc 7 772 0
+ 3028 002c 80BD     	 pop {r7,pc}
+ 3029              	.L155:
+ 3030 002e 00BF     	 .align 2
+ 3031              	.L154:
+ 3032 0030 00000000 	 .word TIMER_TC
+ 3033 0034 00000000 	 .word millisec
+ 3034 0038 00000000 	 .word TC_buff
+ 3035 003c 00000000 	 .word TIMER_TIMESTAMP
+ 3036 0040 1F85EB51 	 .word 1374389535
+ 3037 0044 00000000 	 .word read_tc
+ 3038              	 .cfi_endproc
+ 3039              	.LFE461:
+ 3041              	 .section .text.ERU0_3_IRQHandler,"ax",%progbits
+ 3042              	 .align 2
+ 3043              	 .global ERU0_3_IRQHandler
+ 3044              	 .thumb
+ 3045              	 .thumb_func
+ 3047              	ERU0_3_IRQHandler:
+ 3048              	.LFB462:
+ 773:../main.c     **** 
+ 774:../main.c     **** 
+ 775:../main.c     **** 	// Data Ready Interrupt for ADC0
+ 776:../main.c     **** 		void ADC0_DRDY_INT(){
+ 3049              	 .loc 7 776 0
+ 3050              	 .cfi_startproc
  3051              	 
- 3052 0000 80B5     	 push {r7,lr}
- 3053              	.LCFI99:
- 3054              	 .cfi_def_cfa_offset 8
- 3055              	 .cfi_offset 7,-8
- 3056              	 .cfi_offset 14,-4
- 3057 0002 00AF     	 add r7,sp,#0
- 3058              	.LCFI100:
- 3059              	 .cfi_def_cfa_register 7
- 773:../main.c     **** 			ADC0_buff.header.ms = millisec;
- 3060              	 .loc 7 773 0
- 3061 0004 084B     	 ldr r3,.L157
- 3062 0006 1B68     	 ldr r3,[r3]
- 3063 0008 084A     	 ldr r2,.L157+4
- 3064 000a 1360     	 str r3,[r2]
- 774:../main.c     **** 			ADC0_buff.header.us = TIMER_GetTime(&TIMER_TIMESTAMP) / 100;
- 3065              	 .loc 7 774 0
- 3066 000c 0848     	 ldr r0,.L157+8
- 3067 000e FFF7FEFF 	 bl TIMER_GetTime
- 3068 0012 0246     	 mov r2,r0
- 3069 0014 074B     	 ldr r3,.L157+12
- 3070 0016 A3FB0223 	 umull r2,r3,r3,r2
- 3071 001a 5B09     	 lsrs r3,r3,#5
- 3072 001c 034A     	 ldr r2,.L157+4
- 3073 001e 5360     	 str r3,[r2,#4]
- 775:../main.c     **** 			read_adc0 = 1; // Set flag to read ADC0
- 3074              	 .loc 7 775 0
- 3075 0020 054B     	 ldr r3,.L157+16
- 3076 0022 0122     	 movs r2,#1
- 3077 0024 1A70     	 strb r2,[r3]
- 776:../main.c     **** 		}
- 3078              	 .loc 7 776 0
- 3079 0026 80BD     	 pop {r7,pc}
- 3080              	.L158:
- 3081              	 .align 2
- 3082              	.L157:
- 3083 0028 00000000 	 .word millisec
- 3084 002c 00000000 	 .word ADC0_buff
- 3085 0030 00000000 	 .word TIMER_TIMESTAMP
- 3086 0034 1F85EB51 	 .word 1374389535
- 3087 0038 00000000 	 .word read_adc0
- 3088              	 .cfi_endproc
- 3089              	.LFE462:
- 3091              	 .section .text.ERU0_2_IRQHandler,"ax",%progbits
- 3092              	 .align 2
- 3093              	 .global ERU0_2_IRQHandler
- 3094              	 .thumb
- 3095              	 .thumb_func
- 3097              	ERU0_2_IRQHandler:
- 3098              	.LFB463:
- 777:../main.c     **** 
- 778:../main.c     **** 	// Data Ready Interrupt for ADC1
- 779:../main.c     **** 		void ADC1_DRDY_INT(){
- 3099              	 .loc 7 779 0
- 3100              	 .cfi_startproc
- 3101              	 
+ 3052              	 
+ 3053 0000 80B5     	 push {r7,lr}
+ 3054              	.LCFI99:
+ 3055              	 .cfi_def_cfa_offset 8
+ 3056              	 .cfi_offset 7,-8
+ 3057              	 .cfi_offset 14,-4
+ 3058 0002 00AF     	 add r7,sp,#0
+ 3059              	.LCFI100:
+ 3060              	 .cfi_def_cfa_register 7
+ 777:../main.c     **** 			ADC0_buff.header.ms = millisec;
+ 3061              	 .loc 7 777 0
+ 3062 0004 084B     	 ldr r3,.L157
+ 3063 0006 1B68     	 ldr r3,[r3]
+ 3064 0008 084A     	 ldr r2,.L157+4
+ 3065 000a 1360     	 str r3,[r2]
+ 778:../main.c     **** 			ADC0_buff.header.us = TIMER_GetTime(&TIMER_TIMESTAMP) / 100;
+ 3066              	 .loc 7 778 0
+ 3067 000c 0848     	 ldr r0,.L157+8
+ 3068 000e FFF7FEFF 	 bl TIMER_GetTime
+ 3069 0012 0246     	 mov r2,r0
+ 3070 0014 074B     	 ldr r3,.L157+12
+ 3071 0016 A3FB0223 	 umull r2,r3,r3,r2
+ 3072 001a 5B09     	 lsrs r3,r3,#5
+ 3073 001c 034A     	 ldr r2,.L157+4
+ 3074 001e 5360     	 str r3,[r2,#4]
+ 779:../main.c     **** 			read_adc0 = 1; // Set flag to read ADC0
+ 3075              	 .loc 7 779 0
+ 3076 0020 054B     	 ldr r3,.L157+16
+ 3077 0022 0122     	 movs r2,#1
+ 3078 0024 1A70     	 strb r2,[r3]
+ 780:../main.c     **** 		}
+ 3079              	 .loc 7 780 0
+ 3080 0026 80BD     	 pop {r7,pc}
+ 3081              	.L158:
+ 3082              	 .align 2
+ 3083              	.L157:
+ 3084 0028 00000000 	 .word millisec
+ 3085 002c 00000000 	 .word ADC0_buff
+ 3086 0030 00000000 	 .word TIMER_TIMESTAMP
+ 3087 0034 1F85EB51 	 .word 1374389535
+ 3088 0038 00000000 	 .word read_adc0
+ 3089              	 .cfi_endproc
+ 3090              	.LFE462:
+ 3092              	 .section .text.ERU0_2_IRQHandler,"ax",%progbits
+ 3093              	 .align 2
+ 3094              	 .global ERU0_2_IRQHandler
+ 3095              	 .thumb
+ 3096              	 .thumb_func
+ 3098              	ERU0_2_IRQHandler:
+ 3099              	.LFB463:
+ 781:../main.c     **** 
+ 782:../main.c     **** 	// Data Ready Interrupt for ADC1
+ 783:../main.c     **** 		void ADC1_DRDY_INT(){
+ 3100              	 .loc 7 783 0
+ 3101              	 .cfi_startproc
  3102              	 
- 3103 0000 80B5     	 push {r7,lr}
- 3104              	.LCFI101:
- 3105              	 .cfi_def_cfa_offset 8
- 3106              	 .cfi_offset 7,-8
- 3107              	 .cfi_offset 14,-4
- 3108 0002 00AF     	 add r7,sp,#0
- 3109              	.LCFI102:
- 3110              	 .cfi_def_cfa_register 7
- 780:../main.c     **** 			ADC1_buff.header.ms = millisec;
- 3111              	 .loc 7 780 0
- 3112 0004 084B     	 ldr r3,.L160
- 3113 0006 1B68     	 ldr r3,[r3]
- 3114 0008 084A     	 ldr r2,.L160+4
- 3115 000a 1360     	 str r3,[r2]
- 781:../main.c     **** 			ADC1_buff.header.us = TIMER_GetTime(&TIMER_TIMESTAMP) / 100;
- 3116              	 .loc 7 781 0
- 3117 000c 0848     	 ldr r0,.L160+8
- 3118 000e FFF7FEFF 	 bl TIMER_GetTime
- 3119 0012 0246     	 mov r2,r0
- 3120 0014 074B     	 ldr r3,.L160+12
- 3121 0016 A3FB0223 	 umull r2,r3,r3,r2
- 3122 001a 5B09     	 lsrs r3,r3,#5
- 3123 001c 034A     	 ldr r2,.L160+4
- 3124 001e 5360     	 str r3,[r2,#4]
- 782:../main.c     **** 			read_adc1 = 1; // Set flag to read ADC1
- 3125              	 .loc 7 782 0
- 3126 0020 054B     	 ldr r3,.L160+16
- 3127 0022 0122     	 movs r2,#1
- 3128 0024 1A70     	 strb r2,[r3]
- 783:../main.c     **** 		}
- 3129              	 .loc 7 783 0
- 3130 0026 80BD     	 pop {r7,pc}
- 3131              	.L161:
- 3132              	 .align 2
- 3133              	.L160:
- 3134 0028 00000000 	 .word millisec
- 3135 002c 00000000 	 .word ADC1_buff
- 3136 0030 00000000 	 .word TIMER_TIMESTAMP
- 3137 0034 1F85EB51 	 .word 1374389535
- 3138 0038 00000000 	 .word read_adc1
- 3139              	 .cfi_endproc
- 3140              	.LFE463:
- 3142              	 .section .rodata
- 3143              	 .align 2
- 3144              	.LC1:
- 3145 0554 06       	 .byte 6
- 3146 0555 55       	 .byte 85
- 3147 0556 00       	 .byte 0
- 3148 0557 00       	 .align 2
- 3149              	.LC2:
- 3150 0558 4B       	 .byte 75
- 3151 0559 68       	 .byte 104
- 3152 055a 00       	 .byte 0
- 3153 055b 00       	 .align 2
- 3154              	.LC3:
- 3155 055c 4C       	 .byte 76
- 3156 055d 3C       	 .byte 60
- 3157 055e 00       	 .byte 0
- 3158 055f 00       	 .align 2
- 3159              	.LC4:
- 3160 0560 4D       	 .byte 77
- 3161 0561 02       	 .byte 2
- 3162 0562 00       	 .byte 0
- 3163 0563 00       	 .align 2
- 3164              	.LC5:
- 3165 0564 4E       	 .byte 78
- 3166 0565 4E       	 .byte 78
- 3167 0566 00       	 .byte 0
- 3168              	 .section .text.adc_register_config,"ax",%progbits
- 3169              	 .align 2
- 3170              	 .global adc_register_config
- 3171              	 .thumb
- 3172              	 .thumb_func
- 3174              	adc_register_config:
- 3175              	.LFB464:
- 784:../main.c     **** 
- 785:../main.c     **** 
- 786:../main.c     **** // FUNCIONS ///////////////////////////////////////////////////////////////////////////////////////
- 787:../main.c     **** 
- 788:../main.c     **** void adc_register_config() {
- 3176              	 .loc 7 788 0
- 3177              	 .cfi_startproc
- 3178              	 
+ 3103              	 
+ 3104 0000 80B5     	 push {r7,lr}
+ 3105              	.LCFI101:
+ 3106              	 .cfi_def_cfa_offset 8
+ 3107              	 .cfi_offset 7,-8
+ 3108              	 .cfi_offset 14,-4
+ 3109 0002 00AF     	 add r7,sp,#0
+ 3110              	.LCFI102:
+ 3111              	 .cfi_def_cfa_register 7
+ 784:../main.c     **** 			ADC1_buff.header.ms = millisec;
+ 3112              	 .loc 7 784 0
+ 3113 0004 084B     	 ldr r3,.L160
+ 3114 0006 1B68     	 ldr r3,[r3]
+ 3115 0008 084A     	 ldr r2,.L160+4
+ 3116 000a 1360     	 str r3,[r2]
+ 785:../main.c     **** 			ADC1_buff.header.us = TIMER_GetTime(&TIMER_TIMESTAMP) / 100;
+ 3117              	 .loc 7 785 0
+ 3118 000c 0848     	 ldr r0,.L160+8
+ 3119 000e FFF7FEFF 	 bl TIMER_GetTime
+ 3120 0012 0246     	 mov r2,r0
+ 3121 0014 074B     	 ldr r3,.L160+12
+ 3122 0016 A3FB0223 	 umull r2,r3,r3,r2
+ 3123 001a 5B09     	 lsrs r3,r3,#5
+ 3124 001c 034A     	 ldr r2,.L160+4
+ 3125 001e 5360     	 str r3,[r2,#4]
+ 786:../main.c     **** 			read_adc1 = 1; // Set flag to read ADC1
+ 3126              	 .loc 7 786 0
+ 3127 0020 054B     	 ldr r3,.L160+16
+ 3128 0022 0122     	 movs r2,#1
+ 3129 0024 1A70     	 strb r2,[r3]
+ 787:../main.c     **** 		}
+ 3130              	 .loc 7 787 0
+ 3131 0026 80BD     	 pop {r7,pc}
+ 3132              	.L161:
+ 3133              	 .align 2
+ 3134              	.L160:
+ 3135 0028 00000000 	 .word millisec
+ 3136 002c 00000000 	 .word ADC1_buff
+ 3137 0030 00000000 	 .word TIMER_TIMESTAMP
+ 3138 0034 1F85EB51 	 .word 1374389535
+ 3139 0038 00000000 	 .word read_adc1
+ 3140              	 .cfi_endproc
+ 3141              	.LFE463:
+ 3143              	 .section .rodata
+ 3144              	 .align 2
+ 3145              	.LC1:
+ 3146 0554 06       	 .byte 6
+ 3147 0555 55       	 .byte 85
+ 3148 0556 00       	 .byte 0
+ 3149 0557 00       	 .align 2
+ 3150              	.LC2:
+ 3151 0558 4B       	 .byte 75
+ 3152 0559 68       	 .byte 104
+ 3153 055a 00       	 .byte 0
+ 3154 055b 00       	 .align 2
+ 3155              	.LC3:
+ 3156 055c 4C       	 .byte 76
+ 3157 055d 3C       	 .byte 60
+ 3158 055e 00       	 .byte 0
+ 3159 055f 00       	 .align 2
+ 3160              	.LC4:
+ 3161 0560 4D       	 .byte 77
+ 3162 0561 02       	 .byte 2
+ 3163 0562 00       	 .byte 0
+ 3164 0563 00       	 .align 2
+ 3165              	.LC5:
+ 3166 0564 4E       	 .byte 78
+ 3167 0565 4E       	 .byte 78
+ 3168 0566 00       	 .byte 0
+ 3169              	 .section .text.adc_register_config,"ax",%progbits
+ 3170              	 .align 2
+ 3171              	 .global adc_register_config
+ 3172              	 .thumb
+ 3173              	 .thumb_func
+ 3175              	adc_register_config:
+ 3176              	.LFB464:
+ 788:../main.c     **** 
+ 789:../main.c     **** 
+ 790:../main.c     **** // FUNCIONS ///////////////////////////////////////////////////////////////////////////////////////
+ 791:../main.c     **** 
+ 792:../main.c     **** void adc_register_config() {
+ 3177              	 .loc 7 792 0
+ 3178              	 .cfi_startproc
  3179              	 
- 3180 0000 80B5     	 push {r7,lr}
- 3181              	.LCFI103:
- 3182              	 .cfi_def_cfa_offset 8
- 3183              	 .cfi_offset 7,-8
- 3184              	 .cfi_offset 14,-4
- 3185 0002 8AB0     	 sub sp,sp,#40
- 3186              	.LCFI104:
- 3187              	 .cfi_def_cfa_offset 48
- 3188 0004 00AF     	 add r7,sp,#0
- 3189              	.LCFI105:
- 3190              	 .cfi_def_cfa_register 7
- 789:../main.c     **** 	// Register Configurations
- 790:../main.c     **** 		uint8_t unlock[3] = {0x06, 0x55, 0x0}; 				// Unlocks ADC
- 3191              	 .loc 7 790 0
- 3192 0006 754A     	 ldr r2,.L176
- 3193 0008 07F12403 	 add r3,r7,#36
- 3194 000c 1188     	 ldrh r1,[r2]
- 3195 000e 9278     	 ldrb r2,[r2,#2]
- 3196 0010 1980     	 strh r1,[r3]
- 3197 0012 9A70     	 strb r2,[r3,#2]
- 791:../main.c     **** 		uint8_t null[18] = {0x00};							// Sends null for reads
- 3198              	 .loc 7 791 0
- 3199 0014 07F11003 	 add r3,r7,#16
- 3200 0018 0022     	 movs r2,#0
- 3201 001a 1A60     	 str r2,[r3]
- 3202 001c 0433     	 adds r3,r3,#4
- 3203 001e 0022     	 movs r2,#0
- 3204 0020 1A60     	 str r2,[r3]
- 3205 0022 0433     	 adds r3,r3,#4
- 3206 0024 0022     	 movs r2,#0
- 3207 0026 1A60     	 str r2,[r3]
- 3208 0028 0433     	 adds r3,r3,#4
- 3209 002a 0022     	 movs r2,#0
- 3210 002c 1A60     	 str r2,[r3]
- 3211 002e 0433     	 adds r3,r3,#4
- 3212 0030 0022     	 movs r2,#0
- 3213 0032 1A80     	 strh r2,[r3]
- 3214 0034 0233     	 adds r3,r3,#2
- 792:../main.c     **** 		uint8_t write_A_SYS_CFG[3] = {0x4B, 0x68, 0x00};	// b(01101000) -- Neg Charge Pump Powered Down |
- 3215              	 .loc 7 792 0
- 3216 0036 6A4A     	 ldr r2,.L176+4
- 3217 0038 07F10C03 	 add r3,r7,#12
- 3218 003c 1188     	 ldrh r1,[r2]
- 3219 003e 9278     	 ldrb r2,[r2,#2]
- 3220 0040 1980     	 strh r1,[r3]
- 3221 0042 9A70     	 strb r2,[r3,#2]
- 793:../main.c     **** 		uint8_t write_D_SYS_CFG[3] = {0x4C, 0x3C, 0x00};	// b(00111100) -- Watchdog Disabled | No CRC | 1
- 3222              	 .loc 7 793 0
- 3223 0044 674A     	 ldr r2,.L176+8
- 3224 0046 07F10803 	 add r3,r7,#8
- 3225 004a 1188     	 ldrh r1,[r2]
- 3226 004c 9278     	 ldrb r2,[r2,#2]
- 3227 004e 1980     	 strh r1,[r3]
- 3228 0050 9A70     	 strb r2,[r3,#2]
- 794:../main.c     **** 		uint8_t write_CLK1[3] = {0x4D, 0x02, 0x00};			// b(00000010) -- XTAL CLK Source | CLKIN /2
- 3229              	 .loc 7 794 0
- 3230 0052 654A     	 ldr r2,.L176+12
- 3231 0054 3B1D     	 adds r3,r7,#4
- 3232 0056 1188     	 ldrh r1,[r2]
- 3233 0058 9278     	 ldrb r2,[r2,#2]
- 3234 005a 1980     	 strh r1,[r3]
- 3235 005c 9A70     	 strb r2,[r3,#2]
- 795:../main.c     **** 		uint8_t write_CLK2_43kHz[3] = {0x4E, 0x4E, 0x00};	// b(01001110) -- ICLK / 4 | OSR = fMOD / 48
- 3236              	 .loc 7 795 0
- 3237 005e 634A     	 ldr r2,.L176+16
- 3238 0060 3B46     	 mov r3,r7
- 3239 0062 1188     	 ldrh r1,[r2]
- 3240 0064 9278     	 ldrb r2,[r2,#2]
- 3241 0066 1980     	 strh r1,[r3]
- 3242 0068 9A70     	 strb r2,[r3,#2]
- 3243              	.LBB17:
- 796:../main.c     **** //		uint8_t write_CLK2_8kHz[3] = {0x4E, 0x48, 0x00};	// b(01001000) -- ICLK / 4 | OSR = fMOD / 256
- 797:../main.c     **** 		// NOTE -- write_CLK2_43kHz gives a final sample rate of 42.667kHz
- 798:../main.c     **** 		// NOTE -- write_CLK2_8kHz gives a final sample rate of 8kHz
- 799:../main.c     **** 
- 800:../main.c     **** 
- 801:../main.c     **** 	// Clear configArray for debug
- 802:../main.c     **** 		for (uint8_t i = 0; i<  56; i++){
- 3244              	 .loc 7 802 0
- 3245 006a 0023     	 movs r3,#0
- 3246 006c 87F82730 	 strb r3,[r7,#39]
- 3247 0070 09E0     	 b .L163
- 3248              	.L164:
- 803:../main.c     **** 			configArray[i] = 0x00;
- 3249              	 .loc 7 803 0 discriminator 3
- 3250 0072 97F82730 	 ldrb r3,[r7,#39]
- 3251 0076 5E4A     	 ldr r2,.L176+20
- 3252 0078 0021     	 movs r1,#0
- 3253 007a D154     	 strb r1,[r2,r3]
- 802:../main.c     **** 			configArray[i] = 0x00;
- 3254              	 .loc 7 802 0 discriminator 3
- 3255 007c 97F82730 	 ldrb r3,[r7,#39]
- 3256 0080 0133     	 adds r3,r3,#1
- 3257 0082 87F82730 	 strb r3,[r7,#39]
- 3258              	.L163:
- 802:../main.c     **** 			configArray[i] = 0x00;
- 3259              	 .loc 7 802 0 is_stmt 0 discriminator 1
- 3260 0086 97F82730 	 ldrb r3,[r7,#39]
- 3261 008a 372B     	 cmp r3,#55
- 3262 008c F1D9     	 bls .L164
- 3263              	.LBE17:
- 804:../main.c     **** 		}
- 805:../main.c     **** 
- 806:../main.c     **** 	// Transfer Null
- 807:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray, 3U);
- 3264              	 .loc 7 807 0 is_stmt 1
- 3265 008e 07F11003 	 add r3,r7,#16
- 3266 0092 5848     	 ldr r0,.L176+24
- 3267 0094 1946     	 mov r1,r3
- 3268 0096 564A     	 ldr r2,.L176+20
- 3269 0098 0323     	 movs r3,#3
- 3270 009a FFF7FEFF 	 bl SPI_MASTER_Transfer
- 808:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3271              	 .loc 7 808 0
- 3272 009e 00BF     	 nop
- 3273              	.L165:
- 3274              	 .loc 7 808 0 is_stmt 0 discriminator 1
- 3275 00a0 5448     	 ldr r0,.L176+24
- 3276 00a2 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3277 00a6 0346     	 mov r3,r0
- 3278 00a8 002B     	 cmp r3,#0
- 3279 00aa F9D1     	 bne .L165
+ 3180              	 
+ 3181 0000 80B5     	 push {r7,lr}
+ 3182              	.LCFI103:
+ 3183              	 .cfi_def_cfa_offset 8
+ 3184              	 .cfi_offset 7,-8
+ 3185              	 .cfi_offset 14,-4
+ 3186 0002 8AB0     	 sub sp,sp,#40
+ 3187              	.LCFI104:
+ 3188              	 .cfi_def_cfa_offset 48
+ 3189 0004 00AF     	 add r7,sp,#0
+ 3190              	.LCFI105:
+ 3191              	 .cfi_def_cfa_register 7
+ 793:../main.c     **** 	// Register Configurations
+ 794:../main.c     **** 		uint8_t unlock[3] = {0x06, 0x55, 0x0}; 				// Unlocks ADC
+ 3192              	 .loc 7 794 0
+ 3193 0006 754A     	 ldr r2,.L176
+ 3194 0008 07F12403 	 add r3,r7,#36
+ 3195 000c 1188     	 ldrh r1,[r2]
+ 3196 000e 9278     	 ldrb r2,[r2,#2]
+ 3197 0010 1980     	 strh r1,[r3]
+ 3198 0012 9A70     	 strb r2,[r3,#2]
+ 795:../main.c     **** 		uint8_t null[18] = {0x00};							// Sends null for reads
+ 3199              	 .loc 7 795 0
+ 3200 0014 07F11003 	 add r3,r7,#16
+ 3201 0018 0022     	 movs r2,#0
+ 3202 001a 1A60     	 str r2,[r3]
+ 3203 001c 0433     	 adds r3,r3,#4
+ 3204 001e 0022     	 movs r2,#0
+ 3205 0020 1A60     	 str r2,[r3]
+ 3206 0022 0433     	 adds r3,r3,#4
+ 3207 0024 0022     	 movs r2,#0
+ 3208 0026 1A60     	 str r2,[r3]
+ 3209 0028 0433     	 adds r3,r3,#4
+ 3210 002a 0022     	 movs r2,#0
+ 3211 002c 1A60     	 str r2,[r3]
+ 3212 002e 0433     	 adds r3,r3,#4
+ 3213 0030 0022     	 movs r2,#0
+ 3214 0032 1A80     	 strh r2,[r3]
+ 3215 0034 0233     	 adds r3,r3,#2
+ 796:../main.c     **** 		uint8_t write_A_SYS_CFG[3] = {0x4B, 0x68, 0x00};	// b(01101000) -- Neg Charge Pump Powered Down |
+ 3216              	 .loc 7 796 0
+ 3217 0036 6A4A     	 ldr r2,.L176+4
+ 3218 0038 07F10C03 	 add r3,r7,#12
+ 3219 003c 1188     	 ldrh r1,[r2]
+ 3220 003e 9278     	 ldrb r2,[r2,#2]
+ 3221 0040 1980     	 strh r1,[r3]
+ 3222 0042 9A70     	 strb r2,[r3,#2]
+ 797:../main.c     **** 		uint8_t write_D_SYS_CFG[3] = {0x4C, 0x3C, 0x00};	// b(00111100) -- Watchdog Disabled | No CRC | 1
+ 3223              	 .loc 7 797 0
+ 3224 0044 674A     	 ldr r2,.L176+8
+ 3225 0046 07F10803 	 add r3,r7,#8
+ 3226 004a 1188     	 ldrh r1,[r2]
+ 3227 004c 9278     	 ldrb r2,[r2,#2]
+ 3228 004e 1980     	 strh r1,[r3]
+ 3229 0050 9A70     	 strb r2,[r3,#2]
+ 798:../main.c     **** 		uint8_t write_CLK1[3] = {0x4D, 0x02, 0x00};			// b(00000010) -- XTAL CLK Source | CLKIN /2
+ 3230              	 .loc 7 798 0
+ 3231 0052 654A     	 ldr r2,.L176+12
+ 3232 0054 3B1D     	 adds r3,r7,#4
+ 3233 0056 1188     	 ldrh r1,[r2]
+ 3234 0058 9278     	 ldrb r2,[r2,#2]
+ 3235 005a 1980     	 strh r1,[r3]
+ 3236 005c 9A70     	 strb r2,[r3,#2]
+ 799:../main.c     **** 		uint8_t write_CLK2_43kHz[3] = {0x4E, 0x4E, 0x00};	// b(01001110) -- ICLK / 4 | OSR = fMOD / 48
+ 3237              	 .loc 7 799 0
+ 3238 005e 634A     	 ldr r2,.L176+16
+ 3239 0060 3B46     	 mov r3,r7
+ 3240 0062 1188     	 ldrh r1,[r2]
+ 3241 0064 9278     	 ldrb r2,[r2,#2]
+ 3242 0066 1980     	 strh r1,[r3]
+ 3243 0068 9A70     	 strb r2,[r3,#2]
+ 3244              	.LBB17:
+ 800:../main.c     **** //		uint8_t write_CLK2_8kHz[3] = {0x4E, 0x48, 0x00};	// b(01001000) -- ICLK / 4 | OSR = fMOD / 256
+ 801:../main.c     **** 		// NOTE -- write_CLK2_43kHz gives a final sample rate of 42.667kHz
+ 802:../main.c     **** 		// NOTE -- write_CLK2_8kHz gives a final sample rate of 8kHz
+ 803:../main.c     **** 
+ 804:../main.c     **** 
+ 805:../main.c     **** 	// Clear configArray for debug
+ 806:../main.c     **** 		for (uint8_t i = 0; i<  56; i++){
+ 3245              	 .loc 7 806 0
+ 3246 006a 0023     	 movs r3,#0
+ 3247 006c 87F82730 	 strb r3,[r7,#39]
+ 3248 0070 09E0     	 b .L163
+ 3249              	.L164:
+ 807:../main.c     **** 			configArray[i] = 0x00;
+ 3250              	 .loc 7 807 0 discriminator 3
+ 3251 0072 97F82730 	 ldrb r3,[r7,#39]
+ 3252 0076 5E4A     	 ldr r2,.L176+20
+ 3253 0078 0021     	 movs r1,#0
+ 3254 007a D154     	 strb r1,[r2,r3]
+ 806:../main.c     **** 			configArray[i] = 0x00;
+ 3255              	 .loc 7 806 0 discriminator 3
+ 3256 007c 97F82730 	 ldrb r3,[r7,#39]
+ 3257 0080 0133     	 adds r3,r3,#1
+ 3258 0082 87F82730 	 strb r3,[r7,#39]
+ 3259              	.L163:
+ 806:../main.c     **** 			configArray[i] = 0x00;
+ 3260              	 .loc 7 806 0 is_stmt 0 discriminator 1
+ 3261 0086 97F82730 	 ldrb r3,[r7,#39]
+ 3262 008a 372B     	 cmp r3,#55
+ 3263 008c F1D9     	 bls .L164
+ 3264              	.LBE17:
+ 808:../main.c     **** 		}
  809:../main.c     **** 
- 810:../main.c     **** 	//  Unlock ADC for configuration
- 811:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, unlock, configArray, 3U);
- 3280              	 .loc 7 811 0 is_stmt 1
- 3281 00ac 07F12403 	 add r3,r7,#36
- 3282 00b0 5048     	 ldr r0,.L176+24
- 3283 00b2 1946     	 mov r1,r3
- 3284 00b4 4E4A     	 ldr r2,.L176+20
- 3285 00b6 0323     	 movs r3,#3
- 3286 00b8 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 810:../main.c     **** 	// Transfer Null
+ 811:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray, 3U);
+ 3265              	 .loc 7 811 0 is_stmt 1
+ 3266 008e 07F11003 	 add r3,r7,#16
+ 3267 0092 5848     	 ldr r0,.L176+24
+ 3268 0094 1946     	 mov r1,r3
+ 3269 0096 564A     	 ldr r2,.L176+20
+ 3270 0098 0323     	 movs r3,#3
+ 3271 009a FFF7FEFF 	 bl SPI_MASTER_Transfer
  812:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3287              	 .loc 7 812 0
- 3288 00bc 00BF     	 nop
- 3289              	.L166:
- 3290              	 .loc 7 812 0 is_stmt 0 discriminator 1
- 3291 00be 4D48     	 ldr r0,.L176+24
- 3292 00c0 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3293 00c4 0346     	 mov r3,r0
- 3294 00c6 002B     	 cmp r3,#0
- 3295 00c8 F9D1     	 bne .L166
+ 3272              	 .loc 7 812 0
+ 3273 009e 00BF     	 nop
+ 3274              	.L165:
+ 3275              	 .loc 7 812 0 is_stmt 0 discriminator 1
+ 3276 00a0 5448     	 ldr r0,.L176+24
+ 3277 00a2 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3278 00a6 0346     	 mov r3,r0
+ 3279 00a8 002B     	 cmp r3,#0
+ 3280 00aa F9D1     	 bne .L165
  813:../main.c     **** 
- 814:../main.c     **** 	// Transfer Null
- 815:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+3, 3U);
- 3296              	 .loc 7 815 0 is_stmt 1
- 3297 00ca 07F11003 	 add r3,r7,#16
- 3298 00ce 4948     	 ldr r0,.L176+24
- 3299 00d0 1946     	 mov r1,r3
- 3300 00d2 494A     	 ldr r2,.L176+28
- 3301 00d4 0323     	 movs r3,#3
- 3302 00d6 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 814:../main.c     **** 	//  Unlock ADC for configuration
+ 815:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, unlock, configArray, 3U);
+ 3281              	 .loc 7 815 0 is_stmt 1
+ 3282 00ac 07F12403 	 add r3,r7,#36
+ 3283 00b0 5048     	 ldr r0,.L176+24
+ 3284 00b2 1946     	 mov r1,r3
+ 3285 00b4 4E4A     	 ldr r2,.L176+20
+ 3286 00b6 0323     	 movs r3,#3
+ 3287 00b8 FFF7FEFF 	 bl SPI_MASTER_Transfer
  816:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3303              	 .loc 7 816 0
- 3304 00da 00BF     	 nop
- 3305              	.L167:
- 3306              	 .loc 7 816 0 is_stmt 0 discriminator 1
- 3307 00dc 4548     	 ldr r0,.L176+24
- 3308 00de FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3309 00e2 0346     	 mov r3,r0
- 3310 00e4 002B     	 cmp r3,#0
- 3311 00e6 F9D1     	 bne .L167
+ 3288              	 .loc 7 816 0
+ 3289 00bc 00BF     	 nop
+ 3290              	.L166:
+ 3291              	 .loc 7 816 0 is_stmt 0 discriminator 1
+ 3292 00be 4D48     	 ldr r0,.L176+24
+ 3293 00c0 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3294 00c4 0346     	 mov r3,r0
+ 3295 00c6 002B     	 cmp r3,#0
+ 3296 00c8 F9D1     	 bne .L166
  817:../main.c     **** 
- 818:../main.c     **** 	// Write to A_SYS_CFG (See Above)
- 819:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_A_SYS_CFG, configArray+6, 3U);
- 3312              	 .loc 7 819 0 is_stmt 1
- 3313 00e8 07F10C03 	 add r3,r7,#12
- 3314 00ec 4148     	 ldr r0,.L176+24
- 3315 00ee 1946     	 mov r1,r3
- 3316 00f0 424A     	 ldr r2,.L176+32
- 3317 00f2 0323     	 movs r3,#3
- 3318 00f4 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 818:../main.c     **** 	// Transfer Null
+ 819:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+3, 3U);
+ 3297              	 .loc 7 819 0 is_stmt 1
+ 3298 00ca 07F11003 	 add r3,r7,#16
+ 3299 00ce 4948     	 ldr r0,.L176+24
+ 3300 00d0 1946     	 mov r1,r3
+ 3301 00d2 494A     	 ldr r2,.L176+28
+ 3302 00d4 0323     	 movs r3,#3
+ 3303 00d6 FFF7FEFF 	 bl SPI_MASTER_Transfer
  820:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3319              	 .loc 7 820 0
- 3320 00f8 00BF     	 nop
- 3321              	.L168:
- 3322              	 .loc 7 820 0 is_stmt 0 discriminator 1
- 3323 00fa 3E48     	 ldr r0,.L176+24
- 3324 00fc FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3325 0100 0346     	 mov r3,r0
- 3326 0102 002B     	 cmp r3,#0
- 3327 0104 F9D1     	 bne .L168
- 821:../main.c     **** 		// Transfer Null
- 822:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+9, 3U);
- 3328              	 .loc 7 822 0 is_stmt 1
- 3329 0106 07F11003 	 add r3,r7,#16
- 3330 010a 3A48     	 ldr r0,.L176+24
- 3331 010c 1946     	 mov r1,r3
- 3332 010e 3C4A     	 ldr r2,.L176+36
- 3333 0110 0323     	 movs r3,#3
- 3334 0112 FFF7FEFF 	 bl SPI_MASTER_Transfer
- 823:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3335              	 .loc 7 823 0
- 3336 0116 00BF     	 nop
- 3337              	.L169:
- 3338              	 .loc 7 823 0 is_stmt 0 discriminator 1
- 3339 0118 3648     	 ldr r0,.L176+24
- 3340 011a FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3341 011e 0346     	 mov r3,r0
- 3342 0120 002B     	 cmp r3,#0
- 3343 0122 F9D1     	 bne .L169
- 824:../main.c     **** 
- 825:../main.c     **** 	// Write to D_SYS_CFG (See Above)
- 826:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_D_SYS_CFG, configArray+12, 3U);
- 3344              	 .loc 7 826 0 is_stmt 1
- 3345 0124 07F10803 	 add r3,r7,#8
- 3346 0128 3248     	 ldr r0,.L176+24
- 3347 012a 1946     	 mov r1,r3
- 3348 012c 354A     	 ldr r2,.L176+40
- 3349 012e 0323     	 movs r3,#3
- 3350 0130 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 3304              	 .loc 7 820 0
+ 3305 00da 00BF     	 nop
+ 3306              	.L167:
+ 3307              	 .loc 7 820 0 is_stmt 0 discriminator 1
+ 3308 00dc 4548     	 ldr r0,.L176+24
+ 3309 00de FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3310 00e2 0346     	 mov r3,r0
+ 3311 00e4 002B     	 cmp r3,#0
+ 3312 00e6 F9D1     	 bne .L167
+ 821:../main.c     **** 
+ 822:../main.c     **** 	// Write to A_SYS_CFG (See Above)
+ 823:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_A_SYS_CFG, configArray+6, 3U);
+ 3313              	 .loc 7 823 0 is_stmt 1
+ 3314 00e8 07F10C03 	 add r3,r7,#12
+ 3315 00ec 4148     	 ldr r0,.L176+24
+ 3316 00ee 1946     	 mov r1,r3
+ 3317 00f0 424A     	 ldr r2,.L176+32
+ 3318 00f2 0323     	 movs r3,#3
+ 3319 00f4 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 824:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
+ 3320              	 .loc 7 824 0
+ 3321 00f8 00BF     	 nop
+ 3322              	.L168:
+ 3323              	 .loc 7 824 0 is_stmt 0 discriminator 1
+ 3324 00fa 3E48     	 ldr r0,.L176+24
+ 3325 00fc FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3326 0100 0346     	 mov r3,r0
+ 3327 0102 002B     	 cmp r3,#0
+ 3328 0104 F9D1     	 bne .L168
+ 825:../main.c     **** 		// Transfer Null
+ 826:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+9, 3U);
+ 3329              	 .loc 7 826 0 is_stmt 1
+ 3330 0106 07F11003 	 add r3,r7,#16
+ 3331 010a 3A48     	 ldr r0,.L176+24
+ 3332 010c 1946     	 mov r1,r3
+ 3333 010e 3C4A     	 ldr r2,.L176+36
+ 3334 0110 0323     	 movs r3,#3
+ 3335 0112 FFF7FEFF 	 bl SPI_MASTER_Transfer
  827:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3351              	 .loc 7 827 0
- 3352 0134 00BF     	 nop
- 3353              	.L170:
- 3354              	 .loc 7 827 0 is_stmt 0 discriminator 1
- 3355 0136 2F48     	 ldr r0,.L176+24
- 3356 0138 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3357 013c 0346     	 mov r3,r0
- 3358 013e 002B     	 cmp r3,#0
- 3359 0140 F9D1     	 bne .L170
+ 3336              	 .loc 7 827 0
+ 3337 0116 00BF     	 nop
+ 3338              	.L169:
+ 3339              	 .loc 7 827 0 is_stmt 0 discriminator 1
+ 3340 0118 3648     	 ldr r0,.L176+24
+ 3341 011a FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3342 011e 0346     	 mov r3,r0
+ 3343 0120 002B     	 cmp r3,#0
+ 3344 0122 F9D1     	 bne .L169
  828:../main.c     **** 
- 829:../main.c     **** 	// Transfer Null
- 830:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+15, 3U);
- 3360              	 .loc 7 830 0 is_stmt 1
- 3361 0142 07F11003 	 add r3,r7,#16
- 3362 0146 2B48     	 ldr r0,.L176+24
- 3363 0148 1946     	 mov r1,r3
- 3364 014a 2F4A     	 ldr r2,.L176+44
- 3365 014c 0323     	 movs r3,#3
- 3366 014e FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 829:../main.c     **** 	// Write to D_SYS_CFG (See Above)
+ 830:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_D_SYS_CFG, configArray+12, 3U);
+ 3345              	 .loc 7 830 0 is_stmt 1
+ 3346 0124 07F10803 	 add r3,r7,#8
+ 3347 0128 3248     	 ldr r0,.L176+24
+ 3348 012a 1946     	 mov r1,r3
+ 3349 012c 354A     	 ldr r2,.L176+40
+ 3350 012e 0323     	 movs r3,#3
+ 3351 0130 FFF7FEFF 	 bl SPI_MASTER_Transfer
  831:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3367              	 .loc 7 831 0
- 3368 0152 00BF     	 nop
- 3369              	.L171:
- 3370              	 .loc 7 831 0 is_stmt 0 discriminator 1
- 3371 0154 2748     	 ldr r0,.L176+24
- 3372 0156 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3373 015a 0346     	 mov r3,r0
- 3374 015c 002B     	 cmp r3,#0
- 3375 015e F9D1     	 bne .L171
+ 3352              	 .loc 7 831 0
+ 3353 0134 00BF     	 nop
+ 3354              	.L170:
+ 3355              	 .loc 7 831 0 is_stmt 0 discriminator 1
+ 3356 0136 2F48     	 ldr r0,.L176+24
+ 3357 0138 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3358 013c 0346     	 mov r3,r0
+ 3359 013e 002B     	 cmp r3,#0
+ 3360 0140 F9D1     	 bne .L170
  832:../main.c     **** 
- 833:../main.c     **** 	// Write to CLK1 (See Above)
- 834:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_CLK1, configArray+18, 3U);
- 3376              	 .loc 7 834 0 is_stmt 1
- 3377 0160 3B1D     	 adds r3,r7,#4
- 3378 0162 2448     	 ldr r0,.L176+24
- 3379 0164 1946     	 mov r1,r3
- 3380 0166 294A     	 ldr r2,.L176+48
- 3381 0168 0323     	 movs r3,#3
- 3382 016a FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 833:../main.c     **** 	// Transfer Null
+ 834:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+15, 3U);
+ 3361              	 .loc 7 834 0 is_stmt 1
+ 3362 0142 07F11003 	 add r3,r7,#16
+ 3363 0146 2B48     	 ldr r0,.L176+24
+ 3364 0148 1946     	 mov r1,r3
+ 3365 014a 2F4A     	 ldr r2,.L176+44
+ 3366 014c 0323     	 movs r3,#3
+ 3367 014e FFF7FEFF 	 bl SPI_MASTER_Transfer
  835:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3383              	 .loc 7 835 0
- 3384 016e 00BF     	 nop
- 3385              	.L172:
- 3386              	 .loc 7 835 0 is_stmt 0 discriminator 1
- 3387 0170 2048     	 ldr r0,.L176+24
- 3388 0172 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3389 0176 0346     	 mov r3,r0
- 3390 0178 002B     	 cmp r3,#0
- 3391 017a F9D1     	 bne .L172
+ 3368              	 .loc 7 835 0
+ 3369 0152 00BF     	 nop
+ 3370              	.L171:
+ 3371              	 .loc 7 835 0 is_stmt 0 discriminator 1
+ 3372 0154 2748     	 ldr r0,.L176+24
+ 3373 0156 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3374 015a 0346     	 mov r3,r0
+ 3375 015c 002B     	 cmp r3,#0
+ 3376 015e F9D1     	 bne .L171
  836:../main.c     **** 
- 837:../main.c     **** 	// Transfer Null
- 838:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+21, 3U);
- 3392              	 .loc 7 838 0 is_stmt 1
- 3393 017c 07F11003 	 add r3,r7,#16
- 3394 0180 1C48     	 ldr r0,.L176+24
- 3395 0182 1946     	 mov r1,r3
- 3396 0184 224A     	 ldr r2,.L176+52
- 3397 0186 0323     	 movs r3,#3
- 3398 0188 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 837:../main.c     **** 	// Write to CLK1 (See Above)
+ 838:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_CLK1, configArray+18, 3U);
+ 3377              	 .loc 7 838 0 is_stmt 1
+ 3378 0160 3B1D     	 adds r3,r7,#4
+ 3379 0162 2448     	 ldr r0,.L176+24
+ 3380 0164 1946     	 mov r1,r3
+ 3381 0166 294A     	 ldr r2,.L176+48
+ 3382 0168 0323     	 movs r3,#3
+ 3383 016a FFF7FEFF 	 bl SPI_MASTER_Transfer
  839:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3399              	 .loc 7 839 0
- 3400 018c 00BF     	 nop
- 3401              	.L173:
- 3402              	 .loc 7 839 0 is_stmt 0 discriminator 1
- 3403 018e 1948     	 ldr r0,.L176+24
- 3404 0190 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3405 0194 0346     	 mov r3,r0
- 3406 0196 002B     	 cmp r3,#0
- 3407 0198 F9D1     	 bne .L173
+ 3384              	 .loc 7 839 0
+ 3385 016e 00BF     	 nop
+ 3386              	.L172:
+ 3387              	 .loc 7 839 0 is_stmt 0 discriminator 1
+ 3388 0170 2048     	 ldr r0,.L176+24
+ 3389 0172 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3390 0176 0346     	 mov r3,r0
+ 3391 0178 002B     	 cmp r3,#0
+ 3392 017a F9D1     	 bne .L172
  840:../main.c     **** 
- 841:../main.c     **** 	// Write to CLK2 (See Above)
- 842:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_CLK2_43kHz, configArray+24, 3U);
- 3408              	 .loc 7 842 0 is_stmt 1
- 3409 019a 3B46     	 mov r3,r7
- 3410 019c 1548     	 ldr r0,.L176+24
- 3411 019e 1946     	 mov r1,r3
- 3412 01a0 1C4A     	 ldr r2,.L176+56
- 3413 01a2 0323     	 movs r3,#3
- 3414 01a4 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 841:../main.c     **** 	// Transfer Null
+ 842:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+21, 3U);
+ 3393              	 .loc 7 842 0 is_stmt 1
+ 3394 017c 07F11003 	 add r3,r7,#16
+ 3395 0180 1C48     	 ldr r0,.L176+24
+ 3396 0182 1946     	 mov r1,r3
+ 3397 0184 224A     	 ldr r2,.L176+52
+ 3398 0186 0323     	 movs r3,#3
+ 3399 0188 FFF7FEFF 	 bl SPI_MASTER_Transfer
  843:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3415              	 .loc 7 843 0
- 3416 01a8 00BF     	 nop
- 3417              	.L174:
- 3418              	 .loc 7 843 0 is_stmt 0 discriminator 1
- 3419 01aa 1248     	 ldr r0,.L176+24
- 3420 01ac FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3421 01b0 0346     	 mov r3,r0
- 3422 01b2 002B     	 cmp r3,#0
- 3423 01b4 F9D1     	 bne .L174
+ 3400              	 .loc 7 843 0
+ 3401 018c 00BF     	 nop
+ 3402              	.L173:
+ 3403              	 .loc 7 843 0 is_stmt 0 discriminator 1
+ 3404 018e 1948     	 ldr r0,.L176+24
+ 3405 0190 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3406 0194 0346     	 mov r3,r0
+ 3407 0196 002B     	 cmp r3,#0
+ 3408 0198 F9D1     	 bne .L173
  844:../main.c     **** 
- 845:../main.c     **** 	// Transfer Null
- 846:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+27, 3U);
- 3424              	 .loc 7 846 0 is_stmt 1
- 3425 01b6 07F11003 	 add r3,r7,#16
- 3426 01ba 0E48     	 ldr r0,.L176+24
- 3427 01bc 1946     	 mov r1,r3
- 3428 01be 164A     	 ldr r2,.L176+60
- 3429 01c0 0323     	 movs r3,#3
- 3430 01c2 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 845:../main.c     **** 	// Write to CLK2 (See Above)
+ 846:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_CLK2_43kHz, configArray+24, 3U);
+ 3409              	 .loc 7 846 0 is_stmt 1
+ 3410 019a 3B46     	 mov r3,r7
+ 3411 019c 1548     	 ldr r0,.L176+24
+ 3412 019e 1946     	 mov r1,r3
+ 3413 01a0 1C4A     	 ldr r2,.L176+56
+ 3414 01a2 0323     	 movs r3,#3
+ 3415 01a4 FFF7FEFF 	 bl SPI_MASTER_Transfer
  847:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3431              	 .loc 7 847 0
- 3432 01c6 00BF     	 nop
- 3433              	.L175:
- 3434              	 .loc 7 847 0 is_stmt 0 discriminator 1
- 3435 01c8 0A48     	 ldr r0,.L176+24
- 3436 01ca FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3437 01ce 0346     	 mov r3,r0
- 3438 01d0 002B     	 cmp r3,#0
- 3439 01d2 F9D1     	 bne .L175
+ 3416              	 .loc 7 847 0
+ 3417 01a8 00BF     	 nop
+ 3418              	.L174:
+ 3419              	 .loc 7 847 0 is_stmt 0 discriminator 1
+ 3420 01aa 1248     	 ldr r0,.L176+24
+ 3421 01ac FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3422 01b0 0346     	 mov r3,r0
+ 3423 01b2 002B     	 cmp r3,#0
+ 3424 01b4 F9D1     	 bne .L174
  848:../main.c     **** 
- 849:../main.c     **** }
- 3440              	 .loc 7 849 0 is_stmt 1
- 3441 01d4 2837     	 adds r7,r7,#40
- 3442              	.LCFI106:
- 3443              	 .cfi_def_cfa_offset 8
- 3444 01d6 BD46     	 mov sp,r7
- 3445              	.LCFI107:
- 3446              	 .cfi_def_cfa_register 13
- 3447              	 
- 3448 01d8 80BD     	 pop {r7,pc}
- 3449              	.L177:
- 3450 01da 00BF     	 .align 2
- 3451              	.L176:
- 3452 01dc 54050000 	 .word .LC1
- 3453 01e0 58050000 	 .word .LC2
- 3454 01e4 5C050000 	 .word .LC3
- 3455 01e8 60050000 	 .word .LC4
- 3456 01ec 64050000 	 .word .LC5
- 3457 01f0 00000000 	 .word configArray
- 3458 01f4 00000000 	 .word SPI_MASTER_ADC
- 3459 01f8 03000000 	 .word configArray+3
- 3460 01fc 06000000 	 .word configArray+6
- 3461 0200 09000000 	 .word configArray+9
- 3462 0204 0C000000 	 .word configArray+12
- 3463 0208 0F000000 	 .word configArray+15
- 3464 020c 12000000 	 .word configArray+18
- 3465 0210 15000000 	 .word configArray+21
- 3466 0214 18000000 	 .word configArray+24
- 3467 0218 1B000000 	 .word configArray+27
- 3468              	 .cfi_endproc
- 3469              	.LFE464:
- 3471              	 .section .rodata
- 3472 0567 00       	 .align 2
- 3473              	.LC6:
- 3474 0568 4F       	 .byte 79
- 3475 0569 0F       	 .byte 15
- 3476 056a 00       	 .byte 0
- 3477 056b 00       	 .section .text.xmc_ADC_setup,"ax",%progbits
- 3478              	 .align 2
- 3479              	 .global xmc_ADC_setup
- 3480              	 .thumb
- 3481              	 .thumb_func
- 3483              	xmc_ADC_setup:
- 3484              	.LFB465:
- 850:../main.c     **** 
- 851:../main.c     **** void xmc_ADC_setup(){
- 3485              	 .loc 7 851 0
- 3486              	 .cfi_startproc
- 3487              	 
+ 849:../main.c     **** 	// Transfer Null
+ 850:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+27, 3U);
+ 3425              	 .loc 7 850 0 is_stmt 1
+ 3426 01b6 07F11003 	 add r3,r7,#16
+ 3427 01ba 0E48     	 ldr r0,.L176+24
+ 3428 01bc 1946     	 mov r1,r3
+ 3429 01be 164A     	 ldr r2,.L176+60
+ 3430 01c0 0323     	 movs r3,#3
+ 3431 01c2 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 851:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
+ 3432              	 .loc 7 851 0
+ 3433 01c6 00BF     	 nop
+ 3434              	.L175:
+ 3435              	 .loc 7 851 0 is_stmt 0 discriminator 1
+ 3436 01c8 0A48     	 ldr r0,.L176+24
+ 3437 01ca FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3438 01ce 0346     	 mov r3,r0
+ 3439 01d0 002B     	 cmp r3,#0
+ 3440 01d2 F9D1     	 bne .L175
+ 852:../main.c     **** 
+ 853:../main.c     **** }
+ 3441              	 .loc 7 853 0 is_stmt 1
+ 3442 01d4 2837     	 adds r7,r7,#40
+ 3443              	.LCFI106:
+ 3444              	 .cfi_def_cfa_offset 8
+ 3445 01d6 BD46     	 mov sp,r7
+ 3446              	.LCFI107:
+ 3447              	 .cfi_def_cfa_register 13
+ 3448              	 
+ 3449 01d8 80BD     	 pop {r7,pc}
+ 3450              	.L177:
+ 3451 01da 00BF     	 .align 2
+ 3452              	.L176:
+ 3453 01dc 54050000 	 .word .LC1
+ 3454 01e0 58050000 	 .word .LC2
+ 3455 01e4 5C050000 	 .word .LC3
+ 3456 01e8 60050000 	 .word .LC4
+ 3457 01ec 64050000 	 .word .LC5
+ 3458 01f0 00000000 	 .word configArray
+ 3459 01f4 00000000 	 .word SPI_MASTER_ADC
+ 3460 01f8 03000000 	 .word configArray+3
+ 3461 01fc 06000000 	 .word configArray+6
+ 3462 0200 09000000 	 .word configArray+9
+ 3463 0204 0C000000 	 .word configArray+12
+ 3464 0208 0F000000 	 .word configArray+15
+ 3465 020c 12000000 	 .word configArray+18
+ 3466 0210 15000000 	 .word configArray+21
+ 3467 0214 18000000 	 .word configArray+24
+ 3468 0218 1B000000 	 .word configArray+27
+ 3469              	 .cfi_endproc
+ 3470              	.LFE464:
+ 3472              	 .section .rodata
+ 3473 0567 00       	 .align 2
+ 3474              	.LC6:
+ 3475 0568 4F       	 .byte 79
+ 3476 0569 0F       	 .byte 15
+ 3477 056a 00       	 .byte 0
+ 3478 056b 00       	 .section .text.xmc_ADC_setup,"ax",%progbits
+ 3479              	 .align 2
+ 3480              	 .global xmc_ADC_setup
+ 3481              	 .thumb
+ 3482              	 .thumb_func
+ 3484              	xmc_ADC_setup:
+ 3485              	.LFB465:
+ 854:../main.c     **** 
+ 855:../main.c     **** void xmc_ADC_setup(){
+ 3486              	 .loc 7 855 0
+ 3487              	 .cfi_startproc
  3488              	 
- 3489 0000 80B5     	 push {r7,lr}
- 3490              	.LCFI108:
- 3491              	 .cfi_def_cfa_offset 8
- 3492              	 .cfi_offset 7,-8
- 3493              	 .cfi_offset 14,-4
- 3494 0002 88B0     	 sub sp,sp,#32
- 3495              	.LCFI109:
- 3496              	 .cfi_def_cfa_offset 40
- 3497 0004 00AF     	 add r7,sp,#0
- 3498              	.LCFI110:
- 3499              	 .cfi_def_cfa_register 7
- 852:../main.c     **** 	uint8_t null[18] = {0x00};						// Sends null for reads
- 3500              	 .loc 7 852 0
- 3501 0006 07F10C03 	 add r3,r7,#12
- 3502 000a 0022     	 movs r2,#0
- 3503 000c 1A60     	 str r2,[r3]
- 3504 000e 0433     	 adds r3,r3,#4
- 3505 0010 0022     	 movs r2,#0
- 3506 0012 1A60     	 str r2,[r3]
- 3507 0014 0433     	 adds r3,r3,#4
- 3508 0016 0022     	 movs r2,#0
- 3509 0018 1A60     	 str r2,[r3]
- 3510 001a 0433     	 adds r3,r3,#4
- 3511 001c 0022     	 movs r2,#0
- 3512 001e 1A60     	 str r2,[r3]
- 3513 0020 0433     	 adds r3,r3,#4
- 3514 0022 0022     	 movs r2,#0
- 3515 0024 1A80     	 strh r2,[r3]
- 3516 0026 0233     	 adds r3,r3,#2
- 853:../main.c     **** 	uint8_t write_ADC_ENA[3] = {0x4F, 0x0F, 0x00};	// b(00001111) -- Enables all ADC channels (note: n
- 3517              	 .loc 7 853 0
- 3518 0028 274A     	 ldr r2,.L183
- 3519 002a 07F10803 	 add r3,r7,#8
- 3520 002e 1188     	 ldrh r1,[r2]
- 3521 0030 9278     	 ldrb r2,[r2,#2]
- 3522 0032 1980     	 strh r1,[r3]
- 3523 0034 9A70     	 strb r2,[r3,#2]
- 854:../main.c     **** 	uint8_t wakeup[3] = {0x00, 0x33, 0x00};			// b(00110011) -- Bring ADC out of standby (start collec
- 3524              	 .loc 7 854 0
- 3525 0036 0023     	 movs r3,#0
- 3526 0038 3B71     	 strb r3,[r7,#4]
- 3527 003a 3323     	 movs r3,#51
- 3528 003c 7B71     	 strb r3,[r7,#5]
- 3529 003e 0023     	 movs r3,#0
- 3530 0040 BB71     	 strb r3,[r7,#6]
- 855:../main.c     **** 
- 856:../main.c     **** 	// Write to ADC_ENA (See Above)
- 857:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_ADC_ENA, configArray, 3U);
- 3531              	 .loc 7 857 0
- 3532 0042 07F10803 	 add r3,r7,#8
- 3533 0046 2148     	 ldr r0,.L183+4
- 3534 0048 1946     	 mov r1,r3
- 3535 004a 214A     	 ldr r2,.L183+8
- 3536 004c 0323     	 movs r3,#3
- 3537 004e FFF7FEFF 	 bl SPI_MASTER_Transfer
- 858:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3538              	 .loc 7 858 0
- 3539 0052 00BF     	 nop
- 3540              	.L179:
- 3541              	 .loc 7 858 0 is_stmt 0 discriminator 1
- 3542 0054 1D48     	 ldr r0,.L183+4
- 3543 0056 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3544 005a 0346     	 mov r3,r0
- 3545 005c 002B     	 cmp r3,#0
- 3546 005e F9D1     	 bne .L179
+ 3489              	 
+ 3490 0000 80B5     	 push {r7,lr}
+ 3491              	.LCFI108:
+ 3492              	 .cfi_def_cfa_offset 8
+ 3493              	 .cfi_offset 7,-8
+ 3494              	 .cfi_offset 14,-4
+ 3495 0002 88B0     	 sub sp,sp,#32
+ 3496              	.LCFI109:
+ 3497              	 .cfi_def_cfa_offset 40
+ 3498 0004 00AF     	 add r7,sp,#0
+ 3499              	.LCFI110:
+ 3500              	 .cfi_def_cfa_register 7
+ 856:../main.c     **** 	uint8_t null[18] = {0x00};						// Sends null for reads
+ 3501              	 .loc 7 856 0
+ 3502 0006 07F10C03 	 add r3,r7,#12
+ 3503 000a 0022     	 movs r2,#0
+ 3504 000c 1A60     	 str r2,[r3]
+ 3505 000e 0433     	 adds r3,r3,#4
+ 3506 0010 0022     	 movs r2,#0
+ 3507 0012 1A60     	 str r2,[r3]
+ 3508 0014 0433     	 adds r3,r3,#4
+ 3509 0016 0022     	 movs r2,#0
+ 3510 0018 1A60     	 str r2,[r3]
+ 3511 001a 0433     	 adds r3,r3,#4
+ 3512 001c 0022     	 movs r2,#0
+ 3513 001e 1A60     	 str r2,[r3]
+ 3514 0020 0433     	 adds r3,r3,#4
+ 3515 0022 0022     	 movs r2,#0
+ 3516 0024 1A80     	 strh r2,[r3]
+ 3517 0026 0233     	 adds r3,r3,#2
+ 857:../main.c     **** 	uint8_t write_ADC_ENA[3] = {0x4F, 0x0F, 0x00};	// b(00001111) -- Enables all ADC channels (note: n
+ 3518              	 .loc 7 857 0
+ 3519 0028 274A     	 ldr r2,.L183
+ 3520 002a 07F10803 	 add r3,r7,#8
+ 3521 002e 1188     	 ldrh r1,[r2]
+ 3522 0030 9278     	 ldrb r2,[r2,#2]
+ 3523 0032 1980     	 strh r1,[r3]
+ 3524 0034 9A70     	 strb r2,[r3,#2]
+ 858:../main.c     **** 	uint8_t wakeup[3] = {0x00, 0x33, 0x00};			// b(00110011) -- Bring ADC out of standby (start collec
+ 3525              	 .loc 7 858 0
+ 3526 0036 0023     	 movs r3,#0
+ 3527 0038 3B71     	 strb r3,[r7,#4]
+ 3528 003a 3323     	 movs r3,#51
+ 3529 003c 7B71     	 strb r3,[r7,#5]
+ 3530 003e 0023     	 movs r3,#0
+ 3531 0040 BB71     	 strb r3,[r7,#6]
  859:../main.c     **** 
- 860:../main.c     **** 	// Transfer Null
- 861:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+30, 3U);
- 3547              	 .loc 7 861 0 is_stmt 1
- 3548 0060 07F10C03 	 add r3,r7,#12
- 3549 0064 1948     	 ldr r0,.L183+4
- 3550 0066 1946     	 mov r1,r3
- 3551 0068 1A4A     	 ldr r2,.L183+12
- 3552 006a 0323     	 movs r3,#3
- 3553 006c FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 860:../main.c     **** 	// Write to ADC_ENA (See Above)
+ 861:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_ADC_ENA, configArray, 3U);
+ 3532              	 .loc 7 861 0
+ 3533 0042 07F10803 	 add r3,r7,#8
+ 3534 0046 2148     	 ldr r0,.L183+4
+ 3535 0048 1946     	 mov r1,r3
+ 3536 004a 214A     	 ldr r2,.L183+8
+ 3537 004c 0323     	 movs r3,#3
+ 3538 004e FFF7FEFF 	 bl SPI_MASTER_Transfer
  862:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3554              	 .loc 7 862 0
- 3555 0070 00BF     	 nop
- 3556              	.L180:
- 3557              	 .loc 7 862 0 is_stmt 0 discriminator 1
- 3558 0072 1648     	 ldr r0,.L183+4
- 3559 0074 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3560 0078 0346     	 mov r3,r0
- 3561 007a 002B     	 cmp r3,#0
- 3562 007c F9D1     	 bne .L180
+ 3539              	 .loc 7 862 0
+ 3540 0052 00BF     	 nop
+ 3541              	.L179:
+ 3542              	 .loc 7 862 0 is_stmt 0 discriminator 1
+ 3543 0054 1D48     	 ldr r0,.L183+4
+ 3544 0056 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3545 005a 0346     	 mov r3,r0
+ 3546 005c 002B     	 cmp r3,#0
+ 3547 005e F9D1     	 bne .L179
  863:../main.c     **** 
- 864:../main.c     **** 	// Wakeup ADC and start conversions
- 865:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, wakeup, configArray, 3U);
- 3563              	 .loc 7 865 0 is_stmt 1
- 3564 007e 3B1D     	 adds r3,r7,#4
- 3565 0080 1248     	 ldr r0,.L183+4
- 3566 0082 1946     	 mov r1,r3
- 3567 0084 124A     	 ldr r2,.L183+8
- 3568 0086 0323     	 movs r3,#3
- 3569 0088 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 864:../main.c     **** 	// Transfer Null
+ 865:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+30, 3U);
+ 3548              	 .loc 7 865 0 is_stmt 1
+ 3549 0060 07F10C03 	 add r3,r7,#12
+ 3550 0064 1948     	 ldr r0,.L183+4
+ 3551 0066 1946     	 mov r1,r3
+ 3552 0068 1A4A     	 ldr r2,.L183+12
+ 3553 006a 0323     	 movs r3,#3
+ 3554 006c FFF7FEFF 	 bl SPI_MASTER_Transfer
  866:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3570              	 .loc 7 866 0
- 3571 008c 00BF     	 nop
- 3572              	.L181:
- 3573              	 .loc 7 866 0 is_stmt 0 discriminator 1
- 3574 008e 0F48     	 ldr r0,.L183+4
- 3575 0090 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3576 0094 0346     	 mov r3,r0
- 3577 0096 002B     	 cmp r3,#0
- 3578 0098 F9D1     	 bne .L181
+ 3555              	 .loc 7 866 0
+ 3556 0070 00BF     	 nop
+ 3557              	.L180:
+ 3558              	 .loc 7 866 0 is_stmt 0 discriminator 1
+ 3559 0072 1648     	 ldr r0,.L183+4
+ 3560 0074 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3561 0078 0346     	 mov r3,r0
+ 3562 007a 002B     	 cmp r3,#0
+ 3563 007c F9D1     	 bne .L180
  867:../main.c     **** 
- 868:../main.c     **** 	// Transfer Null
- 869:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+33, 3U);
- 3579              	 .loc 7 869 0 is_stmt 1
- 3580 009a 07F10C03 	 add r3,r7,#12
- 3581 009e 0B48     	 ldr r0,.L183+4
- 3582 00a0 1946     	 mov r1,r3
- 3583 00a2 0D4A     	 ldr r2,.L183+16
- 3584 00a4 0323     	 movs r3,#3
- 3585 00a6 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 868:../main.c     **** 	// Wakeup ADC and start conversions
+ 869:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, wakeup, configArray, 3U);
+ 3564              	 .loc 7 869 0 is_stmt 1
+ 3565 007e 3B1D     	 adds r3,r7,#4
+ 3566 0080 1248     	 ldr r0,.L183+4
+ 3567 0082 1946     	 mov r1,r3
+ 3568 0084 124A     	 ldr r2,.L183+8
+ 3569 0086 0323     	 movs r3,#3
+ 3570 0088 FFF7FEFF 	 bl SPI_MASTER_Transfer
  870:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
- 3586              	 .loc 7 870 0
- 3587 00aa 00BF     	 nop
- 3588              	.L182:
- 3589              	 .loc 7 870 0 is_stmt 0 discriminator 1
- 3590 00ac 0748     	 ldr r0,.L183+4
- 3591 00ae FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
- 3592 00b2 0346     	 mov r3,r0
- 3593 00b4 002B     	 cmp r3,#0
- 3594 00b6 F9D1     	 bne .L182
+ 3571              	 .loc 7 870 0
+ 3572 008c 00BF     	 nop
+ 3573              	.L181:
+ 3574              	 .loc 7 870 0 is_stmt 0 discriminator 1
+ 3575 008e 0F48     	 ldr r0,.L183+4
+ 3576 0090 FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3577 0094 0346     	 mov r3,r0
+ 3578 0096 002B     	 cmp r3,#0
+ 3579 0098 F9D1     	 bne .L181
  871:../main.c     **** 
- 872:../main.c     **** 	// Set to "infinite" frame length
- 873:../main.c     **** 		XMC_SPI_CH_SetFrameLength(XMC_SPI2_CH0, 64); // When set to 64, frame does not end based on DAVE 
- 3595              	 .loc 7 873 0 is_stmt 1
- 3596 00b8 0848     	 ldr r0,.L183+20
- 3597 00ba 4021     	 movs r1,#64
- 3598 00bc FFF7FEFF 	 bl XMC_SPI_CH_SetFrameLength
- 874:../main.c     **** 
- 875:../main.c     **** }
- 3599              	 .loc 7 875 0
- 3600 00c0 2037     	 adds r7,r7,#32
- 3601              	.LCFI111:
- 3602              	 .cfi_def_cfa_offset 8
- 3603 00c2 BD46     	 mov sp,r7
- 3604              	.LCFI112:
- 3605              	 .cfi_def_cfa_register 13
- 3606              	 
- 3607 00c4 80BD     	 pop {r7,pc}
- 3608              	.L184:
- 3609 00c6 00BF     	 .align 2
- 3610              	.L183:
- 3611 00c8 68050000 	 .word .LC6
- 3612 00cc 00000000 	 .word SPI_MASTER_ADC
- 3613 00d0 00000000 	 .word configArray
- 3614 00d4 1E000000 	 .word configArray+30
- 3615 00d8 21000000 	 .word configArray+33
- 3616 00dc 00400248 	 .word 1208107008
- 3617              	 .cfi_endproc
- 3618              	.LFE465:
- 3620              	 .text
- 3621              	.Letext0:
- 3622              	 .file 8 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\lib\\gcc\\arm-none-eabi\\4.9.3\\include\\stddef.h"
- 3623              	 .file 9 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 3624              	 .file 10 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 3625              	 .file 11 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\sys\\_types.h"
- 3626              	 .file 12 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
- 3627              	 .file 13 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_scu.h"
- 3628              	 .file 14 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_gpio.h"
- 3629              	 .file 15 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_gpio.h"
- 3630              	 .file 16 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/SYSTIMER/systimer.h"
- 3631              	 .file 17 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\sys\\types.h"
- 3632              	 .file 18 "c:\\users\\will\\documents\\github\\launch-daq\\dave\\generated\\eth_lwip\\lwip\\port\\include\\arch\\cc.h"
- 3633              	 .file 19 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/lwip/include/lwip/err.h"
- 3634              	 .file 20 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eth_mac.h"
- 3635              	 .file 21 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/lwip/include/lwip/pbuf.h"
- 3636              	 .file 22 "c:\\users\\will\\documents\\github\\launch-daq\\dave\\generated\\eth_lwip\\lwip\\include\\ipv4\\lwip\\ip_addr.h"
- 3637              	 .file 23 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/lwip/include/lwip/netif.h"
- 3638              	 .file 24 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/lwip/include/lwip/udp.h"
- 3639              	 .file 25 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/eth_lwip.h"
- 3640              	 .file 26 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_dma.h"
- 3641              	 .file 27 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/GLOBAL_DMA/global_dma.h"
- 3642              	 .file 28 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_ccu4.h"
- 3643              	 .file 29 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
- 3644              	 .file 30 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/TIMER/timer.h"
- 3645              	 .file 31 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eru.h"
- 3646              	 .file 32 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4.h"
- 3647              	 .file 33 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/DAVE.h"
- 3648              	 .file 34 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
- 3649              	 .file 35 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/eth_lwip_extern.h"
- 3650              	 .file 36 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/SPI_MASTER/spi_master_extern.h"
- 3651              	 .file 37 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/TIMER/timer_extern.h"
- 3652              	 .file 38 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/PIN_INTERRUPT/pin_interrupt_extern.h"
- 3653              	 .file 39 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/INTERRUPT/interrupt_extern.h"
+ 872:../main.c     **** 	// Transfer Null
+ 873:../main.c     **** 		SPI_MASTER_Transfer(&SPI_MASTER_ADC, null, configArray+33, 3U);
+ 3580              	 .loc 7 873 0 is_stmt 1
+ 3581 009a 07F10C03 	 add r3,r7,#12
+ 3582 009e 0B48     	 ldr r0,.L183+4
+ 3583 00a0 1946     	 mov r1,r3
+ 3584 00a2 0D4A     	 ldr r2,.L183+16
+ 3585 00a4 0323     	 movs r3,#3
+ 3586 00a6 FFF7FEFF 	 bl SPI_MASTER_Transfer
+ 874:../main.c     **** 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
+ 3587              	 .loc 7 874 0
+ 3588 00aa 00BF     	 nop
+ 3589              	.L182:
+ 3590              	 .loc 7 874 0 is_stmt 0 discriminator 1
+ 3591 00ac 0748     	 ldr r0,.L183+4
+ 3592 00ae FFF7FEFF 	 bl SPI_MASTER_IsRxBusy
+ 3593 00b2 0346     	 mov r3,r0
+ 3594 00b4 002B     	 cmp r3,#0
+ 3595 00b6 F9D1     	 bne .L182
+ 875:../main.c     **** 
+ 876:../main.c     **** 	// Set to "infinite" frame length
+ 877:../main.c     **** 		XMC_SPI_CH_SetFrameLength(XMC_SPI2_CH0, 64); // When set to 64, frame does not end based on DAVE 
+ 3596              	 .loc 7 877 0 is_stmt 1
+ 3597 00b8 0848     	 ldr r0,.L183+20
+ 3598 00ba 4021     	 movs r1,#64
+ 3599 00bc FFF7FEFF 	 bl XMC_SPI_CH_SetFrameLength
+ 878:../main.c     **** 
+ 879:../main.c     **** }
+ 3600              	 .loc 7 879 0
+ 3601 00c0 2037     	 adds r7,r7,#32
+ 3602              	.LCFI111:
+ 3603              	 .cfi_def_cfa_offset 8
+ 3604 00c2 BD46     	 mov sp,r7
+ 3605              	.LCFI112:
+ 3606              	 .cfi_def_cfa_register 13
+ 3607              	 
+ 3608 00c4 80BD     	 pop {r7,pc}
+ 3609              	.L184:
+ 3610 00c6 00BF     	 .align 2
+ 3611              	.L183:
+ 3612 00c8 68050000 	 .word .LC6
+ 3613 00cc 00000000 	 .word SPI_MASTER_ADC
+ 3614 00d0 00000000 	 .word configArray
+ 3615 00d4 1E000000 	 .word configArray+30
+ 3616 00d8 21000000 	 .word configArray+33
+ 3617 00dc 00400248 	 .word 1208107008
+ 3618              	 .cfi_endproc
+ 3619              	.LFE465:
+ 3621              	 .text
+ 3622              	.Letext0:
+ 3623              	 .file 8 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\lib\\gcc\\arm-none-eabi\\4.9.3\\include\\stddef.h"
+ 3624              	 .file 9 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 3625              	 .file 10 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 3626              	 .file 11 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\sys\\_types.h"
+ 3627              	 .file 12 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/XMC4700.h"
+ 3628              	 .file 13 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_scu.h"
+ 3629              	 .file 14 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_gpio.h"
+ 3630              	 .file 15 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc4_gpio.h"
+ 3631              	 .file 16 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/SYSTIMER/systimer.h"
+ 3632              	 .file 17 "c:\\infineon\\tools\\dave ide\\4.5.0.202105191637\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\sys\\types.h"
+ 3633              	 .file 18 "c:\\users\\will\\documents\\github\\launch-daq\\dave\\generated\\eth_lwip\\lwip\\port\\include\\arch\\cc.h"
+ 3634              	 .file 19 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/lwip/include/lwip/err.h"
+ 3635              	 .file 20 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eth_mac.h"
+ 3636              	 .file 21 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/lwip/include/lwip/pbuf.h"
+ 3637              	 .file 22 "c:\\users\\will\\documents\\github\\launch-daq\\dave\\generated\\eth_lwip\\lwip\\include\\ipv4\\lwip\\ip_addr.h"
+ 3638              	 .file 23 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/lwip/include/lwip/netif.h"
+ 3639              	 .file 24 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/lwip/include/lwip/udp.h"
+ 3640              	 .file 25 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/eth_lwip.h"
+ 3641              	 .file 26 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_dma.h"
+ 3642              	 .file 27 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/GLOBAL_DMA/global_dma.h"
+ 3643              	 .file 28 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_ccu4.h"
+ 3644              	 .file 29 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
+ 3645              	 .file 30 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/TIMER/timer.h"
+ 3646              	 .file 31 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/XMCLib/inc/xmc_eru.h"
+ 3647              	 .file 32 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4.h"
+ 3648              	 .file 33 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/DAVE.h"
+ 3649              	 .file 34 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Libraries/CMSIS/Infineon/XMC4700_series/Include/system_XMC4700.h"
+ 3650              	 .file 35 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/ETH_LWIP/eth_lwip_extern.h"
+ 3651              	 .file 36 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/SPI_MASTER/spi_master_extern.h"
+ 3652              	 .file 37 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/TIMER/timer_extern.h"
+ 3653              	 .file 38 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/PIN_INTERRUPT/pin_interrupt_extern.h"
+ 3654              	 .file 39 "C:/Users/Will/Documents/GitHub/Launch-DAQ/Dave/Generated/INTERRUPT/interrupt_extern.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
     {standard input}:20     .text.NVIC_EnableIRQ:00000000 $t
@@ -10093,25 +10098,25 @@ DEFINED SYMBOLS
     {standard input}:2516   .text.send_data:00000054 $d
     {standard input}:2531   .text.main:00000000 $t
     {standard input}:2536   .text.main:00000000 main
-    {standard input}:3174   .text.adc_register_config:00000000 adc_register_config
-    {standard input}:3483   .text.xmc_ADC_setup:00000000 xmc_ADC_setup
+    {standard input}:3175   .text.adc_register_config:00000000 adc_register_config
+    {standard input}:3484   .text.xmc_ADC_setup:00000000 xmc_ADC_setup
     {standard input}:2920   .text.main:0000028c $d
-    {standard input}:2945   .text.CCU43_1_IRQHandler:00000000 $t
-    {standard input}:2950   .text.CCU43_1_IRQHandler:00000000 CCU43_1_IRQHandler
-    {standard input}:2980   .text.CCU43_1_IRQHandler:00000018 $d
-    {standard input}:2986   .text.CCU43_0_IRQHandler:00000000 $t
-    {standard input}:2991   .text.CCU43_0_IRQHandler:00000000 CCU43_0_IRQHandler
-    {standard input}:3031   .text.CCU43_0_IRQHandler:00000030 $d
-    {standard input}:3041   .text.ERU0_3_IRQHandler:00000000 $t
-    {standard input}:3046   .text.ERU0_3_IRQHandler:00000000 ERU0_3_IRQHandler
-    {standard input}:3083   .text.ERU0_3_IRQHandler:00000028 $d
-    {standard input}:3092   .text.ERU0_2_IRQHandler:00000000 $t
-    {standard input}:3097   .text.ERU0_2_IRQHandler:00000000 ERU0_2_IRQHandler
-    {standard input}:3134   .text.ERU0_2_IRQHandler:00000028 $d
-    {standard input}:3169   .text.adc_register_config:00000000 $t
-    {standard input}:3452   .text.adc_register_config:000001dc $d
-    {standard input}:3478   .text.xmc_ADC_setup:00000000 $t
-    {standard input}:3611   .text.xmc_ADC_setup:000000c8 $d
+    {standard input}:2946   .text.CCU43_1_IRQHandler:00000000 $t
+    {standard input}:2951   .text.CCU43_1_IRQHandler:00000000 CCU43_1_IRQHandler
+    {standard input}:2981   .text.CCU43_1_IRQHandler:00000018 $d
+    {standard input}:2987   .text.CCU43_0_IRQHandler:00000000 $t
+    {standard input}:2992   .text.CCU43_0_IRQHandler:00000000 CCU43_0_IRQHandler
+    {standard input}:3032   .text.CCU43_0_IRQHandler:00000030 $d
+    {standard input}:3042   .text.ERU0_3_IRQHandler:00000000 $t
+    {standard input}:3047   .text.ERU0_3_IRQHandler:00000000 ERU0_3_IRQHandler
+    {standard input}:3084   .text.ERU0_3_IRQHandler:00000028 $d
+    {standard input}:3093   .text.ERU0_2_IRQHandler:00000000 $t
+    {standard input}:3098   .text.ERU0_2_IRQHandler:00000000 ERU0_2_IRQHandler
+    {standard input}:3135   .text.ERU0_2_IRQHandler:00000028 $d
+    {standard input}:3170   .text.adc_register_config:00000000 $t
+    {standard input}:3453   .text.adc_register_config:000001dc $d
+    {standard input}:3479   .text.xmc_ADC_setup:00000000 $t
+    {standard input}:3612   .text.xmc_ADC_setup:000000c8 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
