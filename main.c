@@ -144,8 +144,9 @@ const char* help_msg = "write requests are files made up of zero or more command
 					   "each command must be newline terminated\n" \
 					   "the only supported TFTP mode is octet\n"
 					   "any write request will be interpreted as commands, and any read request will send this menu\n" \
-					   "written files can be up to 4096 bytes (8 TFTP data transfers)"
-					   "possible commands are:\n"
+					   "written files can be up to 4096 bytes (8 TFTP data transfers)\n" \
+					   "if the source IP address is changed, the TFTP server will continue to listen on the old address until the system is reset\n"
+					   "\npossible commands are:\n"
 						"    ip.src=[source IP address, e.g. 10.10.10.25]\n" \
 						"    ip.dst=[destination IP address]\n" \
 						"    ip.gw=[default gateway IP address]\n" \
