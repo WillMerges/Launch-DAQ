@@ -1,10 +1,10 @@
 #include <DAVE.h>
 
-// packet data types
-
 // set to 1 if flash memory that stores network config should be reset to defaults
 // set to 0 to use the last saved network config (or use defaults if flash is empty)
 #define REFLASH 0
+
+// packet data types
 
 typedef struct {
 	uint32_t ms;
@@ -57,10 +57,6 @@ typedef enum {
 	SLOW_RATE
 } ADC_rate_t;
 
-#define DEFAULT_ADC_RATE SLOW_RATE
-
-// Networking //
-
 // holds persistent configuration information stored in flash
 // NOTE: size must be smaller than emulated EEPROM size in DAVE app
 typedef struct {
@@ -89,15 +85,20 @@ config_t flash;
 #define DEF_ADC0_PORT	8080
 #define DEF_ADC1_PORT 	8081
 #define DEF_TC_PORT 	8082
+#define DEFAULT_ADC_RATE SLOW_RATE
 
+// UDP out PCB/buffer
 struct udp_pcb* pcb;
 struct pbuf* p;
+
+// default (only) network interface
 struct netif* netif;
 
-// TFTP server
+// TFTP server PCB/buffer
 struct udp_pcb* tftp_pcb;
 struct pbuf* tftp_p;
 
+// TFTP constants
 #define TFTP_PORT 69
 #define TFTP_RRQ 1
 #define TFTP_WRQ 2
@@ -107,8 +108,12 @@ struct pbuf* tftp_p;
 #define TFTP_MAX_ERR_MSG_LEN 511 // one NULL-terminated data block
 
 #define TFTP_BUFFER_SIZE 4096
+
+// TFTP data buffer
 size_t tftp_buff_index = 0;
 uint8_t tftp_buff[TFTP_BUFFER_SIZE];
+
+// TFTP headers/packets
 
 typedef struct {
 	uint16_t opcode;
@@ -127,12 +132,14 @@ typedef struct {
 	// followed by up to 512 bytes of data
 } tftp_data_t;
 
+// TFTP data
 uint16_t curr_block = 0;
 uint16_t ack_num = 0;
 uint8_t tftp_send = 0;
 ip_addr_t last_addr;
 uint16_t last_port;
 
+// message to output on any TFTP read requests
 const char* help_msg = "write requests are files made up of zero or more commands\n" \
 					   "each command must be newline terminated\n" \
 					   "the only supported TFTP mode is octet\n"
