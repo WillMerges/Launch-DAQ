@@ -99,14 +99,19 @@ struct udp_pcb* tftp_pcb;
 struct pbuf* tftp_p;
 
 // TFTP constants
+// server port
 #define TFTP_PORT 69
-#define TFTP_RRQ 1
-#define TFTP_WRQ 2
-#define TFTP_DATA 3
-#define TFTP_ACK 4
-#define TFTP_ERR 5
-#define TFTP_MAX_ERR_MSG_LEN 511 // one NULL-terminated data block
+// header opcodes
+#define TFTP_RRQ  0x1
+#define TFTP_WRQ  0x2
+#define TFTP_DATA 0x3
+#define TFTP_ACK  0x4
+#define TFTP_ERR  0x5
+// error codes
+#define TFTP_ILLEGAL_OP 0x4
 
+// max buffer sizes
+#define TFTP_MAX_ERR_MSG_LEN 511 // one NULL-terminated data block
 #define TFTP_BUFFER_SIZE 4096
 
 // TFTP data buffer
@@ -372,7 +377,7 @@ void tftp_send_data(const char* str, ip_addr_t* addr, uint16_t port) {
 void tftp_err(const char* msg, ip_addr_t* addr, uint16_t port) {
 	tftp_err_t header;
 	header.opcode = htons(TFTP_ERR); // ERROR opcode
-	header.error_code = htons(4); // Illegal TFTP operation error code
+	header.error_code = htons(TFTP_ILLEGAL_OP); // Illegal TFTP operation error code
 
 	memcpy(tftp_p->payload, (void*)&header, sizeof(tftp_err_t));
 
