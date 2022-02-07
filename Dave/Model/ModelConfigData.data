@@ -304,6 +304,6 @@
   <hwConnections href="APPS/SPI_MASTER/v4_3_30/SPI_MASTER_1.app#//@connections.5"/>
   <hwConnections href="APPS/SPI_MASTER/v4_3_30/SPI_MASTER_1.app#//@connections.3"/>
   <hwConnections href="APPS/SPI_MASTER/v4_3_30/SPI_MASTER_1.app#//@connections.1"/>
-  <hwConnections href="APPS/SPI_MASTER/v4_3_30/SPI_MASTER_1.app#//@connections.0"/>
   <hwConnections href="APPS/SPI_MASTER/v4_3_30/SPI_MASTER_1.app#//@connections.2"/>
+  <hwConnections href="APPS/SPI_MASTER/v4_3_30/SPI_MASTER_1.app#//@connections.0"/>
 </ApplicationModel:ApplicationData>

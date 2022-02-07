@@ -113,7 +113,7 @@
   <hwResources name="NVIC Node Tx" URI="http://resources/4.3.30/app/SPI_MASTER/1/hwres_cpu_nvic_interrupt_tx" resourceGroupUri="" required="false" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*"/>
   <hwResources name="NVIC Node Rx" URI="http://resources/4.3.30/app/SPI_MASTER/1/hwres_cpu_nvic_interrupt_rx" resourceGroupUri="" required="false" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*"/>
   <hwResources name="NVIC Node Error" URI="http://resources/4.3.30/app/SPI_MASTER/1/hwres_cpu_nvic_interrupt_error" resourceGroupUri="" required="false" mResGrpUri="peripheral/cpu/0/nvic/interrupt/*"/>
-  <hwResources name="Receive DMA Channel" URI="http://resources/4.3.30/app/SPI_MASTER/1/hwres_dma_channel_rx" resourceGroupUri="resources/48.0.0/peripheral/dma4/0/ch/2" solverVariable="true" mResGrpUri="peripheral/sv1/0/*/*">
+  <hwResources name="Receive DMA Channel" URI="http://resources/4.3.30/app/SPI_MASTER/1/hwres_dma_channel_rx" resourceGroupUri="resources/48.0.0/peripheral/dma8/0/ch_adv/1" solverVariable="true" mResGrpUri="peripheral/sv1/0/*/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/gpdma0/gpdma0_0.dd#//@provided.4"/>
     <solverVarMap index="1">
       <value variableName="sv1" solverValue="dma8"/>
@@ -125,7 +125,7 @@
       <value variableName="sv1" solverValue="dma8"/>
     </solverVarMap>
   </hwResources>
-  <hwResources name="Receive DMA DLR" URI="http://resources/4.3.30/app/SPI_MASTER/1/hwres_dlr_channel_rx" resourceGroupUri="resources/48.0.0/peripheral/dlr/0/ch/10" mResGrpUri="peripheral/dlr/0/ch/*">
+  <hwResources name="Receive DMA DLR" URI="http://resources/4.3.30/app/SPI_MASTER/1/hwres_dlr_channel_rx" resourceGroupUri="resources/48.0.0/peripheral/dlr/0/ch/2" mResGrpUri="peripheral/dlr/0/ch/*">
     <downwardMapList xsi:type="ResourceModel:ResourceGroup" href="../../../HW_RESOURCES/dlr/dlr_0.dd#//@provided.9"/>
   </hwResources>
   <hwResources name="Transmit DMA Channel" URI="http://resources/4.3.30/app/SPI_MASTER/1/hwres_dma_channel_tx" resourceGroupUri="resources/48.0.0/peripheral/dma4/0/ch/2" solverVariable="true" mResGrpUri="peripheral/sv1/0/*/*">

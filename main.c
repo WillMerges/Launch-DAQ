@@ -51,6 +51,14 @@ uint8_t read_adc1 = 0;	// Flag for ADC1 Read -- Interrupt
 uint8_t configArray[56] = {0x00}; // Note: overwritten by each ADC, so put a breakpoint after each ADC config if you want to read the data for an individal ADC
 
 
+// ADC rate
+typedef enum {
+	FAST_RATE,
+	SLOW_RATE
+} ADC_rate_t;
+
+#define DEFAULT_ADC_RATE SLOW_RATE
+
 // Networking //
 
 // holds persistent configuration information stored in flash
@@ -64,6 +72,8 @@ typedef struct {
 	uint16_t adc0_port;
 	uint16_t adc1_port;
 	uint16_t tc_port;
+	ADC_rate_t adc0_rate;
+	ADC_rate_t adc1_rate;
 } config_t;
 
 config_t flash;
@@ -136,16 +146,22 @@ const char* help_msg = "write requests are files made up of zero or more command
 						"    udp.src=[source UDP port]\n" \
 						"    udp.adc0=[destination port for ADC0 packets]\n" \
 						"    udp.adc1=[destination port for ADC1 packets]\n" \
-						"    udp.tc=[destination port for thermocouple packets]\n";
+						"    udp.tc=[destination port for thermocouple packets]\n" \
+						"    rate.adc0=['slow' (8kHz sample rate) or 'fast' (43kHz sample rate)]\n" \
+						"	 rate.ac1=['slow' (8kHz sample rate) or 'fast' (43kHz sample rate)]\n" \
+						"    reset --- resets the DAQ after all commands transferred are processed\n";
 
 int write_flash_config();
 void local_udp_reset();
 void tftp_err(const char* msg, ip_addr_t* addr, uint16_t port);
+char my_tolower(char c);
+void adc_soft_reset();
 
 // parse the commands in the TFTP buffer
 // returns 1 on success, 0 on failure
 uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 	uint8_t ret = 1;
+	uint8_t reset = 0;
 
 	size_t index = 0;
 	char* str = NULL;
@@ -171,10 +187,11 @@ uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 		} else {
 			char* val = NULL;
 			for(size_t i = 0; i < strlen(str); i++) {
+				str[i] = my_tolower(str[i]);
 				if(str[i] == '=') {
 					val = &str[i + 1];
 					str[i] = '\0';
-					break;
+//					break; // keep going to convert everything to lower case
 				}
 			}
 
@@ -228,6 +245,28 @@ uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 				flash.adc1_port = (uint16_t)atoi(val);
 			} else if(strcmp(str, "udp.tc") == 0) {
 				flash.tc_port = (uint16_t)atoi(val);
+			} else if(strcmp(str, "rate.adc0") == 0) {
+				if(strcmp(val, "fast") == 0) {
+					flash.adc0_rate = FAST_RATE;
+				} else if(strcmp(val, "slow") == 0) {
+					flash.adc0_rate = SLOW_RATE;
+				} else {
+					tftp_err("invalid ADC0 rate", addr, port);
+					ret = 0;
+					break;
+				}
+			} else if(strcmp(str, "rate.adc1") == 0) {
+				if(strcmp(val, "fast") == 0) {
+					flash.adc1_rate = FAST_RATE;
+				} else if(strcmp(val, "slow") == 0) {
+					flash.adc1_rate = SLOW_RATE;
+				} else {
+					tftp_err("invalid ADC1 rate", addr, port);
+					ret = 0;
+					break;
+				}
+			} else if(strcmp(str, "reset")) {
+				reset = 1;
 			} else {
 				tftp_err("unknown config parameter", addr, port);
 				ret = 0;
@@ -246,6 +285,16 @@ uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 			tftp_err("failed to save configuration to flash", addr, port);
 			ret = 0;
 		}
+	}
+
+	if(reset) {
+		// reset the whole system
+
+		// reset the ADC
+		adc_soft_reset();
+
+		// reset the XMC
+		NVIC_SystemReset();
 	}
 
 	return ret;
@@ -549,6 +598,8 @@ int load_flash_config(uint8_t force_default) {
 		flash.adc0_port = DEF_ADC0_PORT;
 		flash.adc1_port = DEF_ADC1_PORT;
 		flash.tc_port = DEF_TC_PORT;
+		flash.adc0_rate = DEFAULT_ADC_RATE;
+		flash.adc1_rate = DEFAULT_ADC_RATE;
 
 		// write out the default configuration to flash
 		return write_flash_config();
@@ -614,7 +665,7 @@ void send_data(void* data, uint16_t size, uint16_t port) {
 }
 
 // definitions needed by main
-void adc_register_config();
+void adc_register_config(ADC_rate_t rate);
 void xmc_ADC_setup();
 
 /*
@@ -653,12 +704,12 @@ int main(void) {
 	// ADC0
 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_0); // Change slave
 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
-	adc_register_config();
+	adc_register_config(flash.adc0_rate);
 
 	// ADC 1
 	SPI_MASTER_EnableSlaveSelectSignal(&SPI_MASTER_ADC,  SPI_MASTER_SS_SIGNAL_1); // Change slave
 	for(int i = 0; i < 9000; i++) {}; // Dumb Delay (Remove?)
-	adc_register_config();
+	adc_register_config(flash.adc1_rate);
 
 	// Turn on ADCs
 	// ADC0
@@ -789,7 +840,7 @@ int main(void) {
 
 // FUNCIONS ///////////////////////////////////////////////////////////////////////////////////////
 
-void adc_register_config() {
+void adc_register_config(ADC_rate_t rate) {
 	// Register Configurations
 		uint8_t unlock[3] = {0x06, 0x55, 0x0}; 				// Unlocks ADC
 		uint8_t null[18] = {0x00};							// Sends null for reads
@@ -797,7 +848,16 @@ void adc_register_config() {
 		uint8_t write_D_SYS_CFG[3] = {0x4C, 0x3C, 0x00};	// b(00111100) -- Watchdog Disabled | No CRC | 12ns delay for DONE (not used) | 12ns delay for Hi-Z on DOUT | Fixed Frame Size (6 frames) | CRC disabled
 		uint8_t write_CLK1[3] = {0x4D, 0x02, 0x00};			// b(00000010) -- XTAL CLK Source | CLKIN /2
 		uint8_t write_CLK2_43kHz[3] = {0x4E, 0x4E, 0x00};	// b(01001110) -- ICLK / 4 | OSR = fMOD / 48
-//		uint8_t write_CLK2_8kHz[3] = {0x4E, 0x48, 0x00};	// b(01001000) -- ICLK / 4 | OSR = fMOD / 256
+		uint8_t write_CLK2_8kHz[3] = {0x4E, 0x48, 0x00};	// b(01001000) -- ICLK / 4 | OSR = fMOD / 256
+
+
+		uint8_t* write_CLK2 = NULL;
+		if(rate == FAST_RATE) {
+			write_CLK2 = write_CLK2_43kHz;
+		} else {
+			write_CLK2 = write_CLK2_8kHz;
+		}
+
 		// NOTE -- write_CLK2_43kHz gives a final sample rate of 42.667kHz
 		// NOTE -- write_CLK2_8kHz gives a final sample rate of 8kHz
 
@@ -843,7 +903,7 @@ void adc_register_config() {
 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
 
 	// Write to CLK2 (See Above)
-		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_CLK2_43kHz, configArray+24, 3U);
+		SPI_MASTER_Transfer(&SPI_MASTER_ADC, write_CLK2, configArray+24, 3U);
 		while(SPI_MASTER_IsRxBusy(&SPI_MASTER_ADC)){} // Wait for completion
 
 	// Transfer Null
@@ -852,9 +912,23 @@ void adc_register_config() {
 
 }
 
+// perform a software reset on the ADC
+// blocking operation
+void adc_soft_reset() {
+	uint8_t reset_cmd = {0x00, 0x11, 0x00};
+
+	// could do SPI transfer and read first 24 bits (status word)
+	// status should be READY (0xFFdd) where dd is the device id
+
+	while(SPI_MASTER_IsTxBusy(&SPI_MASTER_ADC)) {};
+	SPI_MASTER_Transmit(&SPI_MASTER_ADC, reset_cmd, 3);
+	while(SPI_MASTER_IsTxBusy(&SPI_MASTER_ADC)) {};
+}
+
 void xmc_ADC_setup(){
 	uint8_t null[18] = {0x00};						// Sends null for reads
-	uint8_t write_ADC_ENA[3] = {0x4F, 0x0F, 0x00};	// b(00001111) -- Enables all ADC channels (note: no option to enable certain channels, all or nothing)
+	// I actually think the ADC_ENA register address is 0x04 (was 0x4F before)
+	uint8_t write_ADC_ENA[3] = {0x0F, 0x0F, 0x00};	// b(00001111) -- Enables all ADC channels (note: no option to enable certain channels, all or nothing)
 	uint8_t wakeup[3] = {0x00, 0x33, 0x00};			// b(00110011) -- Bring ADC out of standby (start collection)
 
 	// Write to ADC_ENA (See Above)

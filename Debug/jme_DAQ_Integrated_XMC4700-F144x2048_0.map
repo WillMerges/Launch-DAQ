@@ -72,7 +72,7 @@ tftp_buff           0x1000            ./main.o
 current_header      0x4               ./Dave/Generated/ETH_LWIP/lwip/core/ipv4/ip.o
 last_port           0x2               ./main.o
 usbd_init           0x4               ./Libraries/XMCLib/src/xmc_usbd.o
-flash               0x18              ./main.o
+flash               0x1c              ./main.o
 ADC0_buff           0x1e              ./main.o
 tftp_p              0x4               ./main.o
 pcb                 0x4               ./main.o
@@ -2902,7 +2902,7 @@ END GROUP
                 0x08000300                . = ALIGN (0x100)
  *fill*         0x0800029c       0x64 ff
 
-.text           0x08020000     0xa6bc load address 0x0c020000
+.text           0x08020000     0xa8bc load address 0x0c020000
                 0x08020000                sText = .
  *(.text .text.* .gnu.linkonce.t.*)
  .text.SystemInit
@@ -3775,96 +3775,96 @@ END GROUP
  .text.INTERRUPT_Enable
                 0x0802880c       0x1c ./main.o
  .text.parse_config_commands
-                0x08028828      0x2e0 ./main.o
+                0x08028828      0x3b8 ./main.o
                 0x08028828                parse_config_commands
  .text.tftp_send_data
-                0x08028b08      0x17c ./main.o
-                0x08028b08                tftp_send_data
+                0x08028be0      0x17c ./main.o
+                0x08028be0                tftp_send_data
  .text.tftp_err
-                0x08028c84       0xb4 ./main.o
-                0x08028c84                tftp_err
+                0x08028d5c       0xb4 ./main.o
+                0x08028d5c                tftp_err
  .text.tftp_ack
-                0x08028d38       0x78 ./main.o
-                0x08028d38                tftp_ack
+                0x08028e10       0x78 ./main.o
+                0x08028e10                tftp_ack
  .text.my_tolower
-                0x08028db0       0x2c ./main.o
-                0x08028db0                my_tolower
+                0x08028e88       0x2c ./main.o
+                0x08028e88                my_tolower
  .text.tftp_check_octet_mode
-                0x08028ddc       0xec ./main.o
-                0x08028ddc                tftp_check_octet_mode
+                0x08028eb4       0xec ./main.o
+                0x08028eb4                tftp_check_octet_mode
  .text.tftp_recv
-                0x08028ec8      0x2ac ./main.o
-                0x08028ec8                tftp_recv
+                0x08028fa0      0x2ac ./main.o
+                0x08028fa0                tftp_recv
  .text.tftp_init
-                0x08029174       0x50 ./main.o
-                0x08029174                tftp_init
+                0x0802924c       0x50 ./main.o
+                0x0802924c                tftp_init
  .text.load_flash_config
-                0x080291c4       0xc4 ./main.o
-                0x080291c4                load_flash_config
+                0x0802929c       0xd0 ./main.o
+                0x0802929c                load_flash_config
  .text.write_flash_config
-                0x08029288       0x34 ./main.o
-                0x08029288                write_flash_config
+                0x0802936c       0x34 ./main.o
+                0x0802936c                write_flash_config
  .text.local_udp_reset
-                0x080292bc       0x40 ./main.o
-                0x080292bc                local_udp_reset
+                0x080293a0       0x40 ./main.o
+                0x080293a0                local_udp_reset
  .text.local_udp_init
-                0x080292fc       0x3c ./main.o
-                0x080292fc                local_udp_init
+                0x080293e0       0x3c ./main.o
+                0x080293e0                local_udp_init
  .text.send_data
-                0x08029338       0x64 ./main.o
-                0x08029338                send_data
- .text.main     0x0802939c      0x2e4 ./main.o
-                0x0802939c                main
+                0x0802941c       0x64 ./main.o
+                0x0802941c                send_data
+ .text.main     0x08029480      0x2f0 ./main.o
+                0x08029480                main
  .text.CCU43_1_IRQHandler
-                0x08029680       0x20 ./main.o
-                0x08029680                CCU43_1_IRQHandler
+                0x08029770       0x20 ./main.o
+                0x08029770                CCU43_1_IRQHandler
  .text.CCU43_0_IRQHandler
-                0x080296a0       0x48 ./main.o
-                0x080296a0                CCU43_0_IRQHandler
+                0x08029790       0x48 ./main.o
+                0x08029790                CCU43_0_IRQHandler
  .text.ERU0_3_IRQHandler
-                0x080296e8       0x3c ./main.o
-                0x080296e8                ERU0_3_IRQHandler
+                0x080297d8       0x3c ./main.o
+                0x080297d8                ERU0_3_IRQHandler
  .text.ERU0_2_IRQHandler
-                0x08029724       0x3c ./main.o
-                0x08029724                ERU0_2_IRQHandler
+                0x08029814       0x3c ./main.o
+                0x08029814                ERU0_2_IRQHandler
  .text.adc_register_config
-                0x08029760      0x21c ./main.o
-                0x08029760                adc_register_config
+                0x08029850      0x24c ./main.o
+                0x08029850                adc_register_config
  .text.xmc_ADC_setup
-                0x0802997c       0xe0 ./main.o
-                0x0802997c                xmc_ADC_setup
- .text.atoi     0x08029a5c        0x8 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-atoi.o)
-                0x08029a5c                atoi
- .text.__errno  0x08029a64        0xc c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-errno.o)
-                0x08029a64                __errno
+                0x08029a9c       0xe0 ./main.o
+                0x08029a9c                xmc_ADC_setup
+ .text.atoi     0x08029b7c        0x8 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-atoi.o)
+                0x08029b7c                atoi
+ .text.__errno  0x08029b84        0xc c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-errno.o)
+                0x08029b84                __errno
  .text.__libc_init_array
-                0x08029a70       0x4c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-init.o)
-                0x08029a70                __libc_init_array
- .text.memcmp   0x08029abc       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memcmp.o)
-                0x08029abc                memcmp
- .text.memcpy   0x08029adc       0x16 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memcpy.o)
-                0x08029adc                memcpy
- .text.memset   0x08029af2       0x10 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memset.o)
-                0x08029af2                memset
- *fill*         0x08029b02        0x2 
- .text.rand     0x08029b04       0x74 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-rand.o)
-                0x08029b04                rand
- .text          0x08029b78       0x14 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strcmp.o)
-                0x08029b78                strcmp
- .text.strlen   0x08029b8c       0x10 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strlen.o)
-                0x08029b8c                strlen
+                0x08029b90       0x4c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-init.o)
+                0x08029b90                __libc_init_array
+ .text.memcmp   0x08029bdc       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memcmp.o)
+                0x08029bdc                memcmp
+ .text.memcpy   0x08029bfc       0x16 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memcpy.o)
+                0x08029bfc                memcpy
+ .text.memset   0x08029c12       0x10 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memset.o)
+                0x08029c12                memset
+ *fill*         0x08029c22        0x2 
+ .text.rand     0x08029c24       0x74 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-rand.o)
+                0x08029c24                rand
+ .text          0x08029c98       0x14 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strcmp.o)
+                0x08029c98                strcmp
+ .text.strlen   0x08029cac       0x10 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strlen.o)
+                0x08029cac                strlen
  .text._strtol_r
-                0x08029b9c      0x10c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strtol.o)
-                0x08029b9c                _strtol_r
- .text.strtol   0x08029ca8       0x1c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strtol.o)
-                0x08029ca8                strtol
- .text.malloc   0x08029cc4       0x10 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-malloc.o)
-                0x08029cc4                malloc
+                0x08029cbc      0x10c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strtol.o)
+                0x08029cbc                _strtol_r
+ .text.strtol   0x08029dc8       0x1c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strtol.o)
+                0x08029dc8                strtol
+ .text.malloc   0x08029de4       0x10 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-malloc.o)
+                0x08029de4                malloc
  .text._malloc_r
-                0x08029cd4       0xac c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-nano-mallocr.o)
-                0x08029cd4                _malloc_r
- .text._sbrk_r  0x08029d80       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-sbrkr.o)
-                0x08029d80                _sbrk_r
+                0x08029df4       0xac c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-nano-mallocr.o)
+                0x08029df4                _malloc_r
+ .text._sbrk_r  0x08029ea0       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-sbrkr.o)
+                0x08029ea0                _sbrk_r
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -3879,147 +3879,147 @@ END GROUP
  *(.dtors)
  *(.rodata .rodata.*)
  .rodata.SPI_MASTER_ADC_MOSI
-                0x08029da0        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029da0                SPI_MASTER_ADC_MOSI
+                0x08029ec0        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029ec0                SPI_MASTER_ADC_MOSI
  .rodata.SPI_MASTER_ADC_MISO
-                0x08029da8        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029da8                SPI_MASTER_ADC_MISO
+                0x08029ec8        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029ec8                SPI_MASTER_ADC_MISO
  .rodata.SPI_MASTER_ADC_SCLKOUT
-                0x08029db0        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029db0                SPI_MASTER_ADC_SCLKOUT
+                0x08029ed0        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029ed0                SPI_MASTER_ADC_SCLKOUT
  .rodata.SPI_MASTER_ADC_SCLKOUT_Config
-                0x08029db8       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029db8                SPI_MASTER_ADC_SCLKOUT_Config
+                0x08029ed8       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029ed8                SPI_MASTER_ADC_SCLKOUT_Config
  .rodata.SPI_MASTER_ADC_SS_0
-                0x08029dcc        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029dcc                SPI_MASTER_ADC_SS_0
+                0x08029eec        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029eec                SPI_MASTER_ADC_SS_0
  .rodata.SPI_MASTER_ADC_SS_0_Config
-                0x08029dd4       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029dd4                SPI_MASTER_ADC_SS_0_Config
+                0x08029ef4       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029ef4                SPI_MASTER_ADC_SS_0_Config
  .rodata.SPI_MASTER_ADC_SS_1
-                0x08029de8        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029de8                SPI_MASTER_ADC_SS_1
+                0x08029f08        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029f08                SPI_MASTER_ADC_SS_1
  .rodata.SPI_MASTER_ADC_Config
-                0x08029df0       0x8c ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029df0                SPI_MASTER_ADC_Config
+                0x08029f10       0x8c ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029f10                SPI_MASTER_ADC_Config
  .rodata.SPI_MASTER_TC_MOSI
-                0x08029e7c        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029e7c                SPI_MASTER_TC_MOSI
+                0x08029f9c        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029f9c                SPI_MASTER_TC_MOSI
  .rodata.SPI_MASTER_TC_MISO
-                0x08029e84        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029e84                SPI_MASTER_TC_MISO
+                0x08029fa4        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029fa4                SPI_MASTER_TC_MISO
  .rodata.SPI_MASTER_TC_SCLKOUT
-                0x08029e8c        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029e8c                SPI_MASTER_TC_SCLKOUT
+                0x08029fac        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029fac                SPI_MASTER_TC_SCLKOUT
  .rodata.SPI_MASTER_TC_SCLKOUT_Config
-                0x08029e94       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029e94                SPI_MASTER_TC_SCLKOUT_Config
+                0x08029fb4       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029fb4                SPI_MASTER_TC_SCLKOUT_Config
  .rodata.SPI_MASTER_TC_SS_0
-                0x08029ea8        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029ea8                SPI_MASTER_TC_SS_0
+                0x08029fc8        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029fc8                SPI_MASTER_TC_SS_0
  .rodata.SPI_MASTER_TC_SS_0_Config
-                0x08029eb0       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029eb0                SPI_MASTER_TC_SS_0_Config
+                0x08029fd0       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029fd0                SPI_MASTER_TC_SS_0_Config
  .rodata.SPI_MASTER_TC_SS_1
-                0x08029ec4        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029ec4                SPI_MASTER_TC_SS_1
+                0x08029fe4        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029fe4                SPI_MASTER_TC_SS_1
  .rodata.SPI_MASTER_TC_SS_2
-                0x08029ecc        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029ecc                SPI_MASTER_TC_SS_2
+                0x08029fec        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029fec                SPI_MASTER_TC_SS_2
  .rodata.SPI_MASTER_TC_SS_2_Config
-                0x08029ed4       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029ed4                SPI_MASTER_TC_SS_2_Config
+                0x08029ff4       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x08029ff4                SPI_MASTER_TC_SS_2_Config
  .rodata.SPI_MASTER_TC_SS_3
-                0x08029ee8        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029ee8                SPI_MASTER_TC_SS_3
+                0x0802a008        0x8 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x0802a008                SPI_MASTER_TC_SS_3
  .rodata.SPI_MASTER_TC_SS_3_Config
-                0x08029ef0       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029ef0                SPI_MASTER_TC_SS_3_Config
+                0x0802a010       0x14 ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x0802a010                SPI_MASTER_TC_SS_3_Config
  .rodata.SPI_MASTER_TC_Config
-                0x08029f04       0x8c ./Dave/Generated/SPI_MASTER/spi_master_conf.o
-                0x08029f04                SPI_MASTER_TC_Config
+                0x0802a024       0x8c ./Dave/Generated/SPI_MASTER/spi_master_conf.o
+                0x0802a024                SPI_MASTER_TC_Config
  .rodata.PIN_INTERRUPT_ADC0
-                0x08029f90       0x24 ./Dave/Generated/PIN_INTERRUPT/pin_interrupt_conf.o
-                0x08029f90                PIN_INTERRUPT_ADC0
+                0x0802a0b0       0x24 ./Dave/Generated/PIN_INTERRUPT/pin_interrupt_conf.o
+                0x0802a0b0                PIN_INTERRUPT_ADC0
  .rodata.PIN_INTERRUPT_ADC1
-                0x08029fb4       0x24 ./Dave/Generated/PIN_INTERRUPT/pin_interrupt_conf.o
-                0x08029fb4                PIN_INTERRUPT_ADC1
+                0x0802a0d4       0x24 ./Dave/Generated/PIN_INTERRUPT/pin_interrupt_conf.o
+                0x0802a0d4                PIN_INTERRUPT_ADC1
  .rodata.INTERRUPT_TC
-                0x08029fd8        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
-                0x08029fd8                INTERRUPT_TC
+                0x0802a0f8        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
+                0x0802a0f8                INTERRUPT_TC
  .rodata.INTERRUPT_TIMESTAMP
-                0x08029fdc        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
-                0x08029fdc                INTERRUPT_TIMESTAMP
+                0x0802a0fc        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
+                0x0802a0fc                INTERRUPT_TIMESTAMP
  .rodata.INTERRUPT_ETH
-                0x08029fe0        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
-                0x08029fe0                INTERRUPT_ETH
+                0x0802a100        0x4 ./Dave/Generated/INTERRUPT/interrupt_conf.o
+                0x0802a100                INTERRUPT_ETH
  .rodata.e_eeprom_xmc4_fce
-                0x08029fe4        0xc ./Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4.o
+                0x0802a104        0xc ./Dave/Generated/E_EEPROM_XMC4/e_eeprom_xmc4.o
  .rodata.eth_phy_config
-                0x08029ff0        0x8 ./Dave/Generated/ETH_LWIP/lwip/port/netif/ethernetif.o
-                0x08029ff0                eth_phy_config
+                0x0802a110        0x8 ./Dave/Generated/ETH_LWIP/lwip/port/netif/ethernetif.o
+                0x0802a110                eth_phy_config
  .rodata.ethbroadcast
-                0x08029ff8        0x8 ./Dave/Generated/ETH_LWIP/lwip/netif/etharp.o
-                0x08029ff8                ethbroadcast
+                0x0802a118        0x8 ./Dave/Generated/ETH_LWIP/lwip/netif/etharp.o
+                0x0802a118                ethbroadcast
  .rodata.ethzero
-                0x0802a000        0x8 ./Dave/Generated/ETH_LWIP/lwip/netif/etharp.o
-                0x0802a000                ethzero
+                0x0802a120        0x8 ./Dave/Generated/ETH_LWIP/lwip/netif/etharp.o
+                0x0802a120                ethzero
  .rodata.ip_addr_any
-                0x0802a008        0x4 ./Dave/Generated/ETH_LWIP/lwip/core/ipv4/ip_addr.o
-                0x0802a008                ip_addr_any
+                0x0802a128        0x4 ./Dave/Generated/ETH_LWIP/lwip/core/ipv4/ip_addr.o
+                0x0802a128                ip_addr_any
  .rodata.memp_sizes
-                0x0802a00c        0xc ./Dave/Generated/ETH_LWIP/lwip/core/memp.o
+                0x0802a12c        0xc ./Dave/Generated/ETH_LWIP/lwip/core/memp.o
  .rodata.memp_num
-                0x0802a018        0xc ./Dave/Generated/ETH_LWIP/lwip/core/memp.o
+                0x0802a138        0xc ./Dave/Generated/ETH_LWIP/lwip/core/memp.o
  .rodata.LED_INDICATOR
-                0x0802a024       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
-                0x0802a024                LED_INDICATOR
- .rodata        0x0802a038       0x14 ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
- .rodata        0x0802a04c      0x56c ./main.o
+                0x0802a144       0x14 ./Dave/Generated/DIGITAL_IO/digital_io_conf.o
+                0x0802a144                LED_INDICATOR
+ .rodata        0x0802a158       0x14 ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
+ .rodata        0x0802a16c      0x64c ./main.o
  .rodata.str1.1
-                0x0802a5b8        0x2 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-impure.o)
+                0x0802a7b8        0x2 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-impure.o)
  .rodata._ctype_
-                0x0802a5ba      0x101 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-ctype_.o)
-                0x0802a5ba                _ctype_
+                0x0802a7ba      0x101 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-ctype_.o)
+                0x0802a7ba                _ctype_
  *(.gnu.linkonce.r*)
  *(vtable)
-                0x0802a6bc                . = ALIGN (0x4)
- *fill*         0x0802a6bb        0x1 
+                0x0802a8bc                . = ALIGN (0x4)
+ *fill*         0x0802a8bb        0x1 
 
-.glue_7         0x0802a6bc        0x0 load address 0x0c02a6bc
+.glue_7         0x0802a8bc        0x0 load address 0x0c02a8bc
  .glue_7        0x00000000        0x0 linker stubs
 
-.glue_7t        0x0802a6bc        0x0 load address 0x0c02a6bc
+.glue_7t        0x0802a8bc        0x0 load address 0x0c02a8bc
  .glue_7t       0x00000000        0x0 linker stubs
 
-.vfp11_veneer   0x0802a6bc        0x0 load address 0x0c02a6bc
+.vfp11_veneer   0x0802a8bc        0x0 load address 0x0c02a8bc
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x0802a6bc        0x0 load address 0x0c02a6bc
+.v4_bx          0x0802a8bc        0x0 load address 0x0c02a8bc
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x0802a6bc        0x0 load address 0x0c02a6bc
+.iplt           0x0802a8bc        0x0 load address 0x0c02a8bc
  .iplt          0x00000000        0x0 ./Startup/startup_XMC4700.o
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
 
-.eh_frame       0x0802a6bc       0x28 load address 0x0c02a6bc
+.eh_frame       0x0802a8bc       0x28 load address 0x0c02a8bc
  *(.eh_frame)
- .eh_frame      0x0802a6bc       0x28 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strcmp.o)
+ .eh_frame      0x0802a8bc       0x28 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strcmp.o)
 
-.rel.dyn        0x0802a6e4        0x0 load address 0x0c02a6e4
+.rel.dyn        0x0802a8e4        0x0 load address 0x0c02a8e4
  .rel.iplt      0x00000000        0x0 ./Startup/startup_XMC4700.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0802a6e4                . = ALIGN (0x4)
-                0x0802a6e4                __exidx_start = .
+                0x0802a8e4                . = ALIGN (0x4)
+                0x0802a8e4                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x0802a6e4                __exidx_end = .
-                0x0802a6e4                . = ALIGN (0x4)
+                0x0802a8e4                __exidx_end = .
+                0x0802a8e4                . = ALIGN (0x4)
 
 Stack           0x1ffe8000      0x800
                 0x1ffe8000                __stack_start = .
@@ -4028,16 +4028,16 @@ Stack           0x1ffe8000      0x800
                 0x1ffe8800                __stack_end = .
                 0x1ffe8800                __initial_sp = .
 
-.ram_code       0x1ffe8800        0x0 load address 0x0c02a6e4
+.ram_code       0x1ffe8800        0x0 load address 0x0c02a8e4
                 0x1ffe8800                . = ALIGN (0x4)
                 0x1ffe8800                __ram_code_start = .
  *(.ram_code)
                 0x1ffe8800                . = ALIGN (0x4)
                 0x1ffe8800                __ram_code_end = .
-                0x0c02a6e4                __ram_code_load = LOADADDR (.ram_code)
+                0x0c02a8e4                __ram_code_load = LOADADDR (.ram_code)
                 0x00000000                __ram_code_size = (__ram_code_end - __ram_code_start)
 
-.data           0x1ffe8800      0x2f8 load address 0x0c02a6e4
+.data           0x1ffe8800      0x2f8 load address 0x0c02a8e4
                 0x1ffe8800                . = ALIGN (0x4)
                 0x1ffe8800                __data_start = .
  *(.data)
@@ -4152,15 +4152,15 @@ Stack           0x1ffe8000      0x800
                 0x1ffe8af8                PROVIDE (__fini_array_end, .)
                 0x1ffe8af8                . = ALIGN (0x4)
                 0x1ffe8af8                __data_end = .
-                0x0c02a6e4                __data_load = LOADADDR (.data)
+                0x0c02a8e4                __data_load = LOADADDR (.data)
                 0x000002f8                __data_size = (__data_end - __data_start)
-                0x0000a9dc                __text_size = (((__exidx_end - sText) + __data_size) + __ram_code_size)
-                0x0802a9dc                eText = (sText + __text_size)
+                0x0000abdc                __text_size = (((__exidx_end - sText) + __data_size) + __ram_code_size)
+                0x0802abdc                eText = (sText + __text_size)
 
-.igot.plt       0x1ffe8af8        0x0 load address 0x0c02a9dc
+.igot.plt       0x1ffe8af8        0x0 load address 0x0c02abdc
  .igot.plt      0x00000000        0x0 ./Startup/startup_XMC4700.o
 
-.bss            0x1ffe8af8     0x8d24 load address 0x0c02a9dc
+.bss            0x1ffe8af8     0x8d28 load address 0x0c02abdc
                 0x1ffe8af8                . = ALIGN (0x4)
                 0x1ffe8af8                __bss_start = .
  *(.bss)
@@ -4277,7 +4277,7 @@ Stack           0x1ffe8000      0x800
                 0x1fff0780                netif_default
  COMMON         0x1fff0784        0x4 ./Dave/Generated/ETH_LWIP/lwip/core/udp.o
                 0x1fff0784                udp_pcbs
- COMMON         0x1fff0788     0x1090 ./main.o
+ COMMON         0x1fff0788     0x1094 ./main.o
                 0x1fff0788                netif
                 0x1fff078c                p
                 0x1fff0790                tftp_pcb
@@ -4287,16 +4287,16 @@ Stack           0x1ffe8000      0x800
                 0x1fff07d4                tftp_buff
                 0x1fff17d4                last_port
                 0x1fff17d8                flash
-                0x1fff17f0                ADC0_buff
-                0x1fff1810                tftp_p
-                0x1fff1814                pcb
- COMMON         0x1fff1818        0x4 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-reent.o)
-                0x1fff1818                errno
+                0x1fff17f4                ADC0_buff
+                0x1fff1814                tftp_p
+                0x1fff1818                pcb
+ COMMON         0x1fff181c        0x4 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-reent.o)
+                0x1fff181c                errno
  *(.gnu.linkonce.b*)
-                0x1fff181c                . = ALIGN (0x4)
-                0x1fff181c                __bss_end = .
-                0x00008d24                __bss_size = (__bss_end - __bss_start)
-                0x0000e7e4                __shift_loc = (__bss_end >= ORIGIN (DSRAM_1_system))?0x0:(ORIGIN (DSRAM_1_system) - __bss_end)
+                0x1fff1820                . = ALIGN (0x4)
+                0x1fff1820                __bss_end = .
+                0x00008d28                __bss_size = (__bss_end - __bss_start)
+                0x0000e7e0                __shift_loc = (__bss_end >= ORIGIN (DSRAM_1_system))?0x0:(ORIGIN (DSRAM_1_system) - __bss_end)
 
 USB_RAM         0x20000000        0x0
                 0x20000000                . = ALIGN (0x4)
@@ -4474,7 +4474,7 @@ ETH_RAM         0x20000000     0x30a0
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_info     0x00000000    0x2acf3
+.debug_info     0x00000000    0x2ad5d
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000       0x75 ./Startup/startup_XMC4700.o
  .debug_info    0x00000075      0x93d ./Startup/system_XMC4700.o
@@ -4534,7 +4534,7 @@ ETH_RAM         0x20000000     0x30a0
  .debug_info    0x0002301b      0x224 ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
  .debug_info    0x0002323f      0x385 ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
  .debug_info    0x000235c4     0x3412 ./Dave/Generated/DAVE.o
- .debug_info    0x000269d6     0x431d ./main.o
+ .debug_info    0x000269d6     0x4387 ./main.o
 
 .debug_abbrev   0x00000000     0x5dfe
  *(.debug_abbrev)
@@ -4598,7 +4598,7 @@ ETH_RAM         0x20000000     0x30a0
  .debug_abbrev  0x00005831      0x20f ./Dave/Generated/DAVE.o
  .debug_abbrev  0x00005a40      0x3be ./main.o
 
-.debug_line     0x00000000     0xe035
+.debug_line     0x00000000     0xe04f
  *(.debug_line)
  .debug_line    0x00000000       0x87 ./Startup/startup_XMC4700.o
  .debug_line    0x00000087      0x2da ./Startup/system_XMC4700.o
@@ -4658,9 +4658,9 @@ ETH_RAM         0x20000000     0x30a0
  .debug_line    0x0000c883      0x286 ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
  .debug_line    0x0000cb09      0x25c ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
  .debug_line    0x0000cd65      0x622 ./Dave/Generated/DAVE.o
- .debug_line    0x0000d387      0xcae ./main.o
+ .debug_line    0x0000d387      0xcc8 ./main.o
 
-.debug_frame    0x00000000     0x6ba0
+.debug_frame    0x00000000     0x6ba4
  *(.debug_frame)
  .debug_frame   0x00000000       0xec ./Startup/system_XMC4700.o
  .debug_frame   0x000000ec       0x60 ./Libraries/XMCLib/src/xmc4_eru.o
@@ -4711,22 +4711,22 @@ ETH_RAM         0x20000000     0x30a0
  .debug_frame   0x00006400       0xac ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
  .debug_frame   0x000064ac       0x3c ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
  .debug_frame   0x000064e8       0x38 ./Dave/Generated/DAVE.o
- .debug_frame   0x00006520      0x3f8 ./main.o
- .debug_frame   0x00006918       0x30 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-atoi.o)
- .debug_frame   0x00006948       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-errno.o)
- .debug_frame   0x00006968       0x2c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-init.o)
- .debug_frame   0x00006994       0x28 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memcmp.o)
- .debug_frame   0x000069bc       0x28 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memcpy.o)
- .debug_frame   0x000069e4       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memset.o)
- .debug_frame   0x00006a04       0x44 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-rand.o)
- .debug_frame   0x00006a48       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strlen.o)
- .debug_frame   0x00006a68       0x54 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strtol.o)
- .debug_frame   0x00006abc       0x30 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-malloc.o)
- .debug_frame   0x00006aec       0x2c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x00006b18       0x2c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-sbrkr.o)
- .debug_frame   0x00006b44       0x5c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-reent.o)
+ .debug_frame   0x00006520      0x3fc ./main.o
+ .debug_frame   0x0000691c       0x30 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-atoi.o)
+ .debug_frame   0x0000694c       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-errno.o)
+ .debug_frame   0x0000696c       0x2c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-init.o)
+ .debug_frame   0x00006998       0x28 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memcmp.o)
+ .debug_frame   0x000069c0       0x28 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memcpy.o)
+ .debug_frame   0x000069e8       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-memset.o)
+ .debug_frame   0x00006a08       0x44 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-rand.o)
+ .debug_frame   0x00006a4c       0x20 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strlen.o)
+ .debug_frame   0x00006a6c       0x54 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-strtol.o)
+ .debug_frame   0x00006ac0       0x30 c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-malloc.o)
+ .debug_frame   0x00006af0       0x2c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x00006b1c       0x2c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-sbrkr.o)
+ .debug_frame   0x00006b48       0x5c c:/infineon/tools/dave ide/4.5.0.202105191637/eclipse/arm-gcc-49/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp\libg_nano.a(lib_a-reent.o)
 
-.debug_str      0x00000000     0xee49
+.debug_str      0x00000000     0xee97
  *(.debug_str)
  .debug_str     0x00000000      0x537 ./Startup/system_XMC4700.o
                                 0x5ae (size before relaxing)
@@ -4842,10 +4842,10 @@ ETH_RAM         0x20000000     0x30a0
                                 0x72d (size before relaxing)
  .debug_str     0x0000e970       0x65 ./Dave/Generated/DAVE.o
                                0x3a5c (size before relaxing)
- .debug_str     0x0000e9d5      0x474 ./main.o
-                               0x4365 (size before relaxing)
+ .debug_str     0x0000e9d5      0x4c2 ./main.o
+                               0x43b8 (size before relaxing)
 
-.debug_loc      0x00000000     0xd7ad
+.debug_loc      0x00000000     0xd7b1
  *(.debug_loc)
  .debug_loc     0x00000000      0x1a4 ./Startup/system_XMC4700.o
  .debug_loc     0x000001a4       0xa0 ./Libraries/XMCLib/src/xmc4_eru.o
@@ -4895,7 +4895,7 @@ ETH_RAM         0x20000000     0x30a0
  .debug_loc     0x0000ce57      0x14c ./Dave/Generated/CLOCK_XMC4/clock_xmc4.o
  .debug_loc     0x0000cfa3       0x50 ./Dave/Generated/CLOCK_XMC4/clock_xmc4_conf.o
  .debug_loc     0x0000cff3       0x50 ./Dave/Generated/DAVE.o
- .debug_loc     0x0000d043      0x76a ./main.o
+ .debug_loc     0x0000d043      0x76e ./main.o
 
 .debug_macinfo
  *(.debug_macinfo)
