@@ -1,7 +1,7 @@
 #include <DAVE.h>
 
-// set to 1 if flash memory that stores network config should be reset to defaults
-// set to 0 to use the last saved network config (or use defaults if flash is empty)
+// set to 1 if flash memory that stores config should be reset to defaults
+// set to 0 to use the last saved config (or use defaults if flash is empty)
 #define REFLASH 0
 
 // packet data types
@@ -928,7 +928,7 @@ void adc_register_config(ADC_rate_t rate) {
 // perform a software reset on the ADC
 // blocking operation
 void adc_soft_reset() {
-	uint8_t reset_cmd = {0x00, 0x11, 0x00};
+	uint8_t reset_cmd[3] = {0x00, 0x11, 0x00};
 
 	// could do SPI transfer and read first 24 bits (status word)
 	// status should be READY (0xFFdd) where dd is the device id
