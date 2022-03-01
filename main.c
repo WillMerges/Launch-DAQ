@@ -2,7 +2,7 @@
 
 // set to 1 if flash memory that stores config should be reset to defaults
 // set to 0 to use the last saved config (or use defaults if flash is empty)
-#define REFLASH 0
+#define REFLASH 1
 
 // packet data types
 
@@ -78,14 +78,14 @@ config_t flash;
 // NOTE: the IP addresses specified in the ETH_LWIP_0 DAVE app will
 //		 be overwritten by either these defaults or data set in persistent flash storage
 #define DEF_SRC_IP 		"10.10.10.75"
-#define DEF_DST_IP 		"10.10.10.25"
-#define DEF_DEF_GW 		"10.10.10.25"
+#define DEF_DST_IP 		"224.0.0.1"
+#define DEF_DEF_GW 		"224.0.0.1"
 #define DEF_SUBNET		"255.255.255.0"
 #define DEF_SRC_PORT 	8080
 #define DEF_ADC0_PORT	8080
 #define DEF_ADC1_PORT 	8081
 #define DEF_TC_PORT 	8082
-#define DEFAULT_ADC_RATE SLOW_RATE
+#define DEFAULT_ADC_RATE FAST_RATE
 
 // UDP out PCB/buffer
 struct udp_pcb* pcb;
@@ -161,7 +161,7 @@ const char* help_msg = "write requests are files made up of zero or more command
 						"    udp.adc1=[destination port for ADC1 packets]\n" \
 						"    udp.tc=[destination port for thermocouple packets]\n" \
 						"    rate.adc0=['slow' (8kHz sample rate) or 'fast' (43kHz sample rate)]\n" \
-						"	 rate.ac1=['slow' (8kHz sample rate) or 'fast' (43kHz sample rate)]\n" \
+						"    rate.adc1=['slow' (8kHz sample rate) or 'fast' (43kHz sample rate)]\n" \
 						"    reset --- resets the DAQ after all commands transferred are processed\n";
 
 int write_flash_config();
@@ -278,7 +278,7 @@ uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 					ret = 0;
 					break;
 				}
-			} else if(strcmp(str, "reset")) {
+			} else if(strcmp(str, "reset") == 0) {
 				reset = 1;
 			} else {
 				tftp_err("unknown config parameter", addr, port);
@@ -298,16 +298,18 @@ uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 			tftp_err("failed to save configuration to flash", addr, port);
 			ret = 0;
 		}
-	}
+		
+		// only reset if all config commands were successful
+		if(reset) {
+			// reset the whole system
 
-	if(reset) {
-		// reset the whole system
+			// reset the ADC
+			adc_soft_reset();
 
-		// reset the ADC
-		adc_soft_reset();
+			// reset the XMC
+			NVIC_SystemReset();
+		}
 
-		// reset the XMC
-		NVIC_SystemReset();
 	}
 
 	return ret;
