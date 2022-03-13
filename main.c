@@ -208,12 +208,6 @@ uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 				}
 			}
 
-			if(!val) {
-				tftp_err("invalid command", addr, port);
-				ret = 0;
-				break;
-			}
-
 			if(strcmp(str, "ip.src") == 0) {
 				ip_addr_t ip;
 				if(!ipaddr_aton(val, &ip)) {
