@@ -942,8 +942,9 @@ void adc_soft_reset() {
 
 void xmc_ADC_setup(){
 	uint8_t null[18] = {0x00};						// Sends null for reads
-	// I actually think the ADC_ENA register address is 0x04 (was 0x4F before)
-	uint8_t write_ADC_ENA[3] = {0x0F, 0x0F, 0x00};	// b(00001111) -- Enables all ADC channels (note: no option to enable certain channels, all or nothing)
+	// ADC_ENA register address is 0x04
+	// WREG commands are sent as 0b010aaaaadddddddd where a is the address (0x04) and d is the data to send (0x0F to enable all channels)
+	uint8_t write_ADC_ENA[3] = {0x4F, 0x0F, 0x00};	// b(00001111) -- Enables all ADC channels (note: no option to enable certain channels, all or nothing)
 	uint8_t wakeup[3] = {0x00, 0x33, 0x00};			// b(00110011) -- Bring ADC out of standby (start collection)
 
 	// Write to ADC_ENA (See Above)
