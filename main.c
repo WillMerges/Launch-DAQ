@@ -2,7 +2,7 @@
 
 // set to 1 if flash memory that stores config should be reset to defaults
 // set to 0 to use the last saved config (or use defaults if flash is empty)
-#define REFLASH 1
+#define REFLASH 0
 
 // packet data types
 
@@ -314,6 +314,7 @@ uint8_t parse_config_commands(ip_addr_t* addr, uint16_t port) {
 // NOTE: does not wait for ACKs, just sends all data immediately
 void tftp_send_data(const char* str, ip_addr_t* addr, uint16_t port) {
 	uint16_t block_num = 1;
+	ack_num = 1; // any integer != 0 (block_num - 1)
 
 	tftp_data_t header;
 	header.opcode = htons(TFTP_DATA);
@@ -344,7 +345,6 @@ void tftp_send_data(const char* str, ip_addr_t* addr, uint16_t port) {
 				}
 			};
 
-			ack_num = 0;
 			len -= 512;
 			str = &str[512];
 		} else if(len == 0) {
@@ -643,6 +643,7 @@ void local_udp_reset() {
 //	udp_bind(tftp_pcb, IP_ADDR_ANY, TFTP_PORT);
 
 	// set IP addresses
+	// don't do this anymore, require a reset
 	netif_set_addr(netif, &flash.src_ip, &flash.subnet, &flash.default_gw);
 }
 
@@ -959,7 +960,6 @@ void xmc_ADC_setup(){
 
 	// Set to "infinite" frame length
 		XMC_SPI_CH_SetFrameLength(XMC_SPI2_CH0, 64); // When set to 64, frame does not end based on DAVE App Configuration -- this allows us to grab all 144 bits of data out of the ADC during data collection
-
 }
 
 /* NOTES:
